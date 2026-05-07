@@ -12,6 +12,7 @@ import {
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
 
+import { MekyaLogo } from './src/assets/icons';
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
 
