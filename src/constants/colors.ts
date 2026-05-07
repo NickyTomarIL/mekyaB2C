@@ -19,5 +19,6 @@ export const COLORS = {
   navy: '#001F3F',
 
   splash:'#004B5E'
+  ,disabled:'#939596'
 };
 export default COLORS;

@@ -14,22 +14,49 @@ import {
 
 import { MekyaLogo } from './src/assets/icons';
 import { fontFamilies } from '@/constants/fonts';
+import { CommandActionableButton } from '@/components/buttons';
+import { CommonBoldHeading } from '@/components/common';
+import { CommandInputField } from '@/components/inputs';
+import { useState } from 'react';
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
+  const [email, setEmail] = useState('');
 
   return (
     <SafeAreaProvider>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
-      {/* Example: Display some text components with different font families */}
-      <View style={{ padding: 16 }}>
-        <Text style={{ fontFamily: fontFamilies.bold, fontSize: 18 }}>
+      <View style={{
+        padding: 16,
+        height: '100%'
+        , marginTop: 20
+      }}>
+
+        <CommonBoldHeading>
           System Font (default)
-        </Text>
+        </CommonBoldHeading>
+        <CommonBoldHeading>
+          System Font (default)
+        </CommonBoldHeading>
+        <CommonBoldHeading>
+          System Font (default)
+        </CommonBoldHeading>
         <Text style={{ fontFamily: fontFamilies.regular, fontSize: 18 }}> Regular Font </Text>
         <Text style={{ fontFamily: fontFamilies.medium, fontSize: 18 }}> Medium Font </Text>
         <Text style={{ fontFamily: fontFamilies.semiBold, fontSize: 18 }}> Semi Bold Font </Text>
         <Text style={{ fontFamily: fontFamilies.light, fontSize: 18 }}> Light Font </Text>
+        <CommandActionableButton
+          label="Add to Cart"
+          handleClick={() => console.log('clicked')}
+          icon={<MekyaLogo width={16} height={16} />}
+          disabled={true}
+        />
+        <CommandInputField
+          title="Email address"
+          value={email}
+          onChangeText={setEmail}
+          placeholder="Enter your email id"
+        />
+
       </View>
 
     </SafeAreaProvider>
