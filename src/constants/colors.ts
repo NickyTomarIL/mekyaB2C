@@ -27,6 +27,15 @@ export const COLORS = {
   borderInput: '#D1D1D1',
   textMuted: '#6B7280',
   socialButtonBorder: '#D1D1D1',
-  validationColor:'#6C6C6C'
+  validationColor:'#6C6C6C',
+
+  /** Profile menu row icons (non-destructive) */
+  profileMenuIcon: '#5B5B5B',
+
+  /** Address type badge (e.g. Home / Shop) */
+  addressBadgeBackground: '#E8F4F8',
+
+  /** Add-address form primary action (neutral grey in design) */
+  addressFormSave: '#808080',
 };
 export default COLORS;

@@ -51,7 +51,7 @@ const ProfileScreen: React.FC = () => {
             <Ionicons
               name="person-outline"
               size={ICON_SIZE}
-              color={COLORS.black}
+              color={COLORS.profileMenuIcon}
             />
           }
           label="My Profile"
@@ -62,7 +62,7 @@ const ProfileScreen: React.FC = () => {
             <Ionicons
               name="document-text-outline"
               size={ICON_SIZE}
-              color={COLORS.black}
+              color={COLORS.profileMenuIcon}
             />
           }
           label="Order History"
@@ -73,7 +73,7 @@ const ProfileScreen: React.FC = () => {
             <Ionicons
               name="document-text-outline"
               size={ICON_SIZE}
-              color={COLORS.black}
+              color={COLORS.profileMenuIcon}
             />
           }
           label="Wishlist"
@@ -84,7 +84,7 @@ const ProfileScreen: React.FC = () => {
             <Ionicons
               name="location-outline"
               size={ICON_SIZE}
-              color={COLORS.black}
+              color={COLORS.profileMenuIcon}
             />
           }
           label="My Addresses"
@@ -95,7 +95,7 @@ const ProfileScreen: React.FC = () => {
             <Ionicons
               name="lock-closed-outline"
               size={ICON_SIZE}
-              color={COLORS.black}
+              color={COLORS.profileMenuIcon}
             />
           }
           label="Security"
@@ -106,7 +106,7 @@ const ProfileScreen: React.FC = () => {
             <Ionicons
               name="videocam-outline"
               size={ICON_SIZE}
-              color={COLORS.black}
+              color={COLORS.profileMenuIcon}
             />
           }
           label="Saved Reels"

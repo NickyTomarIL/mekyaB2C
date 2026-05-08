@@ -1,5 +1,7 @@
 import type { NavigatorScreenParams } from '@react-navigation/native';
 
+import type { ProfileAddress } from '@/screens/Profile/profileAddressTypes';
+
 /**
  * Profile tab — stack of menu + detail placeholders.
  */
@@ -8,7 +10,8 @@ export type ProfileStackParamList = {
   MyProfile: undefined;
   OrderHistory: undefined;
   Wishlist: undefined;
-  MyAddresses: undefined;
+  MyAddresses: { upsertAddress?: ProfileAddress } | undefined;
+  AddEditAddress: { address?: ProfileAddress } | undefined;
   Security: undefined;
   SavedReels: undefined;
 };

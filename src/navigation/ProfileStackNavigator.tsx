@@ -4,6 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import COLORS from '@/constants/colors';
 import {fontFamilies} from '@/constants/fonts';
 import type {ProfileStackParamList} from '@/navigation/types';
+import AddEditAddressScreen from '../screens/Profile/AddEditAddressScreen';
 import MyAddressesScreen from '../screens/Profile/MyAddressesScreen';
 import MyProfileScreen from '../screens/Profile/MyProfileScreen';
 import OrderHistoryScreen from '../screens/Profile/OrderHistoryScreen';
@@ -39,7 +40,10 @@ export function ProfileStackNavigator(): React.JSX.Element {
       <Stack.Screen
         name="MyProfile"
         component={MyProfileScreen}
-        options={{title: 'My Profile'}}
+        options={{
+          title: 'My Profile',
+          headerTintColor: COLORS.profileMenuIcon,
+        }}
       />
       <Stack.Screen
         name="OrderHistory"
@@ -54,7 +58,18 @@ export function ProfileStackNavigator(): React.JSX.Element {
       <Stack.Screen
         name="MyAddresses"
         component={MyAddressesScreen}
-        options={{title: 'My Addresses'}}
+        options={{
+          title: 'My Address',
+          headerTintColor: COLORS.profileMenuIcon,
+        }}
+      />
+      <Stack.Screen
+        name="AddEditAddress"
+        component={AddEditAddressScreen}
+        options={({route}) => ({
+          title: route.params?.address ? 'Edit Address' : 'Add New Address',
+          headerTintColor: COLORS.profileMenuIcon,
+        })}
       />
       <Stack.Screen
         name="Security"
