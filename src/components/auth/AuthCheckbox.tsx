@@ -13,6 +13,7 @@ export interface AuthCheckboxProps {
 }
 
 const BOX = 20;
+const HIT_SLOP = {top: 8, bottom: 8, left: 8, right: 8} as const;
 
 const AuthCheckbox: React.FC<AuthCheckboxProps> = ({
   checked,
@@ -26,6 +27,7 @@ const AuthCheckbox: React.FC<AuthCheckboxProps> = ({
       accessibilityRole="checkbox"
       accessibilityState={{checked}}
       onPress={onToggle}
+      hitSlop={HIT_SLOP}
       style={({pressed}) => [
         styles.hitArea,
         {opacity: pressed ? 0.85 : 1},
@@ -42,8 +44,10 @@ const AuthCheckbox: React.FC<AuthCheckboxProps> = ({
 
 const styles = StyleSheet.create({
   hitArea: {
-    padding: SPACING.xs,
-    margin: -SPACING.xs,
+    width: BOX + SPACING.sm,
+    height: BOX + SPACING.sm,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   box: {
     width: BOX,

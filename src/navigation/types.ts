@@ -18,7 +18,6 @@ export type RootStackParamList = {
   Splash: undefined;
   Login: undefined;
   ForgotPasswordEmail: undefined;
-  Signup: undefined;
   LoginWithPhone: undefined;
   PhoneOTPVerification: undefined;
   Main: NavigatorScreenParams<MainTabParamList> | undefined;

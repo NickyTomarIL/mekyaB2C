@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "hooks": {
+    "afterFileEdit": [
+      {
+        "command": ".cursor/hooks/sync-icons-index.py",
+        "matcher": "src/assets/icons/.*\\.svg$"
+      }
+    ]
+  }
+}

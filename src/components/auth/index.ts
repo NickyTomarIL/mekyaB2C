@@ -10,6 +10,8 @@ export {default as AuthPasswordField} from './AuthPasswordField';
 export type {AuthPasswordFieldProps} from './AuthPasswordField';
 export {default as AuthScreenCard} from './AuthScreenCard';
 export type {AuthScreenCardProps} from './AuthScreenCard';
+export type {AuthSignupModalProps} from './AuthSignupModal';
+export {default as AuthSignupModal} from './AuthSignupModal';
 export type {AuthTermsConsentProps} from './AuthTermsConsent';
 export {default as AuthTermsConsent} from './AuthTermsConsent';
 export type {AuthSocialLoginButtonProps} from './AuthSocialLoginButton';

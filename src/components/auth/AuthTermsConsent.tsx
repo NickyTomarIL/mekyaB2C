@@ -11,6 +11,7 @@ export interface AuthTermsConsentProps {
   onToggle: () => void;
   onTermsPress: () => void;
   onPrivacyPress: () => void;
+  introText?: string;
   containerStyle?: StyleProp<ViewStyle>;
 }
 
@@ -19,13 +20,14 @@ const AuthTermsConsent: React.FC<AuthTermsConsentProps> = ({
   onToggle,
   onTermsPress,
   onPrivacyPress,
+  introText = 'By logging in, you are agreeing to our',
   containerStyle,
 }) => {
   return (
     <View style={[styles.row, containerStyle]}>
       <AuthCheckbox checked={checked} onToggle={onToggle} />
       <CustomText style={styles.text}>
-        By logging in, you are agreeing to our{' '}
+        {introText}{' '}
         <CustomText style={styles.link} onPress={onTermsPress}>
           Terms of Service
         </CustomText>

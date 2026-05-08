@@ -5,5 +5,5 @@ export {default as EyeCloseIcon} from './eyeCloseIcon.svg';
 export {default as EyeOpenIcon} from './eyeOpenIcon.svg';
 export {default as GoogleIcon} from './googleIcon.svg';
 export {default as MekyaLogo} from './mekyaLogo.svg';
-export {default as PhoneIcon} from './phoneIcon.svg';
 export {default as MekyaLogoAuth} from './mekyaLogoAuth.svg';
+export {default as PhoneIcon} from './phoneIcon.svg';

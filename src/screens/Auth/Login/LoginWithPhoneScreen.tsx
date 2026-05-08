@@ -18,6 +18,7 @@ import {
   AuthOrDivider,
   AuthPhoneInputField,
   AuthScreenCard,
+  AuthSignupModal,
   AuthSocialLoginRow,
   AuthTermsConsent,
 } from '@/components/auth';
@@ -25,6 +26,7 @@ import CommonActionableButton from '@/components/buttons/CommonActionableButton'
 import {CommonBoldHeading, CustomText} from '@/components/common';
 import COLORS from '@/constants/colors';
 import {fontFamilies} from '@/constants/fonts';
+import SignupFlowNavigator from '@/navigation/SignupFlowNavigator';
 import type {RootStackParamList} from '@/navigation/types';
 import {SPACING} from '@/theme/spacing';
 
@@ -37,6 +39,7 @@ const LoginWithPhoneScreen: React.FC = () => {
   const [mobileNumber, setMobileNumber] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [termsAccepted, setTermsAccepted] = useState(false);
+  const [isSignupModalVisible, setIsSignupModalVisible] = useState(false);
 
   const canSubmit = useMemo(
     () => termsAccepted && mobileNumber.trim().length >= 10,
@@ -126,7 +129,7 @@ const LoginWithPhoneScreen: React.FC = () => {
                 New here?{' '}
                 <CustomText
                   style={styles.linkInline}
-                  onPress={() => navigation.navigate('Signup')}>
+                  onPress={() => setIsSignupModalVisible(true)}>
                   Sign up
                 </CustomText>
               </CustomText>
@@ -134,6 +137,11 @@ const LoginWithPhoneScreen: React.FC = () => {
           </AuthScreenCard>
         </ScrollView>
       </KeyboardAvoidingView>
+      <AuthSignupModal
+        visible={isSignupModalVisible}
+        onClose={() => setIsSignupModalVisible(false)}>
+        <SignupFlowNavigator />
+      </AuthSignupModal>
     </SafeAreaView>
   );
 };

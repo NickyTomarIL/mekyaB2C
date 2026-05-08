@@ -18,6 +18,7 @@ import {
   AuthOrDivider,
   AuthPasswordField,
   AuthScreenCard,
+  AuthSignupModal,
   AuthSocialLoginRow,
   AuthTermsConsent,
 } from '@/components/auth';
@@ -26,6 +27,7 @@ import { CommonBoldHeading, CustomText } from '@/components/common';
 import { CommonInputField } from '@/components/inputs';
 import COLORS from '@/constants/colors';
 import { fontFamilies } from '@/constants/fonts';
+import SignupFlowNavigator from '@/navigation/SignupFlowNavigator';
 import type { RootStackParamList } from '@/navigation/types';
 import { SPACING } from '@/theme/spacing';
 
@@ -39,6 +41,7 @@ const LoginWithEmailScreen: React.FC = () => {
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [termsAccepted, setTermsAccepted] = useState(false);
+  const [isSignupModalVisible, setIsSignupModalVisible] = useState(false);
 
   const canSubmit = useMemo(
     () =>
@@ -140,7 +143,7 @@ const LoginWithEmailScreen: React.FC = () => {
                 New here?{' '}
                 <CustomText
                   style={styles.linkInline}
-                  onPress={() => navigation.navigate('Signup')}>
+                  onPress={() => setIsSignupModalVisible(true)}>
                   Sign up
                 </CustomText>
               </CustomText>
@@ -150,6 +153,11 @@ const LoginWithEmailScreen: React.FC = () => {
 
         </ScrollView>
       </KeyboardAvoidingView>
+      <AuthSignupModal
+        visible={isSignupModalVisible}
+        onClose={() => setIsSignupModalVisible(false)}>
+        <SignupFlowNavigator />
+      </AuthSignupModal>
     </SafeAreaView>
   );
 };

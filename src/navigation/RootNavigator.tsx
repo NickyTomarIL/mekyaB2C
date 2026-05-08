@@ -7,7 +7,6 @@ import ForgotPasswordEmailScreen from '@/screens/Auth/ForgotPassword/ForgotPassw
 import LoginWithEmailScreen from '@/screens/Auth/Login/LoginWithEmailScreen';
 import LoginWithPhoneScreen from '@/screens/Auth/Login/LoginWithPhoneScreen';
 import PhoneOTPVerificationScreen from '@/screens/Auth/Login/PhoneOTPVerificationScreen';
-import SignupScreen from '@/screens/Auth/Signup/SignupScreen';
 import SplashScreen from '@/screens/SplashScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -26,7 +25,6 @@ export function RootNavigator(): React.JSX.Element {
         name="ForgotPasswordEmail"
         component={ForgotPasswordEmailScreen}
       />
-      <Stack.Screen name="Signup" component={SignupScreen} />
       <Stack.Screen name="LoginWithPhone" component={LoginWithPhoneScreen} />
       <Stack.Screen
         name="PhoneOTPVerification"
