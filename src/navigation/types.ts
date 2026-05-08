@@ -12,9 +12,11 @@ export type MainTabParamList = {
 };
 
 /**
- * Root native stack — add auth, modals, or onboarding screens here later.
+ * Root native stack — splash → auth → main app.
  */
 export type RootStackParamList = {
+  Splash: undefined;
+  Login: undefined;
   Main: NavigatorScreenParams<MainTabParamList> | undefined;
 };
 
