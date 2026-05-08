@@ -27,5 +27,6 @@ export const COLORS = {
   borderInput: '#D1D1D1',
   textMuted: '#6B7280',
   socialButtonBorder: '#D1D1D1',
+  validationColor:'#6C6C6C'
 };
 export default COLORS;

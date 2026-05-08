@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
   criteriaText: {
     fontFamily: fontFamilies.regular,
     fontSize: 14,
-    color: COLORS.splash,
+    color: COLORS.validationColor,
   },
   errorInput: {
     borderColor: '#D64545',

@@ -27,6 +27,7 @@ import { CommonBoldHeading, CustomText } from '@/components/common';
 import { CommonInputField } from '@/components/inputs';
 import COLORS from '@/constants/colors';
 import { fontFamilies } from '@/constants/fonts';
+import ForgotPasswordFlowNavigator from '@/navigation/ForgotPasswordFlowNavigator';
 import SignupFlowNavigator from '@/navigation/SignupFlowNavigator';
 import type { RootStackParamList } from '@/navigation/types';
 import { SPACING } from '@/theme/spacing';
@@ -42,6 +43,8 @@ const LoginWithEmailScreen: React.FC = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [isSignupModalVisible, setIsSignupModalVisible] = useState(false);
+  const [isForgotPasswordModalVisible, setIsForgotPasswordModalVisible] =
+    useState(false);
 
   const canSubmit = useMemo(
     () =>
@@ -108,7 +111,7 @@ const LoginWithEmailScreen: React.FC = () => {
               <Pressable
                 accessibilityRole="button"
                 accessibilityLabel="Forgot password"
-                onPress={() => navigation.navigate('ForgotPasswordEmail')}
+                onPress={() => setIsForgotPasswordModalVisible(true)}
                 style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}>
                 <CustomText style={styles.forgotPasswordLabel}>Forget Password?</CustomText>
               </Pressable>
@@ -157,6 +160,13 @@ const LoginWithEmailScreen: React.FC = () => {
         visible={isSignupModalVisible}
         onClose={() => setIsSignupModalVisible(false)}>
         <SignupFlowNavigator onRequestClose={() => setIsSignupModalVisible(false)} />
+      </AuthSignupModal>
+      <AuthSignupModal
+        visible={isForgotPasswordModalVisible}
+        onClose={() => setIsForgotPasswordModalVisible(false)}>
+        <ForgotPasswordFlowNavigator
+          onRequestClose={() => setIsForgotPasswordModalVisible(false)}
+        />
       </AuthSignupModal>
     </SafeAreaView>
   );
