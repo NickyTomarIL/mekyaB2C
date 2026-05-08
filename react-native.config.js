@@ -3,5 +3,6 @@ module.exports = {
       ios: {},
       android: {},
     },
-    assets: ['./src/assets/fonts'], // adjust according to your path
+    // Poppins only — vector icon fonts come from the RNVectorIcons pod (do not duplicate via assets).
+    assets: ['./src/assets/fonts'],
   };
