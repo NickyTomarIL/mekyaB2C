@@ -15,7 +15,8 @@ import {fontFamilies} from '@/constants/fonts';
 
 export interface CommonInputFieldProps
   extends Omit<TextInputProps, 'value' | 'onChangeText' | 'style'> {
-  title: string;
+  /** When omitted, only the field is rendered (e.g. placeholder-only auth inputs). */
+  title?: string;
   value: string;
   onChangeText: (text: string) => void;
   width?: DimensionValue;
@@ -43,7 +44,9 @@ const CommonInputField: React.FC<CommonInputFieldProps> = ({
 }) => {
   return (
     <View style={[styles.container, {width}, containerStyle]}>
-      <Text style={[styles.label, labelStyle, titleStyle]}>{title}</Text>
+      {title ? (
+        <Text style={[styles.label, labelStyle, titleStyle]}>{title}</Text>
+      ) : null}
       <View style={[styles.inputWrapper, {height}, inputWrapperStyle]}>
         <TextInput
           value={value}
@@ -76,7 +79,7 @@ const styles = StyleSheet.create({
   },
   inputWrapper: {
     borderWidth: 1,
-    borderColor: COLORS.gray,
+    borderColor: COLORS.borderInput,
     borderRadius: 8,
     backgroundColor: COLORS.white,
     justifyContent: 'center',

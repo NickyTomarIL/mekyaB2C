@@ -3,7 +3,10 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import {MainTabNavigator} from '@/navigation/MainTabNavigator';
 import type {RootStackParamList} from '@/navigation/types';
+import ForgotPasswordEmailScreen from '@/screens/Auth/ForgotPassword/ForgotPasswordEmailScreen';
 import LoginWithEmailScreen from '@/screens/Auth/Login/LoginWithEmailScreen';
+import LoginWithPhoneScreen from '@/screens/Auth/Login/LoginWithPhoneScreen';
+import SignupScreen from '@/screens/Auth/Signup/SignupScreen';
 import SplashScreen from '@/screens/SplashScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -18,6 +21,12 @@ export function RootNavigator(): React.JSX.Element {
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="Splash" component={SplashScreen} />
       <Stack.Screen name="Login" component={LoginWithEmailScreen} />
+      <Stack.Screen
+        name="ForgotPasswordEmail"
+        component={ForgotPasswordEmailScreen}
+      />
+      <Stack.Screen name="Signup" component={SignupScreen} />
+      <Stack.Screen name="LoginWithPhone" component={LoginWithPhoneScreen} />
       <Stack.Screen name="Main" component={MainTabNavigator} />
     </Stack.Navigator>
   );

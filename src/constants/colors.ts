@@ -18,7 +18,14 @@ export const COLORS = {
   teal: '#008080',
   navy: '#001F3F',
 
-  splash:'#004B5E'
-  ,disabled:'#939596'
+  /** Brand / primary actions (splash, headers) */
+  splash: '#004B5E',
+  disabled: '#939596',
+
+  /** Auth / inputs (Figma-aligned) */
+  authBackground: '#bddef2',
+  borderInput: '#D1D1D1',
+  textMuted: '#6B7280',
+  socialButtonBorder: '#D1D1D1',
 };
 export default COLORS;

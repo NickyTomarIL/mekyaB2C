@@ -1,2 +1,9 @@
+export {default as AppleIcon} from './appleIcon.svg';
+export {default as CheckedIcon} from './checkedIcon.svg';
+export {default as ErrorIcon} from './errorIcon.svg';
+export {default as EyeCloseIcon} from './eyeCloseIcon.svg';
+export {default as EyeOpenIcon} from './eyeOpenIcon.svg';
+export {default as GoogleIcon} from './googleIcon.svg';
 export {default as MekyaLogo} from './mekyaLogo.svg';
-// export {default as SearchIcon} from './search.svg';
+export {default as PhoneIcon} from './phoneIcon.svg';
+export {default as MekyaLogoAuth} from './mekyaLogoAuth.svg';
