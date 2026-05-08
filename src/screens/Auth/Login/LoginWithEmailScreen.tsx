@@ -130,9 +130,10 @@ const LoginWithEmailScreen: React.FC = () => {
             <AuthOrDivider />
 
             <AuthSocialLoginRow
+              mode="email"
               onGooglePress={noop}
               onApplePress={noop}
-              onPhonePress={() => navigation.navigate('LoginWithPhone')}
+              onAlternateAuthPress={() => navigation.navigate('LoginWithPhone')}
             />
             <View style={styles.footer}>
               <CustomText style={styles.footerText}>

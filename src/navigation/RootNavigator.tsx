@@ -6,6 +6,7 @@ import type {RootStackParamList} from '@/navigation/types';
 import ForgotPasswordEmailScreen from '@/screens/Auth/ForgotPassword/ForgotPasswordEmailScreen';
 import LoginWithEmailScreen from '@/screens/Auth/Login/LoginWithEmailScreen';
 import LoginWithPhoneScreen from '@/screens/Auth/Login/LoginWithPhoneScreen';
+import PhoneOTPVerificationScreen from '@/screens/Auth/Login/PhoneOTPVerificationScreen';
 import SignupScreen from '@/screens/Auth/Signup/SignupScreen';
 import SplashScreen from '@/screens/SplashScreen';
 
@@ -27,6 +28,10 @@ export function RootNavigator(): React.JSX.Element {
       />
       <Stack.Screen name="Signup" component={SignupScreen} />
       <Stack.Screen name="LoginWithPhone" component={LoginWithPhoneScreen} />
+      <Stack.Screen
+        name="PhoneOTPVerification"
+        component={PhoneOTPVerificationScreen}
+      />
       <Stack.Screen name="Main" component={MainTabNavigator} />
     </Stack.Navigator>
   );
