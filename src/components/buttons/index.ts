@@ -1,2 +1,2 @@
-export {default as CommandActionableButton} from './CommandActionableButton';
-export type {CommandActionableButtonProps} from './CommandActionableButton';
+export {default as CommonActionableButton} from './CommonActionableButton';
+export type {CommonActionableButtonProps} from './CommonActionableButton';

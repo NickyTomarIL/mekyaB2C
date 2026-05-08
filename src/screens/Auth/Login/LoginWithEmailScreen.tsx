@@ -21,7 +21,7 @@ import {
   AuthScreenCard,
   AuthSocialLoginButton,
 } from '@/components/auth';
-import CommandActionableButton from '@/components/buttons/CommandActionableButton';
+import CommonActionableButton from '@/components/buttons/CommonActionableButton';
 import { CommonBoldHeading, CustomText } from '@/components/common';
 import { CommonInputField } from '@/components/inputs';
 import COLORS from '@/constants/colors';
@@ -131,7 +131,7 @@ const LoginWithEmailScreen: React.FC = () => {
             </View>
 
             <View style={styles.loginButtonWrap}>
-              <CommandActionableButton
+              <CommonActionableButton
                 label="Login"
                 handleClick={handleLogin}
                 disabled={!canSubmit}

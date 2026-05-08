@@ -10,8 +10,9 @@ import {
   type TextStyle,
 } from 'react-native';
 import COLORS from '@/constants/colors';
+import { fontFamilies } from '@/constants/fonts';
 
-export interface CommandActionableButtonProps {
+export interface CommonActionableButtonProps {
   handleClick: () => void;
   label?: string;
   lable?: string;
@@ -23,7 +24,7 @@ export interface CommandActionableButtonProps {
   labelStyle?: StyleProp<TextStyle>;
 }
 
-const CommandActionableButton: React.FC<CommandActionableButtonProps> = ({
+const CommonActionableButton: React.FC<CommonActionableButtonProps> = ({
   handleClick,
   label,
   lable,
@@ -61,7 +62,7 @@ const CommandActionableButton: React.FC<CommandActionableButtonProps> = ({
 const styles = StyleSheet.create({
   button: {
     backgroundColor: COLORS.splash,
-    borderRadius: 8,
+    borderRadius: 6,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
@@ -71,10 +72,10 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   label: {
+    fontFamily: fontFamilies.bold,
     color: COLORS.white,
     fontSize: 14,
-    fontWeight: '600',
   },
 });
 
-export default CommandActionableButton;
+export default CommonActionableButton;

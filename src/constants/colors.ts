@@ -20,7 +20,7 @@ export const COLORS = {
 
   /** Brand / primary actions (splash, headers) */
   splash: '#004B5E',
-  disabled: '#939596',
+  disabled: '#BFBFBF',
 
   /** Auth / inputs (Figma-aligned) */
   authBackground: '#bddef2',
