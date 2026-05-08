@@ -1,7 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
-  Text,
   TextInput,
   View,
   type DimensionValue,
@@ -12,6 +11,7 @@ import {
 } from 'react-native';
 import COLORS from '@/constants/colors';
 import {fontFamilies} from '@/constants/fonts';
+import {CustomText} from '@/components/common';
 
 export interface CommonInputFieldProps
   extends Omit<TextInputProps, 'value' | 'onChangeText' | 'style'> {
@@ -40,14 +40,24 @@ const CommonInputField: React.FC<CommonInputFieldProps> = ({
   titleStyle,
   inputWrapperStyle,
   inputStyle,
+  onFocus,
+  onBlur,
   ...textInputProps
 }) => {
+  const [isFocused, setIsFocused] = useState(false);
+
   return (
     <View style={[styles.container, {width}, containerStyle]}>
       {title ? (
-        <Text style={[styles.label, labelStyle, titleStyle]}>{title}</Text>
+        <CustomText style={[styles.label, labelStyle, titleStyle]}>{title}</CustomText>
       ) : null}
-      <View style={[styles.inputWrapper, {height}, inputWrapperStyle]}>
+      <View
+        style={[
+          styles.inputWrapper,
+          isFocused ? styles.inputWrapperFocused : null,
+          {height},
+          inputWrapperStyle,
+        ]}>
         <TextInput
           value={value}
           onChangeText={onChangeText}
@@ -55,6 +65,14 @@ const CommonInputField: React.FC<CommonInputFieldProps> = ({
           placeholderTextColor={COLORS.disabled}
           multiline={false}
           style={[styles.input, inputStyle]}
+          onFocus={event => {
+            setIsFocused(true);
+            onFocus?.(event);
+          }}
+          onBlur={event => {
+            setIsFocused(false);
+            onBlur?.(event);
+          }}
           {...textInputProps}
         />
       </View>
@@ -84,6 +102,9 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     justifyContent: 'center',
     paddingHorizontal: 16,
+  },
+  inputWrapperFocused: {
+    borderColor: COLORS.black,
   },
   input: {
     fontSize: 14,

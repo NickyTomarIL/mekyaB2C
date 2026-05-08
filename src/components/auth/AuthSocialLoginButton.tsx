@@ -6,11 +6,11 @@ import React from 'react';
 import {
   Pressable,
   StyleSheet,
-  Text,
   View,
   type StyleProp,
   type ViewStyle,
 } from 'react-native';
+import {CustomText} from '@/components/common';
 
 export interface AuthSocialLoginButtonProps {
   label: string;
@@ -36,9 +36,9 @@ const AuthSocialLoginButton: React.FC<AuthSocialLoginButtonProps> = ({
         style,
       ]}>
       <View style={styles.iconWrap}>{icon}</View>
-      <Text style={styles.label} numberOfLines={1}>
+      <CustomText style={styles.label} numberOfLines={1}>
         {label}
-      </Text>
+      </CustomText>
     </Pressable>
   );
 };

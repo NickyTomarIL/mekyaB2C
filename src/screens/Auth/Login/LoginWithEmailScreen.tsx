@@ -8,7 +8,6 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -23,7 +22,7 @@ import {
   AuthSocialLoginButton,
 } from '@/components/auth';
 import CommandActionableButton from '@/components/buttons/CommandActionableButton';
-import { CommonBoldHeading } from '@/components/common';
+import { CommonBoldHeading, CustomText } from '@/components/common';
 import { CommonInputField } from '@/components/inputs';
 import COLORS from '@/constants/colors';
 import { fontFamilies } from '@/constants/fonts';
@@ -102,14 +101,14 @@ const LoginWithEmailScreen: React.FC = () => {
                   checked={rememberMe}
                   onToggle={() => setRememberMe(v => !v)}
                 />
-                <Text style={styles.rememberLabel}>Remember me.</Text>
+                <CustomText style={styles.rememberLabel}>Remember me.</CustomText>
               </View>
               <Pressable
                 accessibilityRole="button"
                 accessibilityLabel="Forgot password"
                 onPress={() => navigation.navigate('ForgotPasswordEmail')}
                 style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}>
-                <Text style={styles.link}>Forget Password?</Text>
+                <CustomText style={styles.link}>Forget Password?</CustomText>
               </Pressable>
             </View>
 
@@ -118,17 +117,17 @@ const LoginWithEmailScreen: React.FC = () => {
                 checked={termsAccepted}
                 onToggle={() => setTermsAccepted(v => !v)}
               />
-              <Text style={styles.termsText}>
+              <CustomText style={styles.termsText}>
                 By logging in, you are agreeing to our{' '}
-                <Text style={styles.linkInline} onPress={noop}>
+                <CustomText style={styles.linkInline} onPress={noop}>
                   Terms of Service
-                </Text>
+                </CustomText>
                 . Please make sure you read{' '}
-                <Text style={styles.linkInline} onPress={noop}>
+                <CustomText style={styles.linkInline} onPress={noop}>
                   Privacy policies
-                </Text>{' '}
+                </CustomText>{' '}
                 to have a great experience on our platform.
-              </Text>
+              </CustomText>
             </View>
 
             <View style={styles.loginButtonWrap}>
@@ -166,14 +165,14 @@ const LoginWithEmailScreen: React.FC = () => {
               />
             </View>
             <View style={styles.footer}>
-              <Text style={styles.footerText}>
+              <CustomText style={styles.footerText}>
                 New here?{' '}
-                <Text
+                <CustomText
                   style={styles.linkInline}
                   onPress={() => navigation.navigate('Signup')}>
                   Sign up
-                </Text>
-              </Text>
+                </CustomText>
+              </CustomText>
             </View>
           </AuthScreenCard>
 

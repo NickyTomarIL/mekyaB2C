@@ -1,6 +1,7 @@
 import { fontFamilies } from '@/constants/fonts';
 import React from 'react';
-import {StyleSheet, Text, type StyleProp, type TextStyle} from 'react-native';
+import {StyleSheet, type StyleProp, type TextStyle} from 'react-native';
+import CustomText from './CustomText';
 
 export interface CommonBoldHeadingProps {
   children: React.ReactNode;
@@ -14,9 +15,9 @@ const CommonBoldHeading: React.FC<CommonBoldHeadingProps> = ({
   numberOfLines,
 }) => {
   return (
-    <Text numberOfLines={numberOfLines} style={[styles.heading, style]}>
+    <CustomText numberOfLines={numberOfLines} style={[styles.heading, style]}>
       {children}
-    </Text>
+    </CustomText>
   );
 };
 

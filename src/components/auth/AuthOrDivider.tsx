@@ -2,13 +2,14 @@ import COLORS from '@/constants/colors';
 import {fontFamilies} from '@/constants/fonts';
 import {SPACING} from '@/theme/spacing';
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import {CustomText} from '@/components/common';
 
 const AuthOrDivider: React.FC = () => {
   return (
     <View style={styles.row}>
       <View style={styles.line} />
-      <Text style={styles.label}>OR</Text>
+      <CustomText style={styles.label}>OR</CustomText>
       <View style={styles.line} />
     </View>
   );

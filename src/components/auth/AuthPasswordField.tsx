@@ -26,12 +26,21 @@ const AuthPasswordField: React.FC<AuthPasswordFieldProps> = ({
   placeholder = 'Enter password',
   height = 52,
   containerStyle,
+  onFocus,
+  onBlur,
   ...textInputProps
 }) => {
   const [visible, setVisible] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
 
   return (
-    <View style={[styles.wrapper, {height}, containerStyle]}>
+    <View
+      style={[
+        styles.wrapper,
+        isFocused ? styles.wrapperFocused : null,
+        {height},
+        containerStyle,
+      ]}>
       <TextInput
         value={value}
         onChangeText={onChangeText}
@@ -43,6 +52,14 @@ const AuthPasswordField: React.FC<AuthPasswordFieldProps> = ({
         autoCorrect={false}
         textContentType="password"
         accessibilityLabel="Password"
+        onFocus={event => {
+          setIsFocused(true);
+          onFocus?.(event);
+        }}
+        onBlur={event => {
+          setIsFocused(false);
+          onBlur?.(event);
+        }}
         {...textInputProps}
       />
       <Pressable
@@ -70,12 +87,19 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     paddingHorizontal: 16,
   },
+  wrapperFocused: {
+    borderColor: COLORS.black,
+  },
   input: {
     flex: 1,
     fontFamily: fontFamilies.regular,
     fontSize: 14,
+    lineHeight: 20,
     color: COLORS.black,
+    textAlignVertical: 'center',
     paddingVertical: 0,
+    paddingTop: 0,
+    paddingBottom: 0,
     includeFontPadding: false,
     height: '100%',
   },
