@@ -1,2 +1,2 @@
-export {default as CommandInputField} from './CommandInputField';
-export type {CommandInputFieldProps} from './CommandInputField';
+export {default as CommonInputField} from './CommonInputField';
+export type {CommonInputFieldProps} from './CommonInputField';

@@ -13,7 +13,7 @@ import {
 import COLORS from '@/constants/colors';
 import {fontFamilies} from '@/constants/fonts';
 
-export interface CommandInputFieldProps
+export interface CommonInputFieldProps
   extends Omit<TextInputProps, 'value' | 'onChangeText' | 'style'> {
   title: string;
   value: string;
@@ -27,7 +27,7 @@ export interface CommandInputFieldProps
   inputStyle?: StyleProp<TextStyle>;
 }
 
-const CommandInputField: React.FC<CommandInputFieldProps> = ({
+const CommonInputField: React.FC<CommonInputFieldProps> = ({
   title,
   value,
   onChangeText,
@@ -95,4 +95,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CommandInputField;
+export default CommonInputField;
