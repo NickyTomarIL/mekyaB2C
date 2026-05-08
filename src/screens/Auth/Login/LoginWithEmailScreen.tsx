@@ -55,10 +55,14 @@ const LoginWithEmailScreen: React.FC = () => {
   );
 
   const handleLogin = useCallback(() => {
-    if (!canSubmit) {
-      return;
-    }
-  }, [canSubmit]);
+    // if (!canSubmit) {
+    //   return;
+    // }
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'Main', params: { screen: 'Home' } }],
+    });
+  }, [canSubmit, navigation]);
 
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
@@ -128,7 +132,7 @@ const LoginWithEmailScreen: React.FC = () => {
               <CommonActionableButton
                 label="Login"
                 handleClick={handleLogin}
-                disabled={!canSubmit}
+                // disabled={!canSubmit}
                 height={52}
               />
             </View>

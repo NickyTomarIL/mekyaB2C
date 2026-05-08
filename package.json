@@ -6,6 +6,7 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "lint": "eslint .",
+    "sync:icons": "printf '{}' | python3 .cursor/hooks/sync-icons-index.py",
     "start": "react-native start",
     "test": "jest"
   },

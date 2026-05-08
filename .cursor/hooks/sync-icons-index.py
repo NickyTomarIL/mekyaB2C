@@ -24,19 +24,37 @@ def build_index_content(svg_files: list[Path]) -> str:
     return "\n".join(lines) + ("\n" if lines else "")
 
 
-def main() -> int:
-    # Read hook payload from stdin; this hook does not depend on its shape.
-    raw_payload = sys.stdin.read()
-    if raw_payload.strip():
-        try:
-            json.loads(raw_payload)
-        except json.JSONDecodeError:
-            # Ignore malformed payload and still attempt index sync.
-            pass
+def is_under_icons_dir(file_path: str, icons_dir: Path) -> bool:
+    if not file_path:
+        return False
+    try:
+        resolved = Path(file_path).resolve()
+        resolved_icons = icons_dir.resolve()
+        return resolved == resolved_icons or resolved_icons in resolved.parents
+    except (OSError, ValueError):
+        normalized = file_path.replace("\\", "/")
+        return "/src/assets/icons/" in normalized
 
+
+def main() -> int:
+    raw_payload = sys.stdin.read()
     repo_root = Path(__file__).resolve().parents[2]
     icons_dir = repo_root / "src" / "assets" / "icons"
     index_file = icons_dir / "index.ts"
+
+    file_path = ""
+    if raw_payload.strip():
+        try:
+            payload = json.loads(raw_payload)
+            file_path = payload.get("file_path") or ""
+        except json.JSONDecodeError:
+            print("{}")
+            return 0
+
+    # Cursor afterFileEdit: only react when the edit is under icons (or stdin empty = CLI).
+    if file_path and not is_under_icons_dir(file_path, icons_dir):
+        print("{}")
+        return 0
 
     if not icons_dir.exists():
         print("{}")
