@@ -12,10 +12,10 @@ import {
 } from '@/assets/icons';
 import COLORS from '@/constants/colors';
 import type {MainTabParamList} from '@/navigation/types';
+import {ProfileStackNavigator} from '@/navigation/ProfileStackNavigator';
 import CartScreen from '@/screens/Cart/CartScreen';
 import CategoryScreen from '@/screens/Category/CategoryScreen';
 import HomeScreen from '@/screens/Home/HomeScreen';
-import ProfileScreen from '@/screens/Profile/ProfileScreen';
 import ReelsScreen from '@/screens/Reels/ReelsScreen';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
@@ -106,7 +106,7 @@ export function MainTabNavigator(): React.JSX.Element {
       />
       <Tab.Screen
         name="Profile"
-        component={ProfileScreen}
+        component={ProfileStackNavigator}
         options={{tabBarIcon: tabBarIconByRoute.Profile}}
       />
     </Tab.Navigator>

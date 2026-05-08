@@ -1,6 +1,19 @@
 import type { NavigatorScreenParams } from '@react-navigation/native';
 
 /**
+ * Profile tab — stack of menu + detail placeholders.
+ */
+export type ProfileStackParamList = {
+  ProfileMenu: undefined;
+  MyProfile: undefined;
+  OrderHistory: undefined;
+  Wishlist: undefined;
+  MyAddresses: undefined;
+  Security: undefined;
+  SavedReels: undefined;
+};
+
+/**
  * Bottom tab routes — keep keys aligned with `MainTabNavigator` screen `name` props.
  */
 export type MainTabParamList = {
@@ -8,7 +21,7 @@ export type MainTabParamList = {
   Category: undefined;
   Reels: undefined;
   Cart: undefined;
-  Profile: undefined;
+  Profile: NavigatorScreenParams<ProfileStackParamList> | undefined;
 };
 
 /**

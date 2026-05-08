@@ -11,7 +11,7 @@ export const COLORS = {
   cyan: '#00FFFF',
   magenta: '#FF00FF',
 
-  lightGray: '#D3D3D3',
+  lightGray: '#5B5B5B',
   darkGray: '#333333',
   orange: '#FFA500',
   purple: '#800080',
