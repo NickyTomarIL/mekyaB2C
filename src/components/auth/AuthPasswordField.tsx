@@ -94,7 +94,6 @@ const styles = StyleSheet.create({
     flex: 1,
     fontFamily: fontFamilies.regular,
     fontSize: 14,
-    lineHeight: 20,
     color: COLORS.black,
     textAlignVertical: 'center',
     paddingVertical: 0,

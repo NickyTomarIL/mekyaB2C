@@ -90,7 +90,6 @@ const styles = StyleSheet.create({
     fontStyle: 'normal',
     color: COLORS.black,
     fontSize: 14,
-    lineHeight: 24,
     letterSpacing: 0,
     textAlignVertical: 'center',
     marginBottom: 12,
@@ -108,7 +107,6 @@ const styles = StyleSheet.create({
   },
   input: {
     fontSize: 14,
-    lineHeight: 14,
     letterSpacing: 0,
     textAlignVertical: 'center',
     includeFontPadding: false,

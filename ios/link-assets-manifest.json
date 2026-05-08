@@ -2,6 +2,10 @@
   "migIndex": 1,
   "data": [
     {
+      "path": "src/assets/fonts/NunitoSans-VariableFont_YTLC,opsz,wdth,wght.ttf",
+      "sha1": "8c01360cd531b3c1988d314db01656c8ef45207c"
+    },
+    {
       "path": "src/assets/fonts/Poppins-Bold.ttf",
       "sha1": "875cf0cecd647bcf22e79d633d868c1b1ec98dfa"
     },

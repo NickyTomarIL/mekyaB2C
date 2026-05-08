@@ -11,7 +11,6 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {
   AuthBrandHeader,
@@ -19,7 +18,8 @@ import {
   AuthOrDivider,
   AuthPasswordField,
   AuthScreenCard,
-  AuthSocialLoginButton,
+  AuthSocialLoginRow,
+  AuthTermsConsent,
 } from '@/components/auth';
 import CommonActionableButton from '@/components/buttons/CommonActionableButton';
 import { CommonBoldHeading, CustomText } from '@/components/common';
@@ -28,7 +28,6 @@ import COLORS from '@/constants/colors';
 import { fontFamilies } from '@/constants/fonts';
 import type { RootStackParamList } from '@/navigation/types';
 import { SPACING } from '@/theme/spacing';
-import { GoogleIcon, PhoneIcon } from '@/assets/icons';
 
 type LoginNav = NativeStackNavigationProp<RootStackParamList, 'Login'>;
 
@@ -108,27 +107,16 @@ const LoginWithEmailScreen: React.FC = () => {
                 accessibilityLabel="Forgot password"
                 onPress={() => navigation.navigate('ForgotPasswordEmail')}
                 style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}>
-                <CustomText style={styles.link}>Forget Password?</CustomText>
+                <CustomText style={styles.forgotPasswordLabel}>Forget Password?</CustomText>
               </Pressable>
             </View>
 
-            <View style={styles.termsRow}>
-              <AuthCheckbox
-                checked={termsAccepted}
-                onToggle={() => setTermsAccepted(v => !v)}
-              />
-              <CustomText style={styles.termsText}>
-                By logging in, you are agreeing to our{' '}
-                <CustomText style={styles.linkInline} onPress={noop}>
-                  Terms of Service
-                </CustomText>
-                . Please make sure you read{' '}
-                <CustomText style={styles.linkInline} onPress={noop}>
-                  Privacy policies
-                </CustomText>{' '}
-                to have a great experience on our platform.
-              </CustomText>
-            </View>
+            <AuthTermsConsent
+              checked={termsAccepted}
+              onToggle={() => setTermsAccepted(v => !v)}
+              onTermsPress={noop}
+              onPrivacyPress={noop}
+            />
 
             <View style={styles.loginButtonWrap}>
               <CommonActionableButton
@@ -141,29 +129,11 @@ const LoginWithEmailScreen: React.FC = () => {
 
             <AuthOrDivider />
 
-            <View style={styles.socialRow}>
-              <AuthSocialLoginButton
-                label="Google"
-                onPress={noop}
-                icon={
-                  <GoogleIcon width={20} height={20} />
-                }
-              />
-              <View style={styles.socialSpacer} />
-              <AuthSocialLoginButton
-                label="Apple"
-                onPress={noop}
-                icon={<Ionicons name="logo-apple" size={20} color={COLORS.black} />}
-              />
-              <View style={styles.socialSpacer} />
-              <AuthSocialLoginButton
-                label="Mobile no."
-                onPress={() => navigation.navigate('LoginWithPhone')}
-                icon={
-                  <PhoneIcon width={20} height={20} />
-                }
-              />
-            </View>
+            <AuthSocialLoginRow
+              onGooglePress={noop}
+              onApplePress={noop}
+              onPhonePress={() => navigation.navigate('LoginWithPhone')}
+            />
             <View style={styles.footer}>
               <CustomText style={styles.footerText}>
                 New here?{' '}
@@ -201,7 +171,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACING.xxl,
   },
   title: {
-    fontSize: 28,
+    fontFamily: fontFamilies.heading,
+    fontSize: 26,
     marginBottom: SPACING.xxl,
     color: COLORS.black,
   },
@@ -222,8 +193,13 @@ const styles = StyleSheet.create({
   },
   rememberLabel: {
     fontFamily: fontFamilies.regular,
-    fontSize: 14,
+    fontSize: 12,
     color: COLORS.darkGray,
+  },
+  forgotPasswordLabel: {
+    fontSize: 12,
+    color: COLORS.splash,
+    textDecorationLine: 'underline',
   },
   link: {
     fontFamily: fontFamilies.medium,
@@ -231,35 +207,14 @@ const styles = StyleSheet.create({
     color: COLORS.splash,
     textDecorationLine: 'underline',
   },
-  termsRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: SPACING.md,
-    marginBottom: SPACING.xxl,
-  },
-  termsText: {
-    flex: 1,
-    fontFamily: fontFamilies.regular,
-    fontSize: 13,
-    lineHeight: 20,
-    color: COLORS.darkGray,
-  },
   linkInline: {
     fontFamily: fontFamilies.semiBold,
-    fontSize: 13,
-    lineHeight: 20,
+    fontSize: 12,
     color: COLORS.splash,
     textDecorationLine: 'underline',
   },
   loginButtonWrap: {
     marginBottom: SPACING.sm,
-  },
-  socialRow: {
-    flexDirection: 'row',
-    alignItems: 'stretch',
-  },
-  socialSpacer: {
-    width: SPACING.sm,
   },
   footer: {
     paddingVertical: SPACING.xxl,
@@ -268,7 +223,7 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontFamily: fontFamilies.regular,
-    fontSize: 14,
+    fontSize: 12,
     color: COLORS.darkGray,
     textAlign: 'center',
   },

@@ -23,7 +23,8 @@ const CommonBoldHeading: React.FC<CommonBoldHeadingProps> = ({
 
 const styles = StyleSheet.create({
   heading: {
-    fontFamily: fontFamilies.bold,
+    fontFamily: fontFamilies.heading,
+    fontWeight: '700',
     fontSize: 26,
   },
 });

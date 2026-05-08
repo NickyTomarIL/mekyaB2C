@@ -27,9 +27,9 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.borderInput,
   },
   label: {
-    fontFamily: fontFamilies.medium,
+    fontFamily: fontFamilies.semiBold,
     fontSize: 12,
-    color: COLORS.disabled,
+    color: COLORS.black,
     marginHorizontal: SPACING.lg,
     letterSpacing: 1,
   },
