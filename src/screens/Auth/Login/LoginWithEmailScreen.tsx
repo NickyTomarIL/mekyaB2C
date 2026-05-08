@@ -156,7 +156,7 @@ const LoginWithEmailScreen: React.FC = () => {
       <AuthSignupModal
         visible={isSignupModalVisible}
         onClose={() => setIsSignupModalVisible(false)}>
-        <SignupFlowNavigator />
+        <SignupFlowNavigator onRequestClose={() => setIsSignupModalVisible(false)} />
       </AuthSignupModal>
     </SafeAreaView>
   );

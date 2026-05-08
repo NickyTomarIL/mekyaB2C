@@ -16,11 +16,12 @@ import {SPACING} from '@/theme/spacing';
 
 interface SignupScreenProps {
   onNext?: () => void;
+  onLogin?: () => void;
 }
 
 const noop = (): void => undefined;
 
-const SignupScreen: React.FC<SignupScreenProps> = ({onNext}) => {
+const SignupScreen: React.FC<SignupScreenProps> = ({onNext, onLogin}) => {
   const [email, setEmail] = useState('');
   const [mobileNumber, setMobileNumber] = useState('');
   const [termsAccepted, setTermsAccepted] = useState(false);
@@ -95,7 +96,7 @@ const SignupScreen: React.FC<SignupScreenProps> = ({onNext}) => {
         <View style={styles.footer}>
           <CustomText style={styles.footerText}>
             Already have an account?{' '}
-            <CustomText style={styles.loginLink} onPress={noop}>
+            <CustomText style={styles.loginLink} onPress={onLogin ?? noop}>
               Login
             </CustomText>
           </CustomText>

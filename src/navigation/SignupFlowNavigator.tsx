@@ -4,7 +4,13 @@ import React, {useCallback, useState} from 'react';
 
 type SignupFlowStep = 'signupMain' | 'signupPasswordCreation';
 
-const SignupFlowNavigator: React.FC = () => {
+interface SignupFlowNavigatorProps {
+  onRequestClose?: () => void;
+}
+
+const SignupFlowNavigator: React.FC<SignupFlowNavigatorProps> = ({
+  onRequestClose,
+}) => {
   const [step, setStep] = useState<SignupFlowStep>('signupMain');
 
   const goToPasswordCreation = useCallback(() => {
@@ -19,7 +25,7 @@ const SignupFlowNavigator: React.FC = () => {
     return <SignupPasswordCreationScreen onBack={goToMain} />;
   }
 
-  return <SignupScreen onNext={goToPasswordCreation} />;
+  return <SignupScreen onNext={goToPasswordCreation} onLogin={onRequestClose} />;
 };
 
 export default SignupFlowNavigator;
