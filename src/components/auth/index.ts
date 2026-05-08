@@ -2,6 +2,8 @@ export {default as AuthBrandHeader} from './AuthBrandHeader';
 export type {AuthCheckboxProps} from './AuthCheckbox';
 export {default as AuthCheckbox} from './AuthCheckbox';
 export {default as AuthOrDivider} from './AuthOrDivider';
+export type {AuthOtpInputProps} from './AuthOtpInput';
+export {default as AuthOtpInput} from './AuthOtpInput';
 export type {AuthPhoneInputFieldProps} from './AuthPhoneInputField';
 export {default as AuthPhoneInputField} from './AuthPhoneInputField';
 export {default as AuthPasswordField} from './AuthPasswordField';
