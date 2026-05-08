@@ -4,7 +4,7 @@ import COLORS from '@/constants/colors';
 import {fontFamilies} from '@/constants/fonts';
 import type {ProfileStackParamList} from '@/navigation/types';
 import {SPACING} from '@/theme/spacing';
-import {useNavigation} from '@react-navigation/native';
+import {CommonActions, useNavigation} from '@react-navigation/native';
 import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React, {useCallback} from 'react';
 import {
@@ -32,10 +32,19 @@ const ProfileScreen: React.FC = () => {
       {
         text: 'Logout',
         style: 'destructive',
-        onPress: () => undefined,
+        onPress: () => {
+          const tabNav = navigation.getParent();
+          const rootNav = tabNav?.getParent();
+          rootNav?.dispatch(
+            CommonActions.reset({
+              index: 0,
+              routes: [{name: 'Login'}],
+            }),
+          );
+        },
       },
     ]);
-  }, []);
+  }, [navigation]);
 
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>

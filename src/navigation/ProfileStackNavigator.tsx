@@ -74,7 +74,10 @@ export function ProfileStackNavigator(): React.JSX.Element {
       <Stack.Screen
         name="Security"
         component={SecurityScreen}
-        options={{title: 'Security'}}
+        options={{
+          title: 'Security',
+          headerTintColor: COLORS.profileMenuIcon,
+        }}
       />
       <Stack.Screen
         name="SavedReels"
