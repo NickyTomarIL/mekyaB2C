@@ -97,7 +97,7 @@ export function ProfileStackNavigator(): React.JSX.Element {
       <Stack.Screen
         name="SavedReels"
         component={SavedReelsScreen}
-        options={{title: 'Saved Reels'}}
+        options={{title: 'Saved Reel'}}
       />
     </Stack.Navigator>
   );
