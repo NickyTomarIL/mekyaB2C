@@ -30,7 +30,7 @@ const AuthSignupModal: React.FC<AuthSignupModalProps> = ({
     <Modal
       visible={visible}
       animationType="slide"
-      presentationStyle={Platform.OS === 'ios' ? 'fullScreen' : undefined}
+      // presentationStyle={Platform.OS === 'ios' ? 'fullScreen' : undefined}
       statusBarTranslucent={Platform.OS === 'android'}
       onRequestClose={onClose}>
       <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
