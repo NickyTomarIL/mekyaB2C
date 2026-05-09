@@ -8,6 +8,7 @@ import type {ProfileStackParamList} from '@/navigation/types';
 import AddEditAddressScreen from '../screens/Profile/AddEditAddressScreen';
 import MyAddressesScreen from '../screens/Profile/MyAddressesScreen';
 import MyProfileScreen from '../screens/Profile/MyProfileScreen';
+import OrderDetailsScreen from '../screens/Profile/OrderDetailsScreen';
 import OrderHistoryScreen from '../screens/Profile/OrderHistoryScreen';
 import ProfileScreen from '../screens/Profile/ProfileScreen';
 import SavedReelsScreen from '../screens/Profile/SavedReelsScreen';
@@ -58,6 +59,11 @@ export function ProfileStackNavigator(): React.JSX.Element {
         name="OrderHistory"
         component={OrderHistoryScreen}
         options={{title: 'Order History'}}
+      />
+      <Stack.Screen
+        name="OrderDetails"
+        component={OrderDetailsScreen}
+        options={{title: 'Order Details'}}
       />
       <Stack.Screen
         name="Wishlist"
