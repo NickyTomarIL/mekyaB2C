@@ -1,15 +1,16 @@
 import {MekyaLogoAuth} from '@/assets/icons';
 import COLORS from '@/constants/colors';
-import { SPACING } from '@/theme';
+import {SPACING} from '@/theme';
 import React from 'react';
 import {
   Modal,
+  Platform,
   Pressable,
-  SafeAreaView,
   StyleSheet,
   View,
   type ViewStyle,
 } from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export interface AuthSignupModalProps {
@@ -29,9 +30,10 @@ const AuthSignupModal: React.FC<AuthSignupModalProps> = ({
     <Modal
       visible={visible}
       animationType="slide"
-      presentationStyle="fullScreen"
+      presentationStyle={Platform.OS === 'ios' ? 'fullScreen' : undefined}
+      statusBarTranslucent={Platform.OS === 'android'}
       onRequestClose={onClose}>
-      <SafeAreaView style={styles.safe}>
+      <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
         <View style={styles.header}>
           <View style={styles.titleWrap}>
             <MekyaLogoAuth  height={24} />
