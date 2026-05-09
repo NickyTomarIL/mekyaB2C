@@ -236,6 +236,30 @@ Move business logic outside screens.
 
 ---
 
+## 12.1 Safe area — do not use deprecated `SafeAreaView`
+
+**Do not** import or use `SafeAreaView` from `react-native`. It is **deprecated**; prefer safe-area handling from `react-native-safe-area-context`.
+
+**Do:**
+
+```tsx
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+<SafeAreaView style={{ flex: 1 }} edges={['top', 'bottom']}>
+  {children}
+</SafeAreaView>
+```
+
+**Do not:**
+
+```tsx
+import { SafeAreaView } from 'react-native'; // deprecated — forbidden for new code
+```
+
+Use `edges` (or `SafeAreaProvider` at app root) so insets match notches, home indicators, and dynamic island correctly.
+
+---
+
 ## 13. Separate Business Logic
 
 Move:

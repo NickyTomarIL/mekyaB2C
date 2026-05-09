@@ -1,5 +1,6 @@
 import {MekyaLogoAuth} from '@/assets/icons';
 import COLORS from '@/constants/colors';
+import { SPACING } from '@/theme';
 import React from 'react';
 import {
   Modal,
@@ -33,7 +34,7 @@ const AuthSignupModal: React.FC<AuthSignupModalProps> = ({
       <SafeAreaView style={styles.safe}>
         <View style={styles.header}>
           <View style={styles.titleWrap}>
-            <MekyaLogoAuth width={120} height={20} />
+            <MekyaLogoAuth  height={24} />
           </View>
           <Pressable
             accessibilityRole="button"
@@ -59,14 +60,12 @@ const styles = StyleSheet.create({
     height: 56,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: COLORS.borderInput,
-    paddingHorizontal: 16,
+    justifyContent: 'space-between',
+    paddingHorizontal: SPACING.xxl,
   },
   titleWrap: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    // alignItems: 'flex-start',
+    // justifyContent: 'flex-start',
   },
   closeButton: {
     position: 'absolute',
