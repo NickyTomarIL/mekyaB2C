@@ -1,4 +1,5 @@
 import React from 'react';
+import {Platform} from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import COLORS from '@/constants/colors';
@@ -17,7 +18,8 @@ const Stack = createNativeStackNavigator<ProfileStackParamList>();
 
 const stackScreenOptions = {
   headerShown: true,
-  headerBackTitleVisible: false,
+  /** Avoid large title + inline title showing the same label on iOS (esp. with ScrollView). */
+  headerLargeTitleEnabled: false,
   headerTintColor: COLORS.splash,
   headerStyle: {backgroundColor: COLORS.white},
   headerShadowVisible: false,
@@ -27,6 +29,13 @@ const stackScreenOptions = {
     color: COLORS.black,
   },
   contentStyle: {backgroundColor: COLORS.white},
+  /** iOS 18+ can show the previous screen title next to the chevron; that reads like a duplicate title row. */
+  ...(Platform.OS === 'ios'
+    ? {
+        headerBackButtonDisplayMode: 'minimal' as const,
+        headerBackTitle: '',
+      }
+    : {}),
 } as const;
 
 export function ProfileStackNavigator(): React.JSX.Element {
