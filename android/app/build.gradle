@@ -54,6 +54,14 @@ react {
     autolinkLibrariesWithApp()
 }
 
+// react-native-vector-icons: set ext + apply before `android {}` so font copy hooks reliably (AGP 8+).
+// Do not commit the same .ttf under app/src/main/assets/fonts — fonts.gradle copies it and mergeDebugAssets would duplicate.
+project.ext.vectoricons = [
+    iconFontNames: ['Ionicons.ttf'],
+    iconFontsDir  : new File(rootProject.projectDir, '../node_modules/react-native-vector-icons/Fonts'),
+]
+apply from: file('../../node_modules/react-native-vector-icons/fonts.gradle')
+
 /**
  * Set this to true to Run Proguard on Release builds to minify the Java bytecode.
  */
@@ -117,9 +125,3 @@ dependencies {
         implementation jscFlavor
     }
 }
-
-// react-native-vector-icons: ship icon fonts with the app (see package README).
-project.ext.vectoricons = [
-    iconFontNames: ['Ionicons.ttf'],
-]
-apply from: file("../../node_modules/react-native-vector-icons/fonts.gradle")
