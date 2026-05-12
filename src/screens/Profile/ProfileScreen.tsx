@@ -1,3 +1,11 @@
+import {
+  Lock,
+  MapPin,
+  ProfileIcon,
+  SavedReelsIcon,
+  Truck,
+  WishlistIcon,
+} from '@/assets/icons';
 import CustomText from '@/components/common/CustomText';
 import ProfileMenuItem from '@/components/profile/ProfileMenuItem';
 import COLORS from '@/constants/colors';
@@ -21,7 +29,17 @@ type ProfileMenuNavigation = NativeStackNavigationProp<
   'ProfileMenu'
 >;
 
-const ICON_SIZE = 22;
+const MENU_ICON_SIZE = 22;
+
+type ProfileMenuSvg = React.ComponentType<{
+  width: number;
+  height: number;
+  color?: string;
+}>;
+
+function renderProfileMenuIcon(Icon: ProfileMenuSvg, color: string = COLORS.profileMenuIcon) {
+  return <Icon width={MENU_ICON_SIZE} height={MENU_ICON_SIZE} color={color} />;
+}
 
 const ProfileScreen: React.FC = () => {
   const navigation = useNavigation<ProfileMenuNavigation>();
@@ -56,68 +74,32 @@ const ProfileScreen: React.FC = () => {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}>
         <ProfileMenuItem
-          icon={
-            <Ionicons
-              name="person-outline"
-              size={ICON_SIZE}
-              color={COLORS.profileMenuIcon}
-            />
-          }
+          icon={renderProfileMenuIcon(ProfileIcon)}
           label="My Profile"
           onPress={() => navigation.navigate('MyProfile')}
         />
         <ProfileMenuItem
-          icon={
-            <Ionicons
-              name="document-text-outline"
-              size={ICON_SIZE}
-              color={COLORS.profileMenuIcon}
-            />
-          }
+          icon={renderProfileMenuIcon(WishlistIcon)}
           label="Order History"
           onPress={() => navigation.navigate('OrderHistory')}
         />
         <ProfileMenuItem
-          icon={
-            <Ionicons
-              name="document-text-outline"
-              size={ICON_SIZE}
-              color={COLORS.profileMenuIcon}
-            />
-          }
+          icon={renderProfileMenuIcon(WishlistIcon)}
           label="Wishlist"
           onPress={() => navigation.navigate('Wishlist')}
         />
         <ProfileMenuItem
-          icon={
-            <Ionicons
-              name="location-outline"
-              size={ICON_SIZE}
-              color={COLORS.profileMenuIcon}
-            />
-          }
+          icon={renderProfileMenuIcon(MapPin)}
           label="My Addresses"
           onPress={() => navigation.navigate('MyAddresses')}
         />
         <ProfileMenuItem
-          icon={
-            <Ionicons
-              name="lock-closed-outline"
-              size={ICON_SIZE}
-              color={COLORS.profileMenuIcon}
-            />
-          }
+          icon={renderProfileMenuIcon(Lock)}
           label="Security"
           onPress={() => navigation.navigate('Security')}
         />
         <ProfileMenuItem
-          icon={
-            <Ionicons
-              name="videocam-outline"
-              size={ICON_SIZE}
-              color={COLORS.profileMenuIcon}
-            />
-          }
+          icon={renderProfileMenuIcon(SavedReelsIcon)}
           label="Saved Reels"
           onPress={() => navigation.navigate('SavedReels')}
         />
@@ -125,7 +107,7 @@ const ProfileScreen: React.FC = () => {
           icon={
             <Ionicons
               name="power-outline"
-              size={ICON_SIZE}
+              size={MENU_ICON_SIZE}
               color={COLORS.red}
             />
           }
