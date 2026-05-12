@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.white,
     paddingHorizontal: SPACING.xxl,
-    paddingTop: SPACING.huge,
+    paddingTop: SPACING.xxxl,
   },
   title: {
     color: COLORS.black,

@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.white,
     paddingHorizontal: SPACING.xxl,
-    paddingTop: SPACING.huge,
+    paddingTop: SPACING.xxl,
   },
   title: {
     color: COLORS.black,
@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
     color: COLORS.black,
     fontFamily: fontFamilies.regular,
     fontSize: 14,
+    lineHeight:24
   },
   formBlock: {
     marginTop: SPACING.massive,

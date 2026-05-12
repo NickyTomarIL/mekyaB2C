@@ -21,6 +21,8 @@ export const COLORS = {
   /** Brand / primary actions (splash, headers) */
   splash: '#004B5E',
   disabled: '#BFBFBF',
+  /** Met validation / success UI (e.g. password rule checkmarks & label) */
+  success: '#15803d',
 
   /** Auth / inputs (Figma-aligned) */
   authBackground: '#bddef2',

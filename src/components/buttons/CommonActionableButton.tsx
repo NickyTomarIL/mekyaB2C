@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   label: {
-    fontFamily: fontFamilies.bold,
+    fontFamily: fontFamilies.medium,
     color: COLORS.white,
     fontSize: 16,
   },

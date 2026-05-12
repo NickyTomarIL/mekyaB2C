@@ -53,7 +53,7 @@ const CreateNewPasswordScreen: React.FC<CreateNewPasswordScreenProps> = ({
           <AuthPasswordField
             value={password}
             onChangeText={setPassword}
-            placeholder="H@59rdik.Mekya"
+            placeholder="Create new password"
             height={52}
           />
         </View>
@@ -63,17 +63,27 @@ const CreateNewPasswordScreen: React.FC<CreateNewPasswordScreenProps> = ({
             <Ionicons
               name={passwordRules.hasMinLength ? 'checkmark' : 'ellipse-outline'}
               size={16}
-              color={passwordRules.hasMinLength ? COLORS.splash : COLORS.borderInput}
+              color={passwordRules.hasMinLength ? COLORS.success : COLORS.borderInput}
             />
-            <CustomText style={styles.criteriaText}>At least 8 characters</CustomText>
+            <CustomText
+              style={[
+                styles.criteriaText,
+                passwordRules.hasMinLength ? styles.criteriaTextMet : null,
+              ]}>
+              At least 8 characters
+            </CustomText>
           </View>
           <View style={styles.criteriaRow}>
             <Ionicons
               name={passwordRules.hasUpperAndLower ? 'checkmark' : 'ellipse-outline'}
               size={16}
-              color={passwordRules.hasUpperAndLower ? COLORS.splash : COLORS.borderInput}
+              color={passwordRules.hasUpperAndLower ? COLORS.success : COLORS.borderInput}
             />
-            <CustomText style={styles.criteriaText}>
+            <CustomText
+              style={[
+                styles.criteriaText,
+                passwordRules.hasUpperAndLower ? styles.criteriaTextMet : null,
+              ]}>
               One uppercase & lowercase letter
             </CustomText>
           </View>
@@ -81,17 +91,29 @@ const CreateNewPasswordScreen: React.FC<CreateNewPasswordScreenProps> = ({
             <Ionicons
               name={passwordRules.hasNumber ? 'checkmark' : 'ellipse-outline'}
               size={16}
-              color={passwordRules.hasNumber ? COLORS.splash : COLORS.borderInput}
+              color={passwordRules.hasNumber ? COLORS.success : COLORS.borderInput}
             />
-            <CustomText style={styles.criteriaText}>Includes number</CustomText>
+            <CustomText
+              style={[
+                styles.criteriaText,
+                passwordRules.hasNumber ? styles.criteriaTextMet : null,
+              ]}>
+              Includes number
+            </CustomText>
           </View>
           <View style={styles.criteriaRow}>
             <Ionicons
               name={passwordRules.hasSpecial ? 'checkmark' : 'ellipse-outline'}
               size={16}
-              color={passwordRules.hasSpecial ? COLORS.splash : COLORS.borderInput}
+              color={passwordRules.hasSpecial ? COLORS.success : COLORS.borderInput}
             />
-            <CustomText style={styles.criteriaText}>special character (!@#$%^&*)</CustomText>
+            <CustomText
+              style={[
+                styles.criteriaText,
+                passwordRules.hasSpecial ? styles.criteriaTextMet : null,
+              ]}>
+              special character (!@#$%^&*)
+            </CustomText>
           </View>
         </View>
 
@@ -100,7 +122,7 @@ const CreateNewPasswordScreen: React.FC<CreateNewPasswordScreenProps> = ({
           <AuthPasswordField
             value={confirmPassword}
             onChangeText={setConfirmPassword}
-            placeholder="H@59rdik.Mkya"
+            placeholder="Confirm your new password"
             height={52}
             containerStyle={hasPasswordMismatch ? styles.errorInput : undefined}
           />
@@ -139,7 +161,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.white,
     paddingHorizontal: SPACING.xxl,
-    paddingTop: SPACING.huge,
+    paddingTop: SPACING.xxxl,
     paddingBottom: SPACING.xxxl,
   },
   title: {
@@ -169,6 +191,9 @@ const styles = StyleSheet.create({
     fontFamily: fontFamilies.regular,
     fontSize: 14,
     color: COLORS.validationColor,
+  },
+  criteriaTextMet: {
+    color: COLORS.success,
   },
   errorInput: {
     borderColor: '#D64545',
