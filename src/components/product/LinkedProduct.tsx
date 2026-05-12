@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontFamily: fontFamilies.bold,
-    fontSize: 17,
+    fontSize: 16,
     color: COLORS.darkGray,
     marginBottom: SPACING.lg,
   },

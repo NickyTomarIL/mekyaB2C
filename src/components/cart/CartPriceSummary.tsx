@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: fontFamilies.medium,
     fontSize: 16,
-    color: COLORS.lightGray,
+    color: COLORS.black,
     marginBottom: SPACING.lg,
   },
   rows: {
@@ -85,8 +85,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   totalLabel: {
-    fontFamily: fontFamilies.bold,
-    fontSize: 17,
+    fontFamily: fontFamilies.medium,
+    fontSize: 16,
     color: COLORS.black,
   },
   totalValue: {
