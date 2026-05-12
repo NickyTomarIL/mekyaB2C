@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   helper: {
     marginTop: SPACING.sm,
     fontFamily: fontFamilies.regular,
-    fontSize: 12,
+    fontSize: 14,
     color: COLORS.textMuted,
     lineHeight: 18,
   },

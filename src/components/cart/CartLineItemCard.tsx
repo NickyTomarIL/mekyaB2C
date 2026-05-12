@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
 
   },
   brand: {
-    fontFamily: fontFamilies.bold,
+    fontFamily: fontFamilies.medium,
     fontSize: 14,
     color: COLORS.black,
   },
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     gap: SPACING.sm,
   },
   price: {
-    fontFamily: fontFamilies.bold,
+    fontFamily: fontFamilies.regular,
     fontSize: 16,
     color: COLORS.black,
   },
