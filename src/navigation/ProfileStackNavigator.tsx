@@ -1,6 +1,10 @@
+import {HeaderBackButton} from '@react-navigation/elements';
+import {
+  createNativeStackNavigator,
+  type NativeStackHeaderBackProps,
+} from '@react-navigation/native-stack';
 import React from 'react';
-import {Platform} from 'react-native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {Platform, StyleSheet, Text, View} from 'react-native';
 
 import COLORS from '@/constants/colors';
 import {fontFamilies} from '@/constants/fonts';
@@ -30,6 +34,8 @@ const stackScreenOptions = {
     color: COLORS.black,
   },
   contentStyle: {backgroundColor: COLORS.white},
+  /** Android: keep title beside back when not using a custom left row. */
+  headerTitleAlign: 'left' as const,
   /** iOS 18+ can show the previous screen title next to the chevron; that reads like a duplicate title row. */
   ...(Platform.OS === 'ios'
     ? {
@@ -38,6 +44,86 @@ const stackScreenOptions = {
       }
     : {}),
 } as const;
+
+type HeaderLeftProps = {
+  heading: string;
+  tintColor?: string;
+  canGoBack: boolean;
+  onGoBack: () => void;
+};
+
+function ProfileHeaderLeftWithTitle({
+  heading,
+  tintColor,
+  canGoBack,
+  onGoBack,
+}: HeaderLeftProps): React.JSX.Element {
+  if (!canGoBack) {
+    return (
+      <View style={headerLeftStyles.root}>
+        <Text style={headerLeftStyles.title} numberOfLines={1}>
+          {heading}
+        </Text>
+      </View>
+    );
+  }
+  return (
+    <View style={headerLeftStyles.root}>
+      <HeaderBackButton
+        tintColor={tintColor}
+        onPress={onGoBack}
+        displayMode="minimal"
+      />
+      <Text style={headerLeftStyles.title} numberOfLines={1}>
+        {heading}
+      </Text>
+    </View>
+  );
+}
+
+const headerLeftStyles = StyleSheet.create({
+  root: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+    paddingRight: 12,
+    ...Platform.select({
+      ios: {marginLeft: -4},
+      default: {},
+    }),
+  },
+  title: {
+    flexShrink: 1,
+    marginLeft: 4,
+    fontFamily: fontFamilies.semiBold,
+    fontSize: 18,
+    color: COLORS.black,
+  },
+});
+
+/** iOS always centers `title`; use empty native title and draw title next to back. */
+function inlineHeaderWithTitle(
+  heading: string,
+  navigation: {goBack: () => void},
+  backTint?: string,
+): {
+  title: string;
+  headerBackVisible: false;
+  headerLeft: (props: NativeStackHeaderBackProps) => React.ReactNode;
+} {
+  return {
+    title: '',
+    headerBackVisible: false,
+    headerLeft: (props: NativeStackHeaderBackProps) => (
+      <ProfileHeaderLeftWithTitle
+        heading={heading}
+        tintColor={backTint ?? props.tintColor}
+        canGoBack={props.canGoBack ?? false}
+        onGoBack={() => navigation.goBack()}
+      />
+    ),
+  };
+}
 
 export function ProfileStackNavigator(): React.JSX.Element {
   return (
@@ -50,54 +136,73 @@ export function ProfileStackNavigator(): React.JSX.Element {
       <Stack.Screen
         name="MyProfile"
         component={MyProfileScreen}
-        options={{
-          title: 'My Profile',
+        options={({navigation}) => ({
+          ...stackScreenOptions,
           headerTintColor: COLORS.profileMenuIcon,
-        }}
+          ...inlineHeaderWithTitle('My Profile', navigation, COLORS.profileMenuIcon),
+        })}
       />
       <Stack.Screen
         name="OrderHistory"
         component={OrderHistoryScreen}
-        options={{title: 'Order History'}}
+        options={({navigation}) => ({
+          ...stackScreenOptions,
+          ...inlineHeaderWithTitle('Order History', navigation),
+        })}
       />
       <Stack.Screen
         name="OrderDetails"
         component={OrderDetailsScreen}
-        options={{title: 'Order Details'}}
+        options={({navigation}) => ({
+          ...stackScreenOptions,
+          ...inlineHeaderWithTitle('Order Details', navigation),
+        })}
       />
       <Stack.Screen
         name="Wishlist"
         component={WishlistScreen}
-        options={{title: 'Wishlist'}}
+        options={({navigation}) => ({
+          ...stackScreenOptions,
+          ...inlineHeaderWithTitle('Wishlist', navigation),
+        })}
       />
       <Stack.Screen
         name="MyAddresses"
         component={MyAddressesScreen}
-        options={{
-          title: 'My Address',
+        options={({navigation}) => ({
+          ...stackScreenOptions,
           headerTintColor: COLORS.profileMenuIcon,
-        }}
+          ...inlineHeaderWithTitle('My Address', navigation, COLORS.profileMenuIcon),
+        })}
       />
       <Stack.Screen
         name="AddEditAddress"
         component={AddEditAddressScreen}
-        options={({route}) => ({
-          title: route.params?.address ? 'Edit Address' : 'Add New Address',
-          headerTintColor: COLORS.profileMenuIcon,
-        })}
+        options={({navigation, route}) => {
+          const heading = route.params?.address ? 'Edit Address' : 'Add New Address';
+          return {
+            ...stackScreenOptions,
+            headerTintColor: COLORS.profileMenuIcon,
+            ...inlineHeaderWithTitle(heading, navigation, COLORS.profileMenuIcon),
+          };
+        }}
       />
       <Stack.Screen
         name="Security"
         component={SecurityScreen}
-        options={{
-          title: 'Security',
+        options={({navigation}) => ({
+          ...stackScreenOptions,
           headerTintColor: COLORS.profileMenuIcon,
-        }}
+          ...inlineHeaderWithTitle('Security', navigation, COLORS.profileMenuIcon),
+        })}
       />
       <Stack.Screen
         name="SavedReels"
         component={SavedReelsScreen}
-        options={{title: 'Saved Reel'}}
+        options={({navigation}) => ({
+          ...stackScreenOptions,
+          ...inlineHeaderWithTitle('Saved Reel', navigation),
+        })}
       />
     </Stack.Navigator>
   );
