@@ -5,6 +5,7 @@ export {default as CartEmpty} from './cartEmpty.svg';
 export {default as Cash} from './cash.svg';
 export {default as Category} from './category.svg';
 export {default as CheckedIcon} from './checkedIcon.svg';
+export {default as EditIcon} from './editIcon.svg';
 export {default as ErrorIcon} from './errorIcon.svg';
 export {default as EyeCloseIcon} from './eyeCloseIcon.svg';
 export {default as EyeOpenIcon} from './eyeOpenIcon.svg';

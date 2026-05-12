@@ -1,3 +1,4 @@
+import { EditIcon } from '@/assets/icons';
 import CommonActionableButton from '@/components/buttons/CommonActionableButton';
 import CommonInputField from '@/components/inputs/CommonInputField';
 import COLORS from '@/constants/colors';
@@ -128,11 +129,14 @@ const MyProfileScreen: React.FC = () => {
             handleClick={onPrimaryAction}
             height={52}
             icon={
-              <Ionicons
-                name={isEditing ? 'checkmark-outline' : 'create-outline'}
-                size={20}
-                color={COLORS.white}
-              />
+              !isEditing ? 
+                <EditIcon width={20} height={20} color={COLORS.white} />
+               : 
+                <Ionicons
+                  name="create-outline"
+                  size={20}
+                  color={COLORS.white}
+                />
             }
             containerStyle={styles.editButton}
           />
