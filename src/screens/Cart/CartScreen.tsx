@@ -90,6 +90,7 @@ const CartScreen: React.FC = () => {
         <CustomText style={styles.screenTitle}>Your Cart</CustomText>
         {items.length > 0 ? <CartCheckoutStepper activeStep="bag" /> : null}
       </View>
+      
 
       <ScrollView
         style={styles.scroll}
@@ -164,9 +165,8 @@ const styles = StyleSheet.create({
     paddingTop: SPACING.md,
   },
   screenTitle: {
-    fontFamily: fontFamilies.heading,
-    fontSize: 22,
-    fontWeight: '700',
+    fontFamily: fontFamilies.regular,
+    fontSize: 16,
     color: COLORS.black,
     marginBottom: SPACING.md,
   },

@@ -1,11 +1,14 @@
 import CustomText from '@/components/common/CustomText';
 import COLORS from '@/constants/colors';
-import {fontFamilies} from '@/constants/fonts';
-import type {CartLineItem} from '@/screens/Cart/cartTypes';
-import {SPACING} from '@/theme/spacing';
+import { fontFamilies } from '@/constants/fonts';
+import type { CartLineItem } from '@/screens/Cart/cartTypes';
+import { SPACING } from '@/theme/spacing';
 import React from 'react';
-import {Pressable, StyleSheet, View} from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+
+const THUMB_WIDTH = 76;
+const THUMB_HEIGHT = 93;
 
 interface CartLineItemCardProps {
   item: CartLineItem;
@@ -15,6 +18,14 @@ interface CartLineItemCardProps {
   onPressQty?: (id: string) => void;
 }
 
+function formatMrpLabel(mrpLabel: string): string {
+  const trimmed = mrpLabel.trim();
+  if (trimmed.toLowerCase().startsWith('mrp')) {
+    return trimmed;
+  }
+  return `MRP ${trimmed}`;
+}
+
 const CartLineItemCard: React.FC<CartLineItemCardProps> = ({
   item,
   onRemove,
@@ -22,64 +33,73 @@ const CartLineItemCard: React.FC<CartLineItemCardProps> = ({
   onPressSize,
   onPressQty,
 }) => {
+  const mrpDisplay = formatMrpLabel(item.mrpLabel);
+
   return (
     <View style={styles.card}>
       <View style={styles.mainRow}>
         <View style={styles.thumb}>
-          <Ionicons name="shirt-outline" size={40} color={COLORS.darkGray} />
+          <Ionicons name="shirt-outline" size={44} color={COLORS.textMuted} />
         </View>
-        <View style={styles.info}>
+
+        <View style={styles.rightColumn}>
           <CustomText numberOfLines={1} style={styles.brand}>
             {item.brand}
           </CustomText>
           <CustomText numberOfLines={2} style={styles.description}>
             {item.description}
           </CustomText>
+
           <View style={styles.priceRow}>
             <CustomText style={styles.price}>{item.priceLabel}</CustomText>
-            <CustomText style={styles.mrp}>{item.mrpLabel}</CustomText>
+            <CustomText style={styles.mrp}>{mrpDisplay}</CustomText>
             <CustomText style={styles.discount}>{item.discountLabel}</CustomText>
           </View>
+
           <View style={styles.selectorsRow}>
             <Pressable
               accessibilityRole="button"
               accessibilityLabel={`Change size, current ${item.size}`}
               onPress={() => onPressSize?.(item.id)}
-              style={({pressed}) => [styles.selector, pressed ? styles.selectorPressed : null]}>
-              <CustomText style={styles.selectorLabel}>Size</CustomText>
-              <View style={styles.selectorValueRow}>
+              style={({ pressed }) => [styles.selectorChip, pressed ? styles.selectorPressed : null]}>
+              <CustomText style={styles.selectorText}>
+                <CustomText style={styles.selectorPrefix}>Size : </CustomText>
                 <CustomText style={styles.selectorValue}>{item.size}</CustomText>
-                <Ionicons name="chevron-down" size={16} color={COLORS.black} />
-              </View>
+              </CustomText>
+              <Ionicons name="chevron-down" size={16} color={COLORS.black} />
             </Pressable>
             <Pressable
               accessibilityRole="button"
               accessibilityLabel={`Change quantity, current ${item.qty}`}
               onPress={() => onPressQty?.(item.id)}
-              style={({pressed}) => [styles.selector, pressed ? styles.selectorPressed : null]}>
-              <CustomText style={styles.selectorLabel}>Qty</CustomText>
-              <View style={styles.selectorValueRow}>
+              style={({ pressed }) => [styles.selectorChip, pressed ? styles.selectorPressed : null]}>
+              <CustomText style={styles.selectorText}>
+                <CustomText style={styles.selectorPrefix}>Qty : </CustomText>
                 <CustomText style={styles.selectorValue}>{String(item.qty)}</CustomText>
-                <Ionicons name="chevron-down" size={16} color={COLORS.black} />
-              </View>
+              </CustomText>
+              <Ionicons name="chevron-down" size={16} color={COLORS.black} />
             </Pressable>
           </View>
+
         </View>
+
       </View>
       <View style={styles.actionsRow}>
         <Pressable
           accessibilityRole="button"
           accessibilityLabel={`Remove ${item.brand} from cart`}
           onPress={() => onRemove?.(item.id)}
-          style={({pressed}) => [styles.actionBtn, pressed ? styles.actionPressed : null]}>
+          style={({ pressed }) => [styles.actionLink, pressed ? styles.actionPressed : null]}>
           <CustomText style={styles.actionText}>Remove</CustomText>
         </Pressable>
-        <View style={styles.actionDivider} />
+        <CustomText style={styles.actionPipe} accessibilityElementsHidden>
+          |
+        </CustomText>
         <Pressable
           accessibilityRole="button"
           accessibilityLabel={`Save ${item.brand} for later`}
           onPress={() => onSaveForLater?.(item.id)}
-          style={({pressed}) => [styles.actionBtn, pressed ? styles.actionPressed : null]}>
+          style={({ pressed }) => [styles.actionLink, pressed ? styles.actionPressed : null]}>
           <CustomText style={styles.actionText}>Save for Later</CustomText>
         </Pressable>
       </View>
@@ -90,46 +110,48 @@ const CartLineItemCard: React.FC<CartLineItemCardProps> = ({
 const styles = StyleSheet.create({
   card: {
     borderWidth: 1,
-    borderColor: '#E8E8E8',
+    borderColor: '#E0E0E0',
     borderRadius: 8,
     backgroundColor: COLORS.white,
-    padding: SPACING.lg,
+    padding: SPACING.sm,
   },
   mainRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
   },
   thumb: {
-    width: 88,
-    height: 88,
-    borderRadius: 6,
-    backgroundColor: '#F4F4F4',
+    width: THUMB_WIDTH,
+    height: THUMB_HEIGHT,
+    borderRadius: 8,
+    backgroundColor: '#F0F0F0',
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: SPACING.md,
+    overflow: 'hidden',
   },
-  info: {
+  rightColumn: {
     flex: 1,
-    minWidth: 0,
+    justifyContent: 'space-between',
+    height: THUMB_HEIGHT,
+    paddingVertical: SPACING.xs,
+
   },
   brand: {
-    fontFamily: fontFamilies.semiBold,
+    fontFamily: fontFamilies.bold,
     fontSize: 14,
     color: COLORS.black,
-    marginBottom: SPACING.xs,
   },
   description: {
     fontFamily: fontFamilies.regular,
     fontSize: 13,
-    color: COLORS.darkGray,
-    marginBottom: SPACING.sm,
+    color: COLORS.black,
+    lineHeight: 18,
   },
   priceRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
     gap: SPACING.sm,
-    marginBottom: SPACING.md,
   },
   price: {
     fontFamily: fontFamilies.bold,
@@ -149,64 +171,58 @@ const styles = StyleSheet.create({
   },
   selectorsRow: {
     flexDirection: 'row',
-    gap: SPACING.md,
+    width: '60%',
+    justifyContent: 'space-between',
   },
-  selector: {
+  selectorChip: {
+    width: '47%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    borderWidth: 1,
-    borderColor: COLORS.borderInput,
-    borderRadius: 6,
-    paddingVertical: SPACING.sm,
-    paddingHorizontal: SPACING.md,
-    flex: 1,
-    minWidth: 0,
+    backgroundColor: '#F0F0F0',
+    borderRadius: 2,
+    paddingHorizontal: SPACING.xs,
   },
   selectorPressed: {
-    opacity: 0.85,
+    opacity: 0.88,
   },
-  selectorLabel: {
-    fontFamily: fontFamilies.regular,
-    fontSize: 12,
-    color: COLORS.textMuted,
+  selectorText: {
+    flex: 1,
+    fontSize: 10,
   },
-  selectorValueRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 2,
-    marginLeft: SPACING.sm,
+  selectorPrefix: {
+    fontSize: 10,
+    fontFamily: fontFamilies.medium,
+    color: COLORS.black,
   },
   selectorValue: {
+    fontSize: 10,
     fontFamily: fontFamilies.medium,
-    fontSize: 13,
     color: COLORS.black,
   },
   actionsRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: SPACING.lg,
     paddingTop: SPACING.md,
     borderTopWidth: 1,
     borderTopColor: '#EFEFEF',
   },
-  actionBtn: {
-    flex: 1,
-    alignItems: 'center',
-    paddingVertical: SPACING.sm,
+  actionLink: {
+    paddingVertical: SPACING.xs,
   },
   actionPressed: {
     opacity: 0.7,
   },
-  actionDivider: {
-    width: 1,
-    height: 16,
-    backgroundColor: '#D1D1D1',
+  actionPipe: {
+    fontFamily: fontFamilies.regular,
+    fontSize: 13,
+    color: COLORS.textMuted,
+    marginHorizontal: SPACING.md,
   },
   actionText: {
-    fontFamily: fontFamilies.medium,
+    fontFamily: fontFamilies.regular,
     fontSize: 13,
-    color: COLORS.darkGray,
+    color: COLORS.black,
   },
 });
 

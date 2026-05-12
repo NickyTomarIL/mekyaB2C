@@ -1,3 +1,4 @@
+import { Cash, Truck } from '@/assets/icons';
 import CustomText from '@/components/common/CustomText';
 import COLORS from '@/constants/colors';
 import {fontFamilies} from '@/constants/fonts';
@@ -46,13 +47,13 @@ const CartDeliverySection: React.FC<CartDeliverySectionProps> = ({onCheckPincode
 
       <View style={styles.statusBlock}>
         <View style={styles.statusRow}>
-          <Ionicons name="car-outline" size={18} color="#2E7D32" />
+          <Truck/>
           <CustomText style={styles.deliveryDate}>
             Expected delivery by Sunday, 8 Dec
           </CustomText>
         </View>
         <View style={styles.statusRow}>
-          <Ionicons name="cash-outline" size={18} color={COLORS.darkGray} />
+          <Cash/>
           <CustomText style={styles.codText}>Cash on delivery is available</CustomText>
         </View>
       </View>
@@ -84,7 +85,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderColor: COLORS.borderInput,
-    borderRadius: 8,
+    borderRadius: 4,
     overflow: 'hidden',
     backgroundColor: COLORS.white,
   },

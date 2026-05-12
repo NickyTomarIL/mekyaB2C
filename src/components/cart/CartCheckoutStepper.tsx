@@ -1,9 +1,10 @@
+import { Card } from '@/assets/icons';
 import CustomText from '@/components/common/CustomText';
 import COLORS from '@/constants/colors';
-import {fontFamilies} from '@/constants/fonts';
-import {SPACING} from '@/theme/spacing';
+import { fontFamilies } from '@/constants/fonts';
+import { SPACING } from '@/theme/spacing';
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export type CheckoutStepKey = 'bag' | 'address' | 'payment';
@@ -17,12 +18,12 @@ const STEPS: {
   label: string;
   icon: React.ComponentProps<typeof Ionicons>['name'];
 }[] = [
-  {key: 'bag', label: 'Bag', icon: 'bag-outline'},
-  {key: 'address', label: 'Address', icon: 'location-outline'},
-  {key: 'payment', label: 'Payment', icon: 'card-outline'},
-];
+    { key: 'bag', label: 'Bag', icon: 'bag-outline' },
+    { key: 'address', label: 'Address', icon: 'location-outline' },
+    { key: 'payment', label: 'Payment', icon: 'card-outline' },
+  ];
 
-const CartCheckoutStepper: React.FC<CartCheckoutStepperProps> = ({activeStep}) => {
+const CartCheckoutStepper: React.FC<CartCheckoutStepperProps> = ({ activeStep }) => {
   const activeIndex = STEPS.findIndex(s => s.key === activeStep);
 
   return (
@@ -39,11 +40,13 @@ const CartCheckoutStepper: React.FC<CartCheckoutStepperProps> = ({activeStep}) =
                     styles.circle,
                     isActive ? styles.circleActive : styles.circleInactive,
                   ]}>
-                  <Ionicons
-                    name={step.icon}
-                    size={18}
-                    color={isActive ? COLORS.white : COLORS.textMuted}
-                  />
+                  {step.icon === 'card-outline' ? <Card /> :
+                    <Ionicons
+                      name={step.icon}
+                      size={18}
+                      color={isActive ? COLORS.white : COLORS.textMuted}
+                    />}
+
                 </View>
                 <CustomText
                   style={[

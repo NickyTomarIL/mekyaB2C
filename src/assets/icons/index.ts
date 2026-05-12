@@ -1,6 +1,8 @@
 export {default as AppleIcon} from './appleIcon.svg';
+export {default as Card} from './card.svg';
 export {default as Cart} from './cart.svg';
 export {default as CartEmpty} from './cartEmpty.svg';
+export {default as Cash} from './cash.svg';
 export {default as Category} from './category.svg';
 export {default as CheckedIcon} from './checkedIcon.svg';
 export {default as ErrorIcon} from './errorIcon.svg';
@@ -13,3 +15,4 @@ export {default as MekyaLogoAuth} from './mekyaLogoAuth.svg';
 export {default as PhoneIcon} from './phoneIcon.svg';
 export {default as Profile} from './profile.svg';
 export {default as Reels} from './reels.svg';
+export {default as Truck} from './truck.svg';
