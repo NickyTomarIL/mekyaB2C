@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    height: 44,
+    height: 48,
     paddingHorizontal: SPACING.sm,
     borderWidth: 1,
     borderColor: COLORS.socialButtonBorder,

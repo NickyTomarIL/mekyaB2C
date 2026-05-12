@@ -201,12 +201,12 @@ const styles = StyleSheet.create({
   },
   forgotPasswordLabel: {
     fontSize: 12,
-    color: COLORS.splash,
+    color: COLORS.darkGray,
     textDecorationLine: 'underline',
   },
   linkInline: {
     fontFamily: fontFamilies.semiBold,
-    fontSize: 12,
+    fontSize: 13,
     color: COLORS.splash,
     textDecorationLine: 'underline',
   },

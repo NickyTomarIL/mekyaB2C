@@ -31,7 +31,7 @@ const AuthPhoneInputField: React.FC<AuthPhoneInputFieldProps> = ({
   countryFlag = '🇮🇳',
   onCountryPress,
   placeholder = '9876543210',
-  height = 58,
+  height = 52,
   containerStyle,
   onFocus,
   onBlur,
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   wrapper: {
     borderWidth: 1,
     borderColor: COLORS.borderInput,
-    borderRadius: 8,
+    borderRadius: 4,
     backgroundColor: COLORS.white,
     flexDirection: 'row',
     alignItems: 'center',

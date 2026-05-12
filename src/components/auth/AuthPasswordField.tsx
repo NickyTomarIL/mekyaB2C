@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderColor: COLORS.borderInput,
-    borderRadius: 8,
+    borderRadius: 4,
     backgroundColor: COLORS.white,
     paddingHorizontal: 16,
   },
