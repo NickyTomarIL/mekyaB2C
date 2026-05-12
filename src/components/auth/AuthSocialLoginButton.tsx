@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACING.sm,
     borderWidth: 1,
     borderColor: COLORS.socialButtonBorder,
-    borderRadius: RADIUS.sm,
+    borderRadius: RADIUS.esm,
     backgroundColor: COLORS.white,
     gap: SPACING.xs,
   },
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   label: {
-    fontFamily: fontFamilies.medium,
+    fontFamily: fontFamilies.regular,
     fontSize: 12,
     color: COLORS.darkGray,
     flexShrink: 1,

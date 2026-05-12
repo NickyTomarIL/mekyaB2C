@@ -22,7 +22,7 @@ const AuthSocialLoginRow: React.FC<AuthSocialLoginRowProps> = ({
   onApplePress,
   onAlternateAuthPress,
   mode,
-  phoneLabel = 'Mobile no.',
+  phoneLabel = 'Mobile no',
   emailLabel = 'Email',
   style,
 }) => {

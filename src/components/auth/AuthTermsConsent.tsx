@@ -31,10 +31,11 @@ const AuthTermsConsent: React.FC<AuthTermsConsentProps> = ({
         <CustomText style={styles.link} onPress={onTermsPress}>
           Terms of Service
         </CustomText>
-        . Please make sure you read{' '}
+       . Please make sure you read{' '}
         <CustomText style={styles.link} onPress={onPrivacyPress}>
           Privacy policies
-        </CustomText>{' '}
+        </CustomText>
+        {' '}
         to have a great experience on our platform.
       </CustomText>
     </View>
@@ -57,8 +58,9 @@ const styles = StyleSheet.create({
   link: {
     fontFamily: fontFamilies.semiBold,
     fontSize: 12,
-    color: COLORS.splash,
+    color: COLORS.darkGray,
     textDecorationLine: 'underline',
+    textDecorationColor: COLORS.darkGray,
   },
 });
 

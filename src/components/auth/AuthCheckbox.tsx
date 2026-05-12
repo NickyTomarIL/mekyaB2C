@@ -52,9 +52,9 @@ const styles = StyleSheet.create({
   box: {
     width: BOX,
     height: BOX,
-    borderRadius: 4,
+    borderRadius: 2,
     borderWidth: 1,
-    borderColor: COLORS.borderInput,
+    borderColor: COLORS.borderCheckBox,
     backgroundColor: COLORS.white,
     alignItems: 'center',
     justifyContent: 'center',

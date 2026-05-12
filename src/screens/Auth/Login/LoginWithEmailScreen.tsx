@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
   },
   forgotPasswordLabel: {
     fontSize: 12,
-    color: COLORS.splash,
+    color: COLORS.darkGray,
     textDecorationLine: 'underline',
   },
   link: {
@@ -232,8 +232,8 @@ const styles = StyleSheet.create({
   },
   linkInline: {
     fontFamily: fontFamilies.semiBold,
-    fontSize: 12,
-    color: COLORS.splash,
+    fontSize: 13,
+    color: COLORS.black,
     textDecorationLine: 'underline',
   },
   loginButtonWrap: {
