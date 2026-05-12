@@ -3,6 +3,7 @@ import CommonActionableButton from '@/components/buttons/CommonActionableButton'
 import {CommonBoldHeading, CustomText} from '@/components/common';
 import COLORS from '@/constants/colors';
 import {fontFamilies} from '@/constants/fonts';
+import {useOtpResendTimer} from '@/hooks/useOtpResendTimer';
 import {SPACING} from '@/theme/spacing';
 import React, {useMemo, useState} from 'react';
 import {Pressable, StyleSheet, View} from 'react-native';
@@ -10,16 +11,24 @@ import {Pressable, StyleSheet, View} from 'react-native';
 interface VerifyPhoneOTPScreenProps {
   onChangeMobileNumber?: () => void;
   onNext?: () => void;
+  onResendOtp?: () => void;
   phoneNumber?: string;
 }
 
 const VerifyPhoneOTPScreen: React.FC<VerifyPhoneOTPScreenProps> = ({
   onChangeMobileNumber,
   onNext,
+  onResendOtp,
   phoneNumber = '+91 9876543210',
 }) => {
   const [otp, setOtp] = useState('');
   const canProceed = useMemo(() => otp.length === 6, [otp.length]);
+  const {canResend, formattedTime, restart} = useOtpResendTimer({durationSeconds: 30});
+
+  const handleResendOtp = () => {
+    onResendOtp?.();
+    restart();
+  };
 
   return (
     <View style={styles.container}>
@@ -42,7 +51,17 @@ const VerifyPhoneOTPScreen: React.FC<VerifyPhoneOTPScreenProps> = ({
       <AuthOtpInput value={otp} onChange={setOtp} />
 
       <View style={styles.timerRow}>
-        <CustomText style={styles.timerText}>00:30 sec</CustomText>
+        {canResend ? (
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Resend OTP"
+            onPress={handleResendOtp}
+            style={({pressed}) => [pressed ? styles.linkPressed : null]}>
+            <CustomText style={styles.resendText}>Resend OTP</CustomText>
+          </Pressable>
+        ) : (
+          <CustomText style={styles.timerText}>{formattedTime}</CustomText>
+        )}
       </View>
 
       <View style={styles.buttonWrap}>
@@ -105,6 +124,12 @@ const styles = StyleSheet.create({
     color: COLORS.splash,
     fontFamily: fontFamilies.semiBold,
     fontSize: 15 / 1.1,
+  },
+  resendText: {
+    color: COLORS.splash,
+    fontFamily: fontFamilies.semiBold,
+    fontSize: 15 / 1.1,
+    textDecorationLine: 'underline',
   },
   buttonWrap: {
     marginTop: SPACING.huge,
