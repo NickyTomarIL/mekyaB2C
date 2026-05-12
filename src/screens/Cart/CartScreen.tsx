@@ -86,17 +86,16 @@ const CartScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.root} edges={['top', 'left', 'right']}>
-      <View style={styles.stickyHeader}>
+      <View style={styles.stickyTitleBar}>
         <CustomText style={styles.screenTitle}>Your Cart</CustomText>
-        {items.length > 0 ? <CartCheckoutStepper activeStep="bag" /> : null}
       </View>
-      
 
       <ScrollView
         style={styles.scroll}
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}>
+        {items.length > 0 ? <CartCheckoutStepper activeStep="bag" /> : null}
         {items.length === 0 ? (
           <View style={styles.emptyWrap}>
             <CartEmpty width={220} height={220} />
@@ -149,7 +148,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.white,
   },
-  stickyHeader: {
+  stickyTitleBar: {
     paddingHorizontal: SPACING.lg,
     paddingTop: SPACING.lg,
     paddingBottom: SPACING.md,
@@ -168,7 +167,6 @@ const styles = StyleSheet.create({
     fontFamily: fontFamilies.regular,
     fontSize: 16,
     color: COLORS.black,
-    marginBottom: SPACING.md,
   },
   listGap: {
     marginBottom: SPACING.sm,
