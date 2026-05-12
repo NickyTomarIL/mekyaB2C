@@ -73,8 +73,8 @@ const tabScreenOptions: BottomTabNavigationOptions = {
   tabBarInactiveTintColor: COLORS.black,
   tabBarStyle: {
     backgroundColor: COLORS.white,
-    borderTopWidth: 1,
-    borderTopColor: COLORS.lightGray,
+    borderTopWidth: 2,
+    borderTopColor: COLORS.extraLightGray,
   },
   tabBarLabelStyle: {
     fontSize: 12,

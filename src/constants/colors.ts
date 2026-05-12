@@ -10,6 +10,7 @@ export const COLORS = {
   yellow: '#FFFF00',
   cyan: '#00FFFF',
   magenta: '#FF00FF',
+  extraLightGray: '#DADADA',
 
   lightGray: '#5B5B5B',
   darkGray: '#333333',
