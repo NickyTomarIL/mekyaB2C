@@ -16,11 +16,45 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const INPUT_HEIGHT = 52;
 
-const labelTitleStyle = {
-  fontFamily: fontFamilies.semiBold,
-  fontSize: 14,
-  color: COLORS.black,
-};
+const styles = StyleSheet.create({
+  flex: {
+    flex: 1,
+    backgroundColor: COLORS.white,
+  },
+  scroll: {
+    flexGrow: 1,
+    paddingHorizontal: SPACING.lg,
+    paddingTop: SPACING.lg,
+    paddingBottom: SPACING.xxxl,
+  },
+  form: {
+    alignSelf: 'stretch',
+  },
+  fieldGap: {
+    height: SPACING.lg,
+  },
+  fieldLabel: {
+    fontFamily: fontFamilies.medium,
+    fontSize: 16,
+    color: COLORS.black,
+  },
+  /** Read-only / view mode value color. */
+  fieldValue: {
+    color: COLORS.textMuted,
+    fontFamily: fontFamilies.regular,
+    fontSize: 14,
+  },
+  /** Editable mode — stronger contrast while typing. */
+  fieldValueEditing: {
+    color: COLORS.black,
+    fontFamily: fontFamilies.regular,
+    fontSize: 14,
+  },
+  editButton: {
+    borderRadius: 4,
+    marginTop: SPACING.xxl,
+  },
+});
 
 const MyProfileScreen: React.FC = () => {
   const [fullName, setFullName] = useState('Jatin pant');
@@ -56,7 +90,7 @@ const MyProfileScreen: React.FC = () => {
             onChangeText={setFullName}
             placeholder="Enter full name"
             height={INPUT_HEIGHT}
-            titleStyle={labelTitleStyle}
+            labelStyle={styles.fieldLabel}
             inputStyle={fieldInputStyle}
             textContentType="name"
             editable={isEditing}
@@ -71,7 +105,7 @@ const MyProfileScreen: React.FC = () => {
             autoCapitalize="none"
             autoCorrect={false}
             height={INPUT_HEIGHT}
-            titleStyle={labelTitleStyle}
+            labelStyle={styles.fieldLabel}
             inputStyle={fieldInputStyle}
             textContentType="emailAddress"
             editable={isEditing}
@@ -84,7 +118,7 @@ const MyProfileScreen: React.FC = () => {
             placeholder="Enter mobile number"
             keyboardType="phone-pad"
             height={INPUT_HEIGHT}
-            titleStyle={labelTitleStyle}
+            labelStyle={styles.fieldLabel}
             inputStyle={fieldInputStyle}
             textContentType="telephoneNumber"
             editable={isEditing}
@@ -107,40 +141,5 @@ const MyProfileScreen: React.FC = () => {
     </KeyboardAvoidingView>
   );
 };
-
-const styles = StyleSheet.create({
-  flex: {
-    flex: 1,
-    backgroundColor: COLORS.white,
-  },
-  scroll: {
-    flexGrow: 1,
-    paddingHorizontal: SPACING.lg,
-    paddingTop: SPACING.lg,
-    paddingBottom: SPACING.xxxl,
-  },
-  form: {
-    alignSelf: 'stretch',
-  },
-  fieldGap: {
-    height: SPACING.lg,
-  },
-  /** Read-only / view mode value color. */
-  fieldValue: {
-    color: COLORS.textMuted,
-    fontFamily: fontFamilies.regular,
-    fontSize: 14,
-  },
-  /** Editable mode — stronger contrast while typing. */
-  fieldValueEditing: {
-    color: COLORS.black,
-    fontFamily: fontFamilies.regular,
-    fontSize: 14,
-  },
-  editButton: {
-    borderRadius: 4,
-    marginTop: SPACING.xxl,
-  },
-});
 
 export default MyProfileScreen;
