@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
   timelineCard: {
     borderWidth: 1,
     borderColor: COLORS.borderInput,
-    borderRadius: 8,
+    borderRadius: 4,
     paddingHorizontal: SPACING.md,
     paddingVertical: SPACING.md,
     marginBottom: SPACING.lg,
@@ -249,13 +249,13 @@ const styles = StyleSheet.create({
   timelineDate: {
     textAlign: 'center',
     fontFamily: fontFamilies.regular,
-    fontSize: 13,
+    fontSize: 12,
     color: COLORS.validationColor,
   },
   card: {
     borderWidth: 1,
     borderColor: COLORS.borderInput,
-    borderRadius: 8,
+    borderRadius: 4,
     padding: SPACING.md,
     marginBottom: SPACING.lg,
     backgroundColor: COLORS.white,
@@ -293,7 +293,7 @@ const styles = StyleSheet.create({
   },
   attributeText: {
     fontFamily: fontFamilies.regular,
-    fontSize: 13,
+    fontSize: 12,
     color: COLORS.validationColor,
   },
   priceText: {

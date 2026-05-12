@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   },
   checkLabel: {
     fontFamily: fontFamilies.bold,
-    fontSize: 13,
+    fontSize: 12,
     color: COLORS.splash,
     letterSpacing: 0.5,
   },
@@ -129,13 +129,13 @@ const styles = StyleSheet.create({
   },
   deliveryDate: {
     fontFamily: fontFamilies.medium,
-    fontSize: 13,
+    fontSize: 12,
     color: '#2E7D32',
     flex: 1,
   },
   codText: {
     fontFamily: fontFamilies.regular,
-    fontSize: 13,
+    fontSize: 12,
     color: COLORS.darkGray,
     flex: 1,
   },

@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   submitButton: {
-    borderRadius: 8,
+    borderRadius: 4,
     marginTop: SPACING.xxl,
   },
 });

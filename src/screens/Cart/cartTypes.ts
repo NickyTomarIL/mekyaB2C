@@ -7,6 +7,8 @@ export interface CartLineItem {
   discountLabel: string;
   size: string;
   qty: number;
+  /** HTTPS image URL; when omitted, cart UI uses bundled placeholder */
+  imageUrl?: string;
 }
 
 export interface CartPriceBreakdown {

@@ -1,3 +1,4 @@
+import CachedImage from '@/components/common/CachedImage';
 import CustomText from '@/components/common/CustomText';
 import COLORS from '@/constants/colors';
 import { fontFamilies } from '@/constants/fonts';
@@ -9,6 +10,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const THUMB_WIDTH = 76;
 const THUMB_HEIGHT = 93;
+
+const PLACEHOLDER_THUMB = require('@/assets/images/men2.png');
 
 interface CartLineItemCardProps {
   item: CartLineItem;
@@ -34,12 +37,22 @@ const CartLineItemCard: React.FC<CartLineItemCardProps> = ({
   onPressQty,
 }) => {
   const mrpDisplay = formatMrpLabel(item.mrpLabel);
+  const thumbSource =
+    item.imageUrl && item.imageUrl.trim().length > 0
+      ? {uri: item.imageUrl.trim()}
+      : PLACEHOLDER_THUMB;
 
   return (
     <View style={styles.card}>
       <View style={styles.mainRow}>
         <View style={styles.thumb}>
-          <Ionicons name="shirt-outline" size={44} color={COLORS.textMuted} />
+          <CachedImage
+            accessibilityRole="image"
+            accessibilityLabel={`${item.brand} product image`}
+            source={thumbSource}
+            style={styles.thumbImage}
+            resizeMode="cover"
+          />
         </View>
 
         <View style={styles.rightColumn}>
@@ -111,7 +124,7 @@ const styles = StyleSheet.create({
   card: {
     borderWidth: 1,
     borderColor: '#E0E0E0',
-    borderRadius: 8,
+    borderRadius: 4,
     backgroundColor: COLORS.white,
     padding: SPACING.sm,
   },
@@ -122,12 +135,14 @@ const styles = StyleSheet.create({
   thumb: {
     width: THUMB_WIDTH,
     height: THUMB_HEIGHT,
-    borderRadius: 8,
+    borderRadius: 4,
     backgroundColor: '#F0F0F0',
-    alignItems: 'center',
-    justifyContent: 'center',
     marginRight: SPACING.md,
     overflow: 'hidden',
+  },
+  thumbImage: {
+    width: THUMB_WIDTH,
+    height: THUMB_HEIGHT,
   },
   rightColumn: {
     flex: 1,
@@ -143,7 +158,7 @@ const styles = StyleSheet.create({
   },
   description: {
     fontFamily: fontFamilies.regular,
-    fontSize: 13,
+    fontSize: 12,
     color: COLORS.black,
     lineHeight: 18,
   },
@@ -160,13 +175,13 @@ const styles = StyleSheet.create({
   },
   mrp: {
     fontFamily: fontFamilies.regular,
-    fontSize: 13,
+    fontSize: 12,
     color: COLORS.textMuted,
     textDecorationLine: 'line-through',
   },
   discount: {
     fontFamily: fontFamilies.medium,
-    fontSize: 13,
+    fontSize: 12,
     color: COLORS.splash,
   },
   selectorsRow: {
@@ -215,13 +230,13 @@ const styles = StyleSheet.create({
   },
   actionPipe: {
     fontFamily: fontFamilies.regular,
-    fontSize: 13,
+    fontSize: 12,
     color: COLORS.textMuted,
     marginHorizontal: SPACING.md,
   },
   actionText: {
     fontFamily: fontFamilies.regular,
-    fontSize: 13,
+    fontSize: 10,
     color: COLORS.black,
   },
 });

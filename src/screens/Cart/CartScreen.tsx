@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
   },
   placeOrderBtn: {
-    borderRadius: 8,
+    borderRadius: 4,
   },
   placeOrderLabel: {
     fontSize: 16,

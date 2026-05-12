@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     borderWidth: 1,
     borderColor: '#F1F1F1',
-    borderRadius: 8,
+    borderRadius: 4,
     overflow: 'hidden',
   },
   metaRow: {

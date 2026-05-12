@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
   },
   followLabel: {
     fontFamily: fontFamilies.medium,
-    fontSize: 13,
+    fontSize: 12,
     color: COLORS.white,
   },
   audioRow: {
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
   },
   caption: {
     fontFamily: fontFamilies.regular,
-    fontSize: 13,
+    fontSize: 12,
     lineHeight: 18,
     color: COLORS.white,
   },

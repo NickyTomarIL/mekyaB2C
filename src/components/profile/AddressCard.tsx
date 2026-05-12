@@ -106,7 +106,7 @@ const AddressCard: React.FC<AddressCardProps> = ({
 const styles = StyleSheet.create({
   card: {
     backgroundColor: COLORS.white,
-    borderRadius: 8,
+    borderRadius: 4,
     padding: SPACING.lg,
     marginBottom: SPACING.lg,
   },
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
   },
   addressLine: {
     fontFamily: fontFamilies.regular,
-    fontSize: 13,
+    fontSize: 12,
     color: COLORS.textMuted,
     marginBottom: 4,
   },

@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   imageWrap: {
     height: 160,
     backgroundColor: '#EFEFEF',
-    borderRadius: 8,
+    borderRadius: 4,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: SPACING.sm,
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: fontFamilies.medium,
-    fontSize: 13,
+    fontSize: 12,
     lineHeight: 17,
     color: COLORS.darkGray,
     marginBottom: SPACING.sm,

@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   link: {
     color: COLORS.splash,
     fontFamily: fontFamilies.medium,
-    fontSize: 13,
+    fontSize: 12,
   },
   buttonWrap: {
     marginTop: SPACING.huge,

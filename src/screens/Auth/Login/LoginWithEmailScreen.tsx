@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
   },
   linkInline: {
     fontFamily: fontFamilies.semiBold,
-    fontSize: 13,
+    fontSize: 12,
     color: COLORS.black,
     textDecorationLine: 'underline',
   },
