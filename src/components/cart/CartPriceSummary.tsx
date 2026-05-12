@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   rowLabel: {
     fontFamily: fontFamilies.regular,
     fontSize: 14,
-    color: COLORS.darkGray,
+    color: COLORS.black,
   },
   rowValue: {
     fontFamily: fontFamilies.medium,
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     color: COLORS.black,
   },
   totalValue: {
-    fontFamily: fontFamilies.bold,
+    fontFamily: fontFamilies.medium,
     fontSize: 18,
     color: COLORS.black,
   },

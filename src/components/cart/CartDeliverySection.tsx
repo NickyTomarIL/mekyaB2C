@@ -128,15 +128,15 @@ const styles = StyleSheet.create({
     gap: SPACING.sm,
   },
   deliveryDate: {
-    fontFamily: fontFamilies.medium,
-    fontSize: 12,
+    fontFamily: fontFamilies.regular,
+    fontSize: 14,
     color: '#2E7D32',
     flex: 1,
   },
   codText: {
     fontFamily: fontFamilies.regular,
-    fontSize: 12,
-    color: COLORS.darkGray,
+    fontSize: 14,
+    color: COLORS.black,
     flex: 1,
   },
 });
