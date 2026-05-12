@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
   },
   creatorName: {
     fontFamily: fontFamilies.semiBold,
-    fontSize: 15,
+    fontSize: 16,
     color: COLORS.white,
     marginBottom: SPACING.sm,
   },

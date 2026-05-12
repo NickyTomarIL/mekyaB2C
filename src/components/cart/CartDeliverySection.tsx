@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontFamily: fontFamilies.semiBold,
-    fontSize: 15,
+    fontSize: 16,
     color: COLORS.black,
   },
   inputRow: {

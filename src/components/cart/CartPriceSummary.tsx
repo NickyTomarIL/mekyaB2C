@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: fontFamilies.semiBold,
-    fontSize: 15,
+    fontSize: 16,
     color: COLORS.lightGray,
     marginBottom: SPACING.lg,
   },

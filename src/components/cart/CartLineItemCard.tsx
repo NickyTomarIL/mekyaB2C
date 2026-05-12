@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
   },
   price: {
     fontFamily: fontFamilies.bold,
-    fontSize: 15,
+    fontSize: 16,
     color: COLORS.black,
   },
   mrp: {
