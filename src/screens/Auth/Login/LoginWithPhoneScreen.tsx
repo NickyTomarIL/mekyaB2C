@@ -79,7 +79,8 @@ const LoginWithPhoneScreen: React.FC = () => {
                 value={mobileNumber}
                 onChangeText={setMobileNumber}
                 maxLength={10}
-                accessibilityLabel="Enter mobile number"
+                accessibilityLabel="Enter 10-digit phone number"
+
               />
             </View>
 
@@ -207,7 +208,7 @@ const styles = StyleSheet.create({
   linkInline: {
     fontFamily: fontFamilies.semiBold,
     fontSize: 13,
-    color: COLORS.splash,
+    color: COLORS.black,
     textDecorationLine: 'underline',
   },
   loginButtonWrap: {

@@ -30,7 +30,7 @@ const AuthPhoneInputField: React.FC<AuthPhoneInputFieldProps> = ({
   countryCode = '+91',
   countryFlag = '🇮🇳',
   onCountryPress,
-  placeholder = '9876543210',
+  placeholder = 'Enter 10-digit phone number',
   height = 52,
   containerStyle,
   onFocus,
@@ -63,6 +63,7 @@ const AuthPhoneInputField: React.FC<AuthPhoneInputFieldProps> = ({
 
       <View style={styles.phoneField}>
         <Text style={styles.countryCode}>{countryCode}</Text>
+        <Text style={styles.countryCodeSeparator}>{' |'}</Text>
         <TextInput
           value={value}
           onChangeText={onChangeText}
@@ -133,7 +134,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     // height: '100%',
-    marginLeft: SPACING.sm,
+    marginLeft: SPACING.xs,
     fontFamily: fontFamilies.regular,
     fontSize: 14,
     color: COLORS.darkGray,
@@ -143,6 +144,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: COLORS.darkGray,
   },
+  countryCodeSeparator:{
+    fontSize:18,
+    fontFamily: fontFamilies.regular,
+  }
 });
 
 export default AuthPhoneInputField;
