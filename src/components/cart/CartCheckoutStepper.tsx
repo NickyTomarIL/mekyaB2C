@@ -23,6 +23,12 @@ const STEPS: {
     { key: 'payment', label: 'Payment', icon: 'card-outline' },
   ];
 
+/** Column is wider than the circle; overlap connectors so the line meets each circle edge */
+const STEP_COL_WIDTH = 72;
+const CIRCLE_SIZE = 40;
+const CONNECTOR_LINE_HEIGHT = 2;
+const CONNECTOR_TOUCH_INSET = (STEP_COL_WIDTH - CIRCLE_SIZE) / 2;
+
 const CartCheckoutStepper: React.FC<CartCheckoutStepperProps> = ({ activeStep }) => {
   const activeIndex = STEPS.findIndex(s => s.key === activeStep);
 
@@ -80,12 +86,12 @@ const styles = StyleSheet.create({
   },
   stepCol: {
     alignItems: 'center',
-    width: 72,
+    width: STEP_COL_WIDTH,
   },
   circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: CIRCLE_SIZE,
+    height: CIRCLE_SIZE,
+    borderRadius: CIRCLE_SIZE / 2,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -112,12 +118,14 @@ const styles = StyleSheet.create({
   },
   connectorWrap: {
     flex: 1,
-    paddingTop: 20,
-    paddingHorizontal: SPACING.xs,
-    minWidth: 24,
+    minWidth: 8,
+    justifyContent: 'flex-start',
+    paddingTop: (CIRCLE_SIZE - CONNECTOR_LINE_HEIGHT) / 2,
+    marginHorizontal: -CONNECTOR_TOUCH_INSET,
   },
   connector: {
-    height: 2,
+    height: CONNECTOR_LINE_HEIGHT,
+    width: '100%',
     borderRadius: 1,
     backgroundColor: '#D8DCDE',
   },
