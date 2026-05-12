@@ -10,7 +10,7 @@ import {
   View,
   type ViewStyle,
 } from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export interface AuthSignupModalProps {
@@ -30,25 +30,32 @@ const AuthSignupModal: React.FC<AuthSignupModalProps> = ({
     <Modal
       visible={visible}
       animationType="slide"
-      // presentationStyle={Platform.OS === 'ios' ? 'fullScreen' : undefined}
+      presentationStyle={Platform.OS === 'ios' ? 'fullScreen' : undefined}
       statusBarTranslucent={Platform.OS === 'android'}
       onRequestClose={onClose}>
-      <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
-        <View style={styles.header}>
-          <View style={styles.titleWrap}>
-            <MekyaLogoAuth  height={24} />
+      {/*
+        Modals use a separate native hierarchy on iOS. A nested SafeAreaProvider
+        ensures insets are measured for this window; without it, top inset can
+        be 0 on first frames and content can overlap the status bar.
+      */}
+      <SafeAreaProvider>
+        <SafeAreaView style={styles.safe} edges={['top', 'bottom', 'left', 'right']}>
+          <View style={styles.header}>
+            <View style={styles.titleWrap}>
+              <MekyaLogoAuth height={24} />
+            </View>
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel="Close signup"
+              onPress={onClose}
+              style={({pressed}) => [styles.closeButton, {opacity: pressed ? 0.7 : 1}]}>
+              <Ionicons name="close" size={20} color={COLORS.darkGray} />
+            </Pressable>
           </View>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel="Close signup"
-            onPress={onClose}
-            style={({pressed}) => [styles.closeButton, {opacity: pressed ? 0.7 : 1}]}>
-            <Ionicons name="close" size={20} color={COLORS.darkGray} />
-          </Pressable>
-        </View>
 
-        <View style={[styles.content, contentContainerStyle]}>{children}</View>
-      </SafeAreaView>
+          <View style={[styles.content, contentContainerStyle]}>{children}</View>
+        </SafeAreaView>
+      </SafeAreaProvider>
     </Modal>
   );
 };
