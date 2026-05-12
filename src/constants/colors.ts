@@ -24,7 +24,7 @@ export const COLORS = {
 
   /** Auth / inputs (Figma-aligned) */
   authBackground: '#bddef2',
-  borderInput: '#D1D1D1',
+  borderInput: '#8A8A8A',
   textMuted: '#6B7280',
   socialButtonBorder: '#D1D1D1',
   validationColor:'#6C6C6C',

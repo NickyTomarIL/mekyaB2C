@@ -34,7 +34,7 @@ const CommonInputField: React.FC<CommonInputFieldProps> = ({
   onChangeText,
   placeholder = 'Enter your email id',
   width = '100%',
-  height = 70,
+  height = 52,
   containerStyle,
   labelStyle,
   titleStyle,
@@ -97,13 +97,13 @@ const styles = StyleSheet.create({
   inputWrapper: {
     borderWidth: 1,
     borderColor: COLORS.borderInput,
-    borderRadius: 8,
+    borderRadius: 4,
     backgroundColor: COLORS.white,
     justifyContent: 'center',
     paddingHorizontal: 16,
   },
   inputWrapperFocused: {
-    borderColor: COLORS.black,
+    borderColor: COLORS.darkGray,
   },
   input: {
     fontSize: 14,
