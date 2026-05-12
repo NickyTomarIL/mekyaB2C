@@ -322,7 +322,7 @@ const styles = StyleSheet.create({
     color: COLORS.splash,
   },
   sectionTitle: {
-    fontFamily: fontFamilies.semiBold,
+    fontFamily: fontFamilies.medium,
     fontSize: 30 / 1.5,
     color: COLORS.black,
     marginBottom: SPACING.md,

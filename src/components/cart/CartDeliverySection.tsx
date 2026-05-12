@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.md,
   },
   sectionTitle: {
-    fontFamily: fontFamilies.semiBold,
+    fontFamily: fontFamilies.medium,
     fontSize: 16,
     color: COLORS.black,
   },

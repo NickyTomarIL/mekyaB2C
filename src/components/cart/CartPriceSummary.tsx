@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     paddingBottom: SPACING.xxxl,
   },
   title: {
-    fontFamily: fontFamilies.semiBold,
+    fontFamily: fontFamilies.medium,
     fontSize: 16,
     color: COLORS.lightGray,
     marginBottom: SPACING.lg,
