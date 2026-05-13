@@ -816,7 +816,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: SPACING.lg,
-    marginBottom: SPACING.lg,
+    marginBottom: SPACING.xxl,
   },
   watchWearTitle: {
     fontFamily: fontFamilies.semiBold,
