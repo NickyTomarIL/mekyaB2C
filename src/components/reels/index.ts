@@ -1,2 +1,2 @@
 export {default as ReelPreviewCard} from './ReelPreviewCard';
-export type {ReelPreviewCardProps} from './reelTypes';
+export type {ReelPreviewCardProps, ReelPreviewCardVariant} from './reelTypes';

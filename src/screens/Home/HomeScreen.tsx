@@ -7,13 +7,15 @@ import {
 import CustomText from '@/components/common/CustomText';
 import BrandBanner from '@/components/brand/BrandBanner';
 import LinkedProductCard from '@/components/product/LinkedProductCard';
+import {ReelPreviewCard} from '@/components/reels';
 import type {LinkedProductItem} from '@/components/product/linkedProductTypes';
 import COLORS from '@/constants/colors';
 import {fontFamilies} from '@/constants/fonts';
 import {SPACING} from '@/theme/spacing';
-import React, {useCallback, useMemo, useState} from 'react';
+import React, {useCallback, useId, useMemo, useState} from 'react';
 import {
   FlatList,
+  Image,
   ImageBackground,
   type ImageSourcePropType,
   NativeScrollEvent,
@@ -126,6 +128,43 @@ const JACKET_GRID_ITEMS: LinkedProductItem[] = [
   },
 ];
 
+type WatchWearItem = {
+  id: string;
+  thumbnail: ImageSourcePropType;
+  creatorName: string;
+  caption: string;
+};
+
+/** New Fall Collection: top row + full-width hero (season assets). */
+const NEW_FALL_TOP_IMAGES: ReadonlyArray<ImageSourcePropType> = [
+  require('@/assets/images/seasonImage1.jpg'),
+  require('@/assets/images/seasonImage2.jpg'),
+  require('@/assets/images/seasonImage3.jpg'),
+];
+const NEW_FALL_HERO_IMAGE = require('@/assets/images/seasonImage4.jpg');
+
+const WATCH_WEAR_ITEMS: WatchWearItem[] = [
+  {
+    id: 'ww-1',
+    thumbnail: require('@/assets/images/seasonImage1.jpg'),
+    creatorName: 'Allen Solly',
+    caption:
+      'Midweight, Midweight+, Heavyweight — which one is your next hoodie grail?',
+  },
+  {
+    id: 'ww-2',
+    thumbnail: require('@/assets/images/seasonImage2.jpg'),
+    creatorName: 'H&M',
+    caption: 'Winter layers that move with you — shop the edit.',
+  },
+  {
+    id: 'ww-3',
+    thumbnail: require('@/assets/images/seasonImage3.jpg'),
+    creatorName: 'The Workshop Studio',
+    caption: 'Coats worth the double-take. Tap to watch the full reel.',
+  },
+];
+
 const HERO_SLIDES: ReadonlyArray<{ title: string; subtitle: string }> = [
   {
     title: 'Make An Entrance',
@@ -170,6 +209,7 @@ const FEATURED_CATEGORIES: ReadonlyArray<{
 const HomeScreen: React.FC = () => {
   const {width: screenWidth} = useWindowDimensions();
   const [heroIndex, setHeroIndex] = useState(0);
+  const newFallHeroGradientId = `newFallHeroFade_${useId().replace(/:/g, '')}`;
 
   const heroHeight = useMemo(
     () => Math.min(200, Math.round(screenWidth * 1.12)),
@@ -187,6 +227,12 @@ const HomeScreen: React.FC = () => {
     const columnGap = SPACING.md;
     const inner = screenWidth - horizontalPad;
     return Math.max(0, Math.floor((inner - columnGap) / 2));
+  }, [screenWidth]);
+
+  const watchWearCardWidth = useMemo(() => {
+    const horizontalPad = SPACING.lg * 2;
+    const available = screenWidth - horizontalPad;
+    return Math.min(200, Math.round(available * 0.42));
   }, [screenWidth]);
 
   const onHeroMomentumEnd = useCallback(
@@ -416,6 +462,127 @@ const HomeScreen: React.FC = () => {
             ))}
           </View>
         </View>
+
+        <View style={styles.watchWearSection}>
+          <View style={styles.watchWearHeader}>
+            <CustomText style={styles.watchWearTitle}>Watch & Wear</CustomText>
+            <Pressable
+              accessibilityRole="link"
+              accessibilityLabel="See all watch and wear reels"
+              style={({pressed}) => [
+                styles.exploreAllRow,
+                pressed && styles.pressed,
+              ]}>
+              <CustomText style={styles.exploreAllText}>See all</CustomText>
+              <Ionicons
+                name="arrow-up-outline"
+                size={16}
+                color={COLORS.splash}
+                style={styles.exploreAllIcon}
+              />
+            </Pressable>
+          </View>
+          <FlatList
+            horizontal
+            data={WATCH_WEAR_ITEMS}
+            keyExtractor={item => item.id}
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.watchWearList}
+            renderItem={({item}) => (
+              <View style={styles.watchWearCardWrap}>
+                <ReelPreviewCard
+                  variant="homePreview"
+                  cardWidth={watchWearCardWidth}
+                  creatorName={item.creatorName}
+                  caption={item.caption}
+                  likeCountLabel=""
+                  shareCountLabel=""
+                  media={
+                    <Image
+                      source={item.thumbnail}
+                      style={StyleSheet.absoluteFill}
+                      resizeMode="cover"
+                    />
+                  }
+                  onPressPlay={() => undefined}
+                />
+              </View>
+            )}
+          />
+        </View>
+
+        <View style={styles.newFallSection}>
+          <CustomText style={styles.newFallEyebrow}>New Fall Collection</CustomText>
+          <CustomText style={styles.newFallTitle}>
+            Step Into the Season with United Colors of Benetton
+          </CustomText>
+
+          <View style={styles.newFallGrid}>
+            <View style={styles.newFallTopRow}>
+              {NEW_FALL_TOP_IMAGES.map((source, index) => (
+                <View
+                  key={`new-fall-top-${index}`}
+                  style={styles.newFallTopCell}>
+                  <Image
+                    source={source}
+                    style={styles.newFallTopImage}
+                    resizeMode="cover"
+                  />
+                </View>
+              ))}
+            </View>
+
+            <ImageBackground
+              source={NEW_FALL_HERO_IMAGE}
+              style={styles.newFallHero}
+              imageStyle={styles.newFallHeroImageRadius}
+              resizeMode="cover">
+              <Svg
+                pointerEvents="none"
+                style={StyleSheet.absoluteFill}
+                width="100%"
+                height="100%"
+                preserveAspectRatio="none">
+                <Defs>
+                  <LinearGradient
+                    id={newFallHeroGradientId}
+                    x1="0"
+                    y1="0"
+                    x2="0"
+                    y2="1"
+                    gradientUnits="objectBoundingBox">
+                    <Stop offset="0.4" stopColor="#000000" stopOpacity={0} />
+                    <Stop offset="1" stopColor="#000000" stopOpacity={0.72} />
+                  </LinearGradient>
+                </Defs>
+                <Rect
+                  x="0"
+                  y="0"
+                  width="100%"
+                  height="100%"
+                  fill={`url(#${newFallHeroGradientId})`}
+                />
+              </Svg>
+              <View style={styles.newFallHeroFooter}>
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityLabel="Shop New Fall Collection"
+                  style={({pressed}) => [
+                    styles.newFallCta,
+                    pressed && styles.pressed,
+                  ]}>
+                  <CustomText style={styles.newFallCtaLabel}>Shop Now</CustomText>
+                  <Ionicons
+                    name="arrow-up-outline"
+                    size={16}
+                    color={COLORS.black}
+                    style={styles.newFallCtaIcon}
+                  />
+                </Pressable>
+              </View>
+            </ImageBackground>
+          </View>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -615,6 +782,105 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
+  },
+  watchWearSection: {
+    marginTop: SPACING.xl,
+    paddingBottom: SPACING.md,
+  },
+  watchWearHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: SPACING.lg,
+    marginBottom: SPACING.lg,
+  },
+  watchWearTitle: {
+    fontFamily: fontFamilies.semiBold,
+    fontSize: 16,
+    color: COLORS.black,
+  },
+  watchWearList: {
+    paddingHorizontal: SPACING.lg,
+    paddingRight: SPACING.xl,
+  },
+  watchWearCardWrap: {
+    marginRight: SPACING.md,
+  },
+  newFallSection: {
+    marginTop: SPACING.xl,
+    paddingHorizontal: SPACING.lg,
+    paddingBottom: SPACING.md,
+  },
+  newFallEyebrow: {
+    textAlign: 'center',
+    fontFamily: fontFamilies.medium,
+    fontSize: 14,
+    fontStyle: 'italic',
+    color: COLORS.black,
+  },
+  newFallTitle: {
+    marginTop: SPACING.sm,
+    textAlign: 'center',
+    fontFamily: fontFamilies.regular,
+    fontSize: 16,
+    lineHeight: 24,
+    color: COLORS.black,
+    paddingHorizontal: SPACING.sm,
+  },
+  newFallGrid: {
+    marginTop: SPACING.lg,
+  },
+  newFallTopRow: {
+    flexDirection: 'row',
+    gap: SPACING.md,
+  },
+  newFallTopCell: {
+    flex: 1,
+    minWidth: 0,
+    aspectRatio: 3 / 4,
+    borderRadius: 12,
+    overflow: 'hidden',
+    backgroundColor: COLORS.extraLightGray,
+  },
+  newFallTopImage: {
+    ...StyleSheet.absoluteFill,
+  },
+  newFallHero: {
+    marginTop: SPACING.md,
+    width: '100%',
+    aspectRatio: 16 / 9,
+    borderRadius: 12,
+    overflow: 'hidden',
+    backgroundColor: COLORS.extraLightGray,
+  },
+  newFallHeroImageRadius: {
+    borderRadius: 12,
+  },
+  newFallHeroFooter: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    paddingBottom: SPACING.lg,
+    paddingHorizontal: SPACING.lg,
+    alignItems: 'center',
+  },
+  newFallCta: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#DFDFDF',
+    paddingHorizontal: SPACING.xl,
+    paddingVertical: SPACING.sm + 2,
+    borderRadius: 8,
+  },
+  newFallCtaLabel: {
+    fontFamily: fontFamilies.regular,
+    fontSize: 12,
+    color: COLORS.black,
+  },
+  newFallCtaIcon: {
+    marginLeft: SPACING.xs,
+    transform: [{rotate: '45deg'}],
   },
 });
 
