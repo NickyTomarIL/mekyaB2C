@@ -250,10 +250,7 @@ const HomeScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.root} edges={['top', 'left', 'right']}>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContent}
-        bounces>
+      <View style={styles.screenBody}>
         <View style={styles.header}>
           <MekyaLogoAuth width={LOGO_WIDTH} height={LOGO_HEIGHT} />
           <View style={styles.headerActions}>
@@ -263,8 +260,6 @@ const HomeScreen: React.FC = () => {
               hitSlop={12}
               style={({ pressed }) => [styles.iconHit, pressed && styles.pressed]}>
               <SearchIcon
-                width={HEADER_ICON_SIZE}
-                height={HEADER_ICON_SIZE}
                 color={COLORS.black}
               />
             </Pressable>
@@ -293,6 +288,12 @@ const HomeScreen: React.FC = () => {
           </View>
         </View>
 
+        <ScrollView
+          style={styles.scrollView}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.scrollContent}
+          bounces
+          nestedScrollEnabled>
         <View style={[styles.heroWrap, { height: heroHeight }]}>
           <ScrollView
             horizontal
@@ -584,6 +585,7 @@ const HomeScreen: React.FC = () => {
           </View>
         </View>
       </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };
@@ -592,6 +594,12 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
     backgroundColor: COLORS.white,
+  },
+  screenBody: {
+    flex: 1,
+  },
+  scrollView: {
+    flex: 1,
   },
   scrollContent: {
     paddingBottom: SPACING.xxxl + SPACING.lg,
