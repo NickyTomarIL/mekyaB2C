@@ -1,9 +1,14 @@
-import {MekyaLogo, MekyaLogoAuth} from '@/assets/icons';
+import {
+  HeartIcon,
+  MekyaLogoAuth,
+  SearchIcon,
+  WellIcon,
+} from '@/assets/icons';
 import CustomText from '@/components/common/CustomText';
 import COLORS from '@/constants/colors';
-import {fontFamilies} from '@/constants/fonts';
-import {SPACING} from '@/theme/spacing';
-import React, {useCallback, useMemo, useState} from 'react';
+import { fontFamilies } from '@/constants/fonts';
+import { SPACING } from '@/theme/spacing';
+import React, { useCallback, useMemo, useState } from 'react';
 import {
   ImageBackground,
   type ImageSourcePropType,
@@ -15,9 +20,10 @@ import {
   View,
   useWindowDimensions,
 } from 'react-native';
-import Svg, {Defs, LinearGradient, Rect, Stop} from 'react-native-svg';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import Svg, { Defs, LinearGradient, Rect, Stop } from 'react-native-svg';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+const HEADER_ICON_SIZE = 24;
 
 const LOGO_WIDTH = 100;
 const LOGO_HEIGHT = 40;
@@ -26,7 +32,7 @@ const HERO_IMAGE = require('@/assets/images/homeBanner.png');
 
 const LOGO_MARK_SIZE = 32;
 
-const HERO_SLIDES: ReadonlyArray<{title: string; subtitle: string}> = [
+const HERO_SLIDES: ReadonlyArray<{ title: string; subtitle: string }> = [
   {
     title: 'Make An Entrance',
     subtitle: 'Be the best-dressed person in every room you enter',
@@ -47,28 +53,28 @@ const FEATURED_CATEGORIES: ReadonlyArray<{
   cta: string;
   image: ImageSourcePropType;
 }> = [
-  {
-    id: 'cashmere',
-    title: 'Recycled Cashmere',
-    cta: 'Shop Women',
-    image: require('@/assets/images/girl1.jpg'),
-  },
-  {
-    id: 'coats',
-    title: 'Coats & Jackets',
-    cta: 'Shop Men',
-    image: require('@/assets/images/girl2.jpg'),
-  },
-  {
-    id: 'hoodies',
-    title: 'Organic Cotton Hoodies',
-    cta: 'Shop Now',
-    image: require('@/assets/images/girl3.jpg'),
-  },
-];
+    {
+      id: 'cashmere',
+      title: 'Recycled Cashmere',
+      cta: 'Shop Women',
+      image: require('@/assets/images/girl1.jpg'),
+    },
+    {
+      id: 'coats',
+      title: 'Coats & Jackets',
+      cta: 'Shop Men',
+      image: require('@/assets/images/girl2.jpg'),
+    },
+    {
+      id: 'hoodies',
+      title: 'Organic Cotton Hoodies',
+      cta: 'Shop Now',
+      image: require('@/assets/images/girl3.jpg'),
+    },
+  ];
 
 const HomeScreen: React.FC = () => {
-  const {width: screenWidth} = useWindowDimensions();
+  const { width: screenWidth } = useWindowDimensions();
   const [heroIndex, setHeroIndex] = useState(0);
 
   const heroHeight = useMemo(
@@ -102,39 +108,32 @@ const HomeScreen: React.FC = () => {
               accessibilityRole="button"
               accessibilityLabel="Search"
               hitSlop={12}
-              style={({pressed}) => [styles.iconHit, pressed && styles.pressed]}>
-              <Ionicons
-                name="search-outline"
-                size={24}
-                color={COLORS.darkGray}
+              style={({ pressed }) => [styles.iconHit, pressed && styles.pressed]}>
+              <SearchIcon
               />
             </Pressable>
             <Pressable
               accessibilityRole="button"
               accessibilityLabel="Wishlist"
               hitSlop={12}
-              style={({pressed}) => [styles.iconHit, pressed && styles.pressed]}>
-              <Ionicons
-                name="heart-outline"
-                size={24}
-                color={COLORS.darkGray}
+              style={({ pressed }) => [styles.iconHit, pressed && styles.pressed]}>
+              <HeartIcon
+
               />
             </Pressable>
             <Pressable
               accessibilityRole="button"
               accessibilityLabel="Notifications"
               hitSlop={12}
-              style={({pressed}) => [styles.iconHit, pressed && styles.pressed]}>
-              <Ionicons
-                name="notifications-outline"
-                size={24}
-                color={COLORS.darkGray}
+              style={({ pressed }) => [styles.iconHit, pressed && styles.pressed]}>
+              <WellIcon
+
               />
             </Pressable>
           </View>
         </View>
 
-        <View style={[styles.heroWrap, {height: heroHeight}]}>
+        <View style={[styles.heroWrap, { height: heroHeight }]}>
           <ScrollView
             horizontal
             pagingEnabled
@@ -146,7 +145,7 @@ const HomeScreen: React.FC = () => {
               <ImageBackground
                 key={slide.title}
                 source={HERO_IMAGE}
-                style={[styles.heroSlide, {width: screenWidth, height: heroHeight}]}
+                style={[styles.heroSlide, { width: screenWidth, height: heroHeight }]}
                 resizeMode="cover"
                 accessibilityIgnoresInvertColors>
                 <View style={styles.heroTextBlock}>
@@ -158,7 +157,7 @@ const HomeScreen: React.FC = () => {
                     <Pressable
                       accessibilityRole="button"
                       accessibilityLabel="Shop men"
-                      style={({pressed}) => [
+                      style={({ pressed }) => [
                         styles.heroOutlineBtn,
                         pressed && styles.pressed,
                       ]}>
@@ -169,7 +168,7 @@ const HomeScreen: React.FC = () => {
                     <Pressable
                       accessibilityRole="button"
                       accessibilityLabel="Shop women"
-                      style={({pressed}) => [
+                      style={({ pressed }) => [
                         styles.heroOutlineBtn,
                         pressed && styles.pressed,
                       ]}>
@@ -201,7 +200,7 @@ const HomeScreen: React.FC = () => {
               key={item.id}
               accessibilityRole="button"
               accessibilityLabel={`${item.title}. ${item.cta}`}
-              style={({pressed}) => [
+              style={({ pressed }) => [
                 styles.categoryCard,
                 pressed && styles.pressed,
               ]}>
@@ -264,7 +263,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: SPACING.lg,
-    paddingVertical: SPACING.md,
+    paddingVertical: SPACING.sm,
     backgroundColor: COLORS.white,
   },
   brandRow: {
@@ -286,6 +285,7 @@ const styles = StyleSheet.create({
   },
   iconHit: {
     padding: SPACING.xs,
+
   },
   pressed: {
     opacity: 0.65,
@@ -318,7 +318,7 @@ const styles = StyleSheet.create({
     lineHeight: 16,
     color: COLORS.splash,
     textAlign: 'center',
-   
+
   },
   heroActions: {
     flexDirection: 'row',
@@ -331,8 +331,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: COLORS.splash,
     borderRadius: 4,
-    paddingHorizontal:16,
-    paddingVertical:3
+    paddingHorizontal: 16,
+    paddingVertical: 3
   },
   heroOutlineBtnLabel: {
     fontFamily: fontFamilies.medium,
@@ -362,7 +362,7 @@ const styles = StyleSheet.create({
   },
   featuredRow: {
     flexDirection: 'row',
-    
+
   },
   categoryCard: {
     flex: 1,
