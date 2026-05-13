@@ -5,6 +5,7 @@ import {
   WellIcon,
 } from '@/assets/icons';
 import CustomText from '@/components/common/CustomText';
+import BrandBanner from '@/components/brand/BrandBanner';
 import LinkedProductCard from '@/components/product/LinkedProductCard';
 import type {LinkedProductItem} from '@/components/product/linkedProductTypes';
 import COLORS from '@/constants/colors';
@@ -336,6 +337,12 @@ const HomeScreen: React.FC = () => {
             )}
           />
         </View>
+
+        <BrandBanner
+          imageSource={require('@/assets/images/men3.png')}
+          title="H&M Winter essentials"
+          ctaLabel="Explore all products"
+        />
       </ScrollView>
     </SafeAreaView>
   );
