@@ -810,6 +810,7 @@ const styles = StyleSheet.create({
     marginTop: SPACING.xl,
     paddingHorizontal: SPACING.lg,
     paddingBottom: SPACING.md,
+    gap:10
   },
   newFallEyebrow: {
     textAlign: 'center',
@@ -827,7 +828,6 @@ const styles = StyleSheet.create({
     color: COLORS.mediumGray,
     paddingHorizontal: SPACING.sm,
     width:400,
-    marginVertical:10
   },
   newFallGrid: {
     marginTop: SPACING.lg,
