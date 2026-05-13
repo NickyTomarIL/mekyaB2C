@@ -7,7 +7,7 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 
 interface PasswordResetSuccessScreenProps {
-  onGoToLogin?: () => void;
+  onGoToLogin: () => void;
 }
 
 const PasswordResetSuccessScreen: React.FC<PasswordResetSuccessScreenProps> = ({
@@ -25,7 +25,7 @@ const PasswordResetSuccessScreen: React.FC<PasswordResetSuccessScreenProps> = ({
       <View style={styles.buttonWrap}>
         <CommonActionableButton
           label="Go to Login"
-          handleClick={onGoToLogin ?? (() => undefined)}
+          handleClick={onGoToLogin}
           height={52}
         />
       </View>

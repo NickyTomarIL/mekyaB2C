@@ -6,8 +6,11 @@ import PasswordResetSuccessScreen from '@/screens/Auth/ForgotPassword/PasswordRe
 import VerifyEmailOTPScreen from '@/screens/Auth/ForgotPassword/VerifyEmailOTPScreen';
 import VerifyPhoneOTPScreen from '@/screens/Auth/ForgotPassword/VerifyPhoneOTPScreen';
 import CreateNewPasswordScreen from '@/screens/Auth/ForgotPassword/CreateNewPasswordScreen';
+import type {RootStackParamList} from '@/navigation/types';
 import {SPACING} from '@/theme/spacing';
-import React, {useMemo, useState} from 'react';
+import {useNavigation} from '@react-navigation/native';
+import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import React, {useCallback, useMemo, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 
 interface ForgotPasswordFlowNavigatorProps {
@@ -34,7 +37,13 @@ const steps = [
 const ForgotPasswordFlowNavigator: React.FC<ForgotPasswordFlowNavigatorProps> = ({
   onRequestClose,
 }) => {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [index, setIndex] = useState(0);
+
+  const goToEmailLogin = useCallback((): void => {
+    onRequestClose?.();
+    navigation.navigate('Login');
+  }, [navigation, onRequestClose]);
   const isLastStep = index === steps.length - 1;
   const currentStep = steps[index];
 
@@ -97,7 +106,7 @@ const ForgotPasswordFlowNavigator: React.FC<ForgotPasswordFlowNavigatorProps> = 
       case 'createNewPassword':
         return <CreateNewPasswordScreen />;
       case 'success':
-        return <PasswordResetSuccessScreen />;
+        return <PasswordResetSuccessScreen onGoToLogin={goToEmailLogin} />;
       default:
         return null;
     }
