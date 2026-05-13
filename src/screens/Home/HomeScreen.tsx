@@ -235,6 +235,16 @@ const HomeScreen: React.FC = () => {
     return Math.min(200, Math.round(available * 0.42));
   }, [screenWidth]);
 
+  /** Explicit size avoids flex+aspectRatio + absolute Image layout bugs (esp. Android). */
+  const newFallTopTileLayout = useMemo(() => {
+    const sectionPad = SPACING.lg * 2;
+    const inner = screenWidth - sectionPad;
+    const gap = SPACING.md;
+    const tileW = Math.max(1, Math.floor((inner - gap * 2) / 3));
+    const tileH = Math.round((tileW * 4) / 3);
+    return {width: tileW, height: tileH};
+  }, [screenWidth]);
+
   const onHeroMomentumEnd = useCallback(
     (event: NativeSyntheticEvent<NativeScrollEvent>) => {
       const offsetX = event.nativeEvent.contentOffset.x;
@@ -523,7 +533,13 @@ const HomeScreen: React.FC = () => {
               {NEW_FALL_TOP_IMAGES.map((source, index) => (
                 <View
                   key={`new-fall-top-${index}`}
-                  style={styles.newFallTopCell}>
+                  style={[
+                    styles.newFallTopCell,
+                    {
+                      width: newFallTopTileLayout.width,
+                      height: newFallTopTileLayout.height,
+                    },
+                  ]}>
                   <Image
                     source={source}
                     style={styles.newFallTopImage}
@@ -818,7 +834,6 @@ const styles = StyleSheet.create({
     marginTop: SPACING.xl,
     paddingHorizontal: SPACING.lg,
     paddingBottom: SPACING.md,
-    gap:10
   },
   newFallEyebrow: {
     textAlign: 'center',
@@ -835,7 +850,8 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     color: COLORS.mediumGray,
     paddingHorizontal: SPACING.sm,
-    width:400,
+    alignSelf: 'center',
+    maxWidth: '100%',
   },
   newFallGrid: {
     marginTop: SPACING.lg,
@@ -845,15 +861,13 @@ const styles = StyleSheet.create({
     gap: SPACING.md,
   },
   newFallTopCell: {
-    flex: 1,
-    minWidth: 0,
-    aspectRatio: 3 / 4,
     borderRadius: 4,
     overflow: 'hidden',
     backgroundColor: COLORS.extraLightGray,
   },
   newFallTopImage: {
-    ...StyleSheet.absoluteFill,
+    width: '100%',
+    height: '100%',
   },
   newFallHero: {
     marginTop: SPACING.md,
