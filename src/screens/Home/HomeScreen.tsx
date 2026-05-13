@@ -813,8 +813,8 @@ const styles = StyleSheet.create({
   },
   newFallEyebrow: {
     textAlign: 'center',
-    fontFamily: fontFamilies.medium,
-    fontSize: 14,
+    fontFamily: fontFamilies.regular,
+    fontSize: 18,
     fontStyle: 'italic',
     color: COLORS.black,
   },
@@ -822,10 +822,12 @@ const styles = StyleSheet.create({
     marginTop: SPACING.sm,
     textAlign: 'center',
     fontFamily: fontFamilies.regular,
-    fontSize: 16,
+    fontSize: 20,
     lineHeight: 24,
-    color: COLORS.black,
+    color: COLORS.mediumGray,
     paddingHorizontal: SPACING.sm,
+    width:400,
+    marginVertical:10
   },
   newFallGrid: {
     marginTop: SPACING.lg,

@@ -13,6 +13,7 @@ export const COLORS = {
   extraLightGray: '#DADADA',
 
   lightGray: '#5B5B5B',
+  mediumGray: '#525252',
   darkGray: '#333333',
   orange: '#DE7921',
   purple: '#800080',
