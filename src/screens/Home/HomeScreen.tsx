@@ -838,7 +838,7 @@ const styles = StyleSheet.create({
     flex: 1,
     minWidth: 0,
     aspectRatio: 3 / 4,
-    borderRadius: 12,
+    borderRadius: 4,
     overflow: 'hidden',
     backgroundColor: COLORS.extraLightGray,
   },
@@ -849,12 +849,12 @@ const styles = StyleSheet.create({
     marginTop: SPACING.md,
     width: '100%',
     aspectRatio: 16 / 9,
-    borderRadius: 12,
+    borderRadius: 4,
     overflow: 'hidden',
     backgroundColor: COLORS.extraLightGray,
   },
   newFallHeroImageRadius: {
-    borderRadius: 12,
+    borderRadius: 4,
   },
   newFallHeroFooter: {
     position: 'absolute',
