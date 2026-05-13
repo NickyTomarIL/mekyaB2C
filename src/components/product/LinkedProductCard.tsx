@@ -14,6 +14,8 @@ const DISCOUNT_GREEN = '#15803d';
 interface LinkedProductCardProps {
   item: LinkedProductItem;
   cardWidth: number;
+  /** Carousel tiles use right margin; grid omits it and adds bottom margin. */
+  variant?: 'default' | 'grid';
   /** When false, hides the Quick add row (e.g. Fresh Finds layout). Default true. */
   showQuickAdd?: boolean;
   onQuickAdd?: (id: string) => void;
@@ -24,13 +26,19 @@ interface LinkedProductCardProps {
 const LinkedProductCard: React.FC<LinkedProductCardProps> = ({
   item,
   cardWidth,
+  variant = 'default',
   showQuickAdd = true,
   onQuickAdd,
   onToggleFavorite,
   onPressMoreColors,
 }) => {
   return (
-    <View style={[styles.card, {width: cardWidth}]}>
+    <View
+      style={[
+        styles.card,
+        variant === 'grid' && styles.cardGrid,
+        {width: cardWidth},
+      ]}>
       <View style={styles.imageWrap}>
         {item.imageSource ? (
           <Image
@@ -92,6 +100,10 @@ const LinkedProductCard: React.FC<LinkedProductCardProps> = ({
 const styles = StyleSheet.create({
   card: {
     marginRight: SPACING.md,
+  },
+  cardGrid: {
+    marginRight: 0,
+    marginBottom: SPACING.lg,
   },
   imageWrap: {
     height: 160,

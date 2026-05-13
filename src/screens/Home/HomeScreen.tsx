@@ -74,6 +74,58 @@ const FRESH_FINDS_ITEMS: LinkedProductItem[] = [
   },
 ];
 
+/** Four tiles in a 2×2 grid (project has jacket1–3.png; fourth reuses jacket1). */
+const JACKET_GRID_ITEMS: LinkedProductItem[] = [
+  {
+    id: 'jacket-grid-1',
+    title: 'Round Neck Long Sleeve Fitted Knit Topcsdd',
+    swatchColors: ['#1a1a1a', '#C4A574', '#6B7280', '#1e3a5f'],
+    moreColorsCount: 5,
+    price: '₹549',
+    mrp: 'MRP ₹849',
+    discount: '(10% off)',
+    rating: '5.0',
+    brandName: 'The Workshop Studio',
+    imageSource: require('@/assets/images/jacket1.png'),
+  },
+  {
+    id: 'jacket-grid-2',
+    title: 'Round Neck Long Sleeve Fitted Knit Topcsdd',
+    swatchColors: ['#1a1a1a', '#C4A574', '#6B7280', '#1e3a5f'],
+    moreColorsCount: 5,
+    price: '₹549',
+    mrp: 'MRP ₹849',
+    discount: '(10% off)',
+    rating: '5.0',
+    brandName: 'The Workshop Studio',
+    imageSource: require('@/assets/images/jacket2.png'),
+  },
+  {
+    id: 'jacket-grid-3',
+    title: 'Round Neck Long Sleeve Fitted Knit Topcsdd',
+    swatchColors: ['#1a1a1a', '#C4A574', '#6B7280', '#1e3a5f'],
+    moreColorsCount: 5,
+    price: '₹549',
+    mrp: 'MRP ₹849',
+    discount: '(10% off)',
+    rating: '5.0',
+    brandName: 'The Workshop Studio',
+    imageSource: require('@/assets/images/jacket3.png'),
+  },
+  {
+    id: 'jacket-grid-4',
+    title: 'Round Neck Long Sleeve Fitted Knit Topcsdd',
+    swatchColors: ['#1a1a1a', '#C4A574', '#6B7280', '#1e3a5f'],
+    moreColorsCount: 5,
+    price: '₹549',
+    mrp: 'MRP ₹849',
+    discount: '(10% off)',
+    rating: '5.0',
+    brandName: 'The Workshop Studio',
+    imageSource: require('@/assets/images/jacket1.png'),
+  },
+];
+
 const HERO_SLIDES: ReadonlyArray<{ title: string; subtitle: string }> = [
   {
     title: 'Make An Entrance',
@@ -128,6 +180,13 @@ const HomeScreen: React.FC = () => {
     const horizontalPad = SPACING.lg * 2;
     const available = screenWidth - horizontalPad;
     return Math.min(176, Math.round(available * 0.52));
+  }, [screenWidth]);
+
+  const jacketGridCardWidth = useMemo(() => {
+    const horizontalPad = SPACING.lg * 2;
+    const columnGap = SPACING.md;
+    const inner = screenWidth - horizontalPad;
+    return Math.max(0, Math.floor((inner - columnGap) / 2));
   }, [screenWidth]);
 
   const onHeroMomentumEnd = useCallback(
@@ -343,6 +402,20 @@ const HomeScreen: React.FC = () => {
           title="H&M Winter essentials"
           ctaLabel="Explore all products"
         />
+
+        <View style={styles.jacketGridSection}>
+          <View style={styles.jacketGrid}>
+            {JACKET_GRID_ITEMS.map(item => (
+              <LinkedProductCard
+                key={item.id}
+                item={item}
+                cardWidth={jacketGridCardWidth}
+                variant="grid"
+                showQuickAdd={false}
+              />
+            ))}
+          </View>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -533,6 +606,15 @@ const styles = StyleSheet.create({
   freshFindsList: {
     paddingHorizontal: SPACING.lg,
     paddingRight: SPACING.xl,
+  },
+  jacketGridSection: {
+    marginTop: SPACING.xl,
+    paddingHorizontal: SPACING.lg,
+  },
+  jacketGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
   },
 });
 
