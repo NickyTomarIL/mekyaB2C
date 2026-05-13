@@ -5,11 +5,14 @@ import {
   WellIcon,
 } from '@/assets/icons';
 import CustomText from '@/components/common/CustomText';
+import LinkedProductCard from '@/components/product/LinkedProductCard';
+import type {LinkedProductItem} from '@/components/product/linkedProductTypes';
 import COLORS from '@/constants/colors';
-import { fontFamilies } from '@/constants/fonts';
-import { SPACING } from '@/theme/spacing';
-import React, { useCallback, useMemo, useState } from 'react';
+import {fontFamilies} from '@/constants/fonts';
+import {SPACING} from '@/theme/spacing';
+import React, {useCallback, useMemo, useState} from 'react';
 import {
+  FlatList,
   ImageBackground,
   type ImageSourcePropType,
   NativeScrollEvent,
@@ -20,8 +23,9 @@ import {
   View,
   useWindowDimensions,
 } from 'react-native';
-import Svg, { Defs, LinearGradient, Rect, Stop } from 'react-native-svg';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import Svg, {Defs, LinearGradient, Rect, Stop} from 'react-native-svg';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const HEADER_ICON_SIZE = 24;
 
@@ -30,7 +34,44 @@ const LOGO_HEIGHT = 40;
 
 const HERO_IMAGE = require('@/assets/images/homeBanner.png');
 
-const LOGO_MARK_SIZE = 32;
+const FRESH_FINDS_ITEMS: LinkedProductItem[] = [
+  {
+    id: 'fresh-1',
+    title: 'Round Neck Long Sleeve Fitted Knit Topcsdd',
+    swatchColors: ['#1a1a1a', '#C4A574', '#6B7280', '#1e3a5f'],
+    moreColorsCount: 5,
+    price: '₹549',
+    mrp: 'MRP ₹849',
+    discount: '(10% off)',
+    rating: '5.0',
+    brandName: 'The Workshop Studio',
+    imageSource: require('@/assets/images/girl1.jpg'),
+  },
+  {
+    id: 'fresh-2',
+    title: 'Pure Cotton Slim Fit Casual Shirt',
+    swatchColors: ['#2563eb', '#1a1a1a', '#78716c'],
+    moreColorsCount: 3,
+    price: '₹649',
+    mrp: 'MRP ₹899',
+    discount: '(8% off)',
+    rating: '4.8',
+    brandName: 'The Workshop Studio',
+    imageSource: require('@/assets/images/girl2.jpg'),
+  },
+  {
+    id: 'fresh-3',
+    title: 'Relaxed Fit Organic Cotton Hoodie',
+    swatchColors: ['#365314', '#d4d4d4', '#171717'],
+    moreColorsCount: 4,
+    price: '₹899',
+    mrp: 'MRP ₹1,199',
+    discount: '(12% off)',
+    rating: '4.9',
+    brandName: 'The Workshop Studio',
+    imageSource: require('@/assets/images/girl3.jpg'),
+  },
+];
 
 const HERO_SLIDES: ReadonlyArray<{ title: string; subtitle: string }> = [
   {
@@ -74,13 +115,19 @@ const FEATURED_CATEGORIES: ReadonlyArray<{
   ];
 
 const HomeScreen: React.FC = () => {
-  const { width: screenWidth } = useWindowDimensions();
+  const {width: screenWidth} = useWindowDimensions();
   const [heroIndex, setHeroIndex] = useState(0);
 
   const heroHeight = useMemo(
     () => Math.min(200, Math.round(screenWidth * 1.12)),
     [screenWidth],
   );
+
+  const freshFindsCardWidth = useMemo(() => {
+    const horizontalPad = SPACING.lg * 2;
+    const available = screenWidth - horizontalPad;
+    return Math.min(176, Math.round(available * 0.52));
+  }, [screenWidth]);
 
   const onHeroMomentumEnd = useCallback(
     (event: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -110,6 +157,9 @@ const HomeScreen: React.FC = () => {
               hitSlop={12}
               style={({ pressed }) => [styles.iconHit, pressed && styles.pressed]}>
               <SearchIcon
+                width={HEADER_ICON_SIZE}
+                height={HEADER_ICON_SIZE}
+                color={COLORS.black}
               />
             </Pressable>
             <Pressable
@@ -118,7 +168,9 @@ const HomeScreen: React.FC = () => {
               hitSlop={12}
               style={({ pressed }) => [styles.iconHit, pressed && styles.pressed]}>
               <HeartIcon
-
+                width={HEADER_ICON_SIZE}
+                height={HEADER_ICON_SIZE}
+                color={COLORS.black}
               />
             </Pressable>
             <Pressable
@@ -127,7 +179,9 @@ const HomeScreen: React.FC = () => {
               hitSlop={12}
               style={({ pressed }) => [styles.iconHit, pressed && styles.pressed]}>
               <WellIcon
-
+                width={HEADER_ICON_SIZE}
+                height={HEADER_ICON_SIZE}
+                color={COLORS.black}
               />
             </Pressable>
           </View>
@@ -244,6 +298,43 @@ const HomeScreen: React.FC = () => {
               </ImageBackground>
             </Pressable>
           ))}
+        </View>
+
+        <View style={styles.freshFindsSection}>
+          <View style={styles.freshFindsHeader}>
+            <CustomText style={styles.freshFindsTitle}>Fresh Finds</CustomText>
+            <Pressable
+              accessibilityRole="link"
+              accessibilityLabel="Explore all products"
+              style={({pressed}) => [
+                styles.exploreAllRow,
+                pressed && styles.pressed,
+              ]}>
+              <CustomText style={styles.exploreAllText}>
+                Explore all products
+              </CustomText>
+              <Ionicons
+                name="arrow-up-outline"
+                size={16}
+                color={COLORS.splash}
+                style={styles.exploreAllIcon}
+              />
+            </Pressable>
+          </View>
+          <FlatList
+            horizontal
+            data={FRESH_FINDS_ITEMS}
+            keyExtractor={item => item.id}
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.freshFindsList}
+            renderItem={({item}) => (
+              <LinkedProductCard
+                item={item}
+                cardWidth={freshFindsCardWidth}
+                showQuickAdd={false}
+              />
+            )}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -401,6 +492,40 @@ const styles = StyleSheet.create({
     fontFamily: fontFamilies.medium,
     fontSize: 12,
     color: COLORS.black,
+  },
+  freshFindsSection: {
+    marginTop: SPACING.xl,
+    paddingBottom: SPACING.md,
+  },
+  freshFindsHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: SPACING.lg,
+    marginBottom: SPACING.lg,
+  },
+  freshFindsTitle: {
+    fontFamily: fontFamilies.regular,
+    fontSize: 16,
+    color: COLORS.black,
+  },
+  exploreAllRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  exploreAllText: {
+    fontFamily: fontFamilies.regular,
+    fontSize: 12,
+    color: COLORS.black,
+    textDecorationLine: 'underline',
+  },
+  exploreAllIcon: {
+    marginLeft: SPACING.xs,
+    transform: [{rotate: '45deg'}],
+  },
+  freshFindsList: {
+    paddingHorizontal: SPACING.lg,
+    paddingRight: SPACING.xl,
   },
 });
 

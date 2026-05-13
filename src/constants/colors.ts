@@ -14,7 +14,7 @@ export const COLORS = {
 
   lightGray: '#5B5B5B',
   darkGray: '#333333',
-  orange: '#FFA500',
+  orange: '#DE7921',
   purple: '#800080',
   teal: '#008080',
   navy: '#001F3F',

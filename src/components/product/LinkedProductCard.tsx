@@ -6,7 +6,7 @@ import COLORS from '@/constants/colors';
 import {fontFamilies} from '@/constants/fonts';
 import {SPACING} from '@/theme/spacing';
 import React from 'react';
-import {Pressable, StyleSheet, View} from 'react-native';
+import {Image, Pressable, StyleSheet, View} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const DISCOUNT_GREEN = '#15803d';
@@ -14,6 +14,8 @@ const DISCOUNT_GREEN = '#15803d';
 interface LinkedProductCardProps {
   item: LinkedProductItem;
   cardWidth: number;
+  /** When false, hides the Quick add row (e.g. Fresh Finds layout). Default true. */
+  showQuickAdd?: boolean;
   onQuickAdd?: (id: string) => void;
   onToggleFavorite?: (id: string) => void;
   onPressMoreColors?: (id: string) => void;
@@ -22,6 +24,7 @@ interface LinkedProductCardProps {
 const LinkedProductCard: React.FC<LinkedProductCardProps> = ({
   item,
   cardWidth,
+  showQuickAdd = true,
   onQuickAdd,
   onToggleFavorite,
   onPressMoreColors,
@@ -29,7 +32,16 @@ const LinkedProductCard: React.FC<LinkedProductCardProps> = ({
   return (
     <View style={[styles.card, {width: cardWidth}]}>
       <View style={styles.imageWrap}>
-        <Ionicons name="shirt-outline" size={48} color={COLORS.textMuted} />
+        {item.imageSource ? (
+          <Image
+            source={item.imageSource}
+            style={styles.productImage}
+            resizeMode="cover"
+            accessibilityIgnoresInvertColors
+          />
+        ) : (
+          <Ionicons name="shirt-outline" size={48} color={COLORS.textMuted} />
+        )}
         <Pressable
           accessibilityRole="button"
           accessibilityLabel={`Save ${item.title} to wishlist`}
@@ -57,14 +69,22 @@ const LinkedProductCard: React.FC<LinkedProductCardProps> = ({
 
       <LinkedProductRating ratingLabel={item.rating} />
 
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel={`Quick add ${item.title} to cart`}
-        onPress={() => onQuickAdd?.(item.id)}
-        style={({pressed}) => [styles.quickAdd, pressed ? styles.pressed : null]}>
-        <CustomText style={styles.quickAddText}>Quick add</CustomText>
-        <Ionicons name="cart-outline" size={16} color={COLORS.white} />
-      </Pressable>
+      {item.brandName ? (
+        <CustomText style={styles.brandName} numberOfLines={1}>
+          {item.brandName}
+        </CustomText>
+      ) : null}
+
+      {showQuickAdd ? (
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={`Quick add ${item.title} to cart`}
+          onPress={() => onQuickAdd?.(item.id)}
+          style={({pressed}) => [styles.quickAdd, pressed ? styles.pressed : null]}>
+          <CustomText style={styles.quickAddText}>Quick add</CustomText>
+          <Ionicons name="cart-outline" size={16} color={COLORS.white} />
+        </Pressable>
+      ) : null}
     </View>
   );
 };
@@ -81,6 +101,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: SPACING.sm,
     position: 'relative',
+    overflow: 'hidden',
+  },
+  productImage: {
+    ...StyleSheet.absoluteFill,
+    borderRadius: 4,
+    height: '100%',
+    width: '100%',
   },
   favoriteBtn: {
     position: 'absolute',
@@ -101,10 +128,8 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: fontFamilies.medium,
     fontSize: 12,
-    lineHeight: 17,
     color: COLORS.darkGray,
-    marginBottom: SPACING.sm,
-    minHeight: 34,
+    marginBottom: SPACING.xs,
   },
   priceRow: {
     flexDirection: 'row',
@@ -128,6 +153,13 @@ const styles = StyleSheet.create({
     fontFamily: fontFamilies.regular,
     fontSize: 11,
     color: DISCOUNT_GREEN,
+  },
+  brandName: {
+    fontFamily: fontFamilies.bold,
+    fontSize: 10,
+    color: COLORS.black,
+    textDecorationLine: 'underline',
+    marginTop: -SPACING.xs,
   },
   quickAdd: {
     backgroundColor: COLORS.splash,
