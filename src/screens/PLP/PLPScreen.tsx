@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.lg,
     padding: SPACING.md,
     backgroundColor: COLORS.extraLightGray,
-    borderRadius: 8,
+    borderRadius: 4,
   },
 });
 

@@ -670,7 +670,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   categoryImageRadius: {
-    // borderRadius: 8,
+    // borderRadius: 4,
   },
 
   categoryFooter: {
@@ -698,7 +698,7 @@ const styles = StyleSheet.create({
     color: COLORS.black,
   },
   freshFindsSection: {
-    marginTop: SPACING.xl,
+    marginTop: SPACING.lg,
     paddingBottom: SPACING.md,
   },
   freshFindsHeader: {
@@ -706,7 +706,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: SPACING.lg,
-    marginBottom: SPACING.lg,
+    marginBottom: SPACING.xxl,
   },
   freshFindsTitle: {
     fontFamily: fontFamilies.regular,
@@ -732,7 +732,7 @@ const styles = StyleSheet.create({
     paddingRight: SPACING.xl,
   },
   jacketGridSection: {
-    marginTop: SPACING.xl,
+    marginTop: SPACING.xxl,
     paddingHorizontal: SPACING.lg,
   },
   jacketGrid: {
@@ -741,7 +741,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   watchWearSection: {
-    marginTop: SPACING.xl,
+    marginTop: SPACING.sm,
     paddingBottom: SPACING.md,
   },
   watchWearHeader: {
@@ -827,10 +827,10 @@ const styles = StyleSheet.create({
   newFallCta: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#DFDFDF',
+    backgroundColor: '#EEEEEE',
     paddingHorizontal: SPACING.xl,
     paddingVertical: SPACING.sm + 2,
-    borderRadius: 8,
+    borderRadius: 4,
   },
   newFallCtaLabel: {
     fontFamily: fontFamilies.regular,

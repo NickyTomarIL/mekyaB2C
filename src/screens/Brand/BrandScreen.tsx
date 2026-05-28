@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     opacity: 0.55,
     fontStyle: 'italic',
     backgroundColor: COLORS.extraLightGray,
-    borderRadius: 8,
+    borderRadius: 4,
   },
 });
 

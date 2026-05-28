@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   card: {
-    borderRadius: 8,
+    borderRadius: 4,
     overflow: 'hidden',
   },
   pressed: {
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   imageRadius: {
-    borderRadius: 8,
+    borderRadius: 4,
   },
   textBlock: {
     paddingLeft: SPACING.xl,
