@@ -7,6 +7,7 @@ import ForgotPasswordEmailScreen from '@/screens/Auth/ForgotPassword/ForgotPassw
 import LoginWithEmailScreen from '@/screens/Auth/Login/LoginWithEmailScreen';
 import LoginWithPhoneScreen from '@/screens/Auth/Login/LoginWithPhoneScreen';
 import PhoneOTPVerificationScreen from '@/screens/Auth/Login/PhoneOTPVerificationScreen';
+import PDPScreen from '@/screens/PDP/PDPScreen';
 import PLPScreen from '@/screens/PLP/PLPScreen';
 import SearchScreen from '@/screens/Search/SearchScreen';
 import SplashScreen from '@/screens/SplashScreen';
@@ -35,6 +36,7 @@ export function RootNavigator(): React.JSX.Element {
       <Stack.Screen name="Search" component={SearchScreen} />
       <Stack.Screen name="Main" component={MainTabNavigator} />
       <Stack.Screen name="ProductListing" component={PLPScreen} />
+      <Stack.Screen name="ProductDetail" component={PDPScreen} />
     </Stack.Navigator>
   );
 }

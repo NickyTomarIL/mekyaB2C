@@ -25,6 +25,7 @@ interface LinkedProductCardProps {
   onBuyNow?: (id: string) => void;
   onToggleFavorite?: (id: string) => void;
   onPressMoreColors?: (id: string) => void;
+  onPress?: (id: string) => void;
 }
 
 const LinkedProductCard: React.FC<LinkedProductCardProps> = ({
@@ -38,6 +39,7 @@ const LinkedProductCard: React.FC<LinkedProductCardProps> = ({
   onBuyNow,
   onToggleFavorite,
   onPressMoreColors,
+  onPress,
 }) => {
   const resolvedActionMode =
     actionButtonsMode ?? (showQuickAdd ? 'quickAdd' : 'none');
@@ -49,49 +51,56 @@ const LinkedProductCard: React.FC<LinkedProductCardProps> = ({
         variant === 'grid' && styles.cardGrid,
         {width: cardWidth},
       ]}>
-      <View style={styles.imageWrap}>
-        {item.imageSource ? (
-          <Image
-            source={item.imageSource}
-            style={styles.productImage}
-            resizeMode="cover"
-            accessibilityIgnoresInvertColors
-          />
-        ) : (
-          <Ionicons name="shirt-outline" size={48} color={COLORS.textMuted} />
-        )}
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel={`Save ${item.title} to wishlist`}
-          onPress={() => onToggleFavorite?.(item.id)}
-          style={({pressed}) => [styles.favoriteBtn, pressed ? styles.pressed : null]}>
-          <Ionicons name="heart-outline" size={16} color={COLORS.black} />
-        </Pressable>
-      </View>
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={`View ${item.title}`}
+        disabled={!onPress}
+        onPress={() => onPress?.(item.id)}
+        style={({pressed}) => [pressed && onPress ? styles.pressed : null]}>
+        <View style={styles.imageWrap}>
+          {item.imageSource ? (
+            <Image
+              source={item.imageSource}
+              style={styles.productImage}
+              resizeMode="cover"
+              accessibilityIgnoresInvertColors
+            />
+          ) : (
+            <Ionicons name="shirt-outline" size={48} color={COLORS.textMuted} />
+          )}
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={`Save ${item.title} to wishlist`}
+            onPress={() => onToggleFavorite?.(item.id)}
+            style={({pressed}) => [styles.favoriteBtn, pressed ? styles.pressed : null]}>
+            <Ionicons name="heart-outline" size={16} color={COLORS.black} />
+          </Pressable>
+        </View>
 
-      <CustomText numberOfLines={2} style={styles.title}>
-        {item.title}
-      </CustomText>
-
-      <LinkedProductColorSwatches
-        colors={item.swatchColors}
-        moreCount={item.moreColorsCount}
-        onPressMore={() => onPressMoreColors?.(item.id)}
-      />
-
-      <View style={styles.priceRow}>
-        <CustomText style={styles.price}>{item.price}</CustomText>
-        <CustomText style={styles.mrp}>{item.mrp}</CustomText>
-        <CustomText style={styles.discount}>{item.discount}</CustomText>
-      </View>
-
-      <LinkedProductRating ratingLabel={item.rating} />
-
-      {item.brandName ? (
-        <CustomText style={styles.brandName} numberOfLines={1}>
-          {item.brandName}
+        <CustomText numberOfLines={2} style={styles.title}>
+          {item.title}
         </CustomText>
-      ) : null}
+
+        <LinkedProductColorSwatches
+          colors={item.swatchColors}
+          moreCount={item.moreColorsCount}
+          onPressMore={() => onPressMoreColors?.(item.id)}
+        />
+
+        <View style={styles.priceRow}>
+          <CustomText style={styles.price}>{item.price}</CustomText>
+          <CustomText style={styles.mrp}>{item.mrp}</CustomText>
+          <CustomText style={styles.discount}>{item.discount}</CustomText>
+        </View>
+
+        <LinkedProductRating ratingLabel={item.rating} />
+
+        {item.brandName ? (
+          <CustomText style={styles.brandName} numberOfLines={1}>
+            {item.brandName}
+          </CustomText>
+        ) : null}
+      </Pressable>
 
       {resolvedActionMode === 'quickAdd' ? (
         <Pressable

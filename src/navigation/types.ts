@@ -46,6 +46,12 @@ export type RootStackParamList = {
         title?: string;
       }
     | undefined;
+  ProductDetail:
+    | {
+        productId?: string;
+        source?: 'plp' | 'home' | 'reels' | 'pdp';
+      }
+    | undefined;
 };
 
 declare global {

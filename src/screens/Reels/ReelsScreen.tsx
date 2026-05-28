@@ -5,6 +5,7 @@ import COLORS from '@/constants/colors';
 import {fontFamilies} from '@/constants/fonts';
 import {FRESH_FINDS_ITEMS, SPOTLIGHT_REEL_ITEMS} from '@/data/homeDiscoverFeed';
 import {STYLE_STORY_BRANDS} from '@/data/reelsDiscoverFeed';
+import {useNavigateToProductDetail} from '@/navigation/useNavigateToProductDetail';
 import {SPACING} from '@/theme/spacing';
 import React, {useMemo} from 'react';
 import {
@@ -20,6 +21,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 const ReelsScreen: React.FC = () => {
+  const navigateToProductDetail = useNavigateToProductDetail();
   const {width: screenWidth} = useWindowDimensions();
 
   const freshFindsCardWidth = useMemo(() => {
@@ -136,6 +138,7 @@ const ReelsScreen: React.FC = () => {
                 item={item}
                 cardWidth={freshFindsCardWidth}
                 showQuickAdd={false}
+                onPress={productId => navigateToProductDetail(productId, 'reels')}
               />
             )}
           />

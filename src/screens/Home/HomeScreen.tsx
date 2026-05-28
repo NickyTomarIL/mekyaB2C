@@ -22,6 +22,7 @@ import {
   SPOTLIGHT_REEL_ITEMS,
 } from '@/data/homeDiscoverFeed';
 import {fontFamilies} from '@/constants/fonts';
+import {useNavigateToProductDetail} from '@/navigation/useNavigateToProductDetail';
 import type {RootStackParamList} from '@/navigation/types';
 import {SPACING} from '@/theme/spacing';
 import React, {useCallback, useId, useMemo, useState} from 'react';
@@ -120,6 +121,8 @@ const HomeScreen: React.FC = () => {
   const navigateToSearch = useCallback(() => {
     navigation.navigate('Search');
   }, [navigation]);
+
+  const navigateToProductDetail = useNavigateToProductDetail();
 
   const headerActions = useMemo<HeaderActionItem[]>(
     () => [
@@ -327,6 +330,7 @@ const HomeScreen: React.FC = () => {
                 item={item}
                 cardWidth={freshFindsCardWidth}
                 showQuickAdd={false}
+                onPress={productId => navigateToProductDetail(productId, 'home')}
               />
             )}
           />
@@ -348,6 +352,7 @@ const HomeScreen: React.FC = () => {
                 cardWidth={jacketGridCardWidth}
                 variant="grid"
                 showQuickAdd={false}
+                onPress={productId => navigateToProductDetail(productId, 'home')}
               />
             ))}
           </View>

@@ -17,10 +17,11 @@ import {
 export interface LinkedProductProps {
   /** Section heading (default matches design). */
   title?: string;
-  items: LinkedProductItem[];
+  items: ReadonlyArray<LinkedProductItem>;
   onQuickAdd?: (id: string) => void;
   onToggleFavorite?: (id: string) => void;
   onPressMoreColors?: (id: string) => void;
+  onPressProduct?: (id: string) => void;
   /** Merge with outer section wrapper (e.g. `{paddingHorizontal: 0}` when parent scroll view pads). */
   contentContainerStyle?: StyleProp<ViewStyle>;
 }
@@ -31,6 +32,7 @@ const LinkedProduct: React.FC<LinkedProductProps> = ({
   onQuickAdd,
   onToggleFavorite,
   onPressMoreColors,
+  onPressProduct,
   contentContainerStyle,
 }) => {
   const {width: windowWidth} = useWindowDimensions();
@@ -57,6 +59,7 @@ const LinkedProduct: React.FC<LinkedProductProps> = ({
             onQuickAdd={onQuickAdd}
             onToggleFavorite={onToggleFavorite}
             onPressMoreColors={onPressMoreColors}
+            onPress={onPressProduct}
           />
         )}
       />

@@ -3,11 +3,23 @@ import CustomText from '@/components/common/CustomText';
 import HeaderActionGroup, {
   type HeaderActionItem,
 } from '@/components/common/HeaderActionGroup';
+import PlpFilterModal from '@/components/plp/PlpFilterModal';
+import PlpSortModal from '@/components/plp/PlpSortModal';
 import LinkedProductCard from '@/components/product/LinkedProductCard';
 import COLORS from '@/constants/colors';
 import {fontFamilies} from '@/constants/fonts';
+import {useNavigateToProductDetail} from '@/navigation/useNavigateToProductDetail';
 import type {RootStackParamList} from '@/navigation/types';
-import {PLP_HERO_BANNERS, PLP_PRODUCTS} from '@/data/plpFeed';
+import {
+  PLP_DEFAULT_SORT_ID,
+  PLP_FILTER_CONFIG,
+  PLP_FILTER_DEFAULTS,
+  PLP_FILTER_SECTION_ORDER,
+  PLP_HERO_BANNERS,
+  PLP_PRODUCTS,
+  PLP_SORT_OPTIONS,
+  type PlpFilterDraftState,
+} from '@/data/plpFeed';
 import {SPACING} from '@/theme/spacing';
 import {useNavigation, useRoute, type RouteProp} from '@react-navigation/native';
 import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
@@ -23,7 +35,6 @@ import {
   View,
   useWindowDimensions,
 } from 'react-native';
-import Svg, {Defs, LinearGradient, Rect, Stop} from 'react-native-svg';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
@@ -33,6 +44,11 @@ const PLPScreen: React.FC = () => {
   const route = useRoute<RouteProp<RootStackParamList, 'ProductListing'>>();
   const {width: screenWidth} = useWindowDimensions();
   const [heroIndex, setHeroIndex] = useState(0);
+  const [isSortModalVisible, setSortModalVisible] = useState(false);
+  const [isFilterModalVisible, setFilterModalVisible] = useState(false);
+  const [appliedSortId, setAppliedSortId] = useState(PLP_DEFAULT_SORT_ID);
+  const [appliedFilters, setAppliedFilters] =
+    useState<PlpFilterDraftState>(PLP_FILTER_DEFAULTS);
   const heroScrollRef = useRef<ScrollView>(null);
 
   const cardWidth = useMemo(() => {
@@ -74,7 +90,13 @@ const PLPScreen: React.FC = () => {
     [heroWidth],
   );
 
+  const navigateToProductDetail = useNavigateToProductDetail();
+
   const title = route.params?.title ?? 'Product listing';
+  const activeSortLabel = useMemo(
+    () => PLP_SORT_OPTIONS.find(item => item.id === appliedSortId)?.label ?? 'Sort',
+    [appliedSortId],
+  );
 
   const headerActions = useMemo<HeaderActionItem[]>(
     () => [
@@ -141,8 +163,8 @@ const PLPScreen: React.FC = () => {
                     key={banner.id}
                     source={banner.image}
                     resizeMode="cover"
-                    style={[styles.heroSlide, {width: heroWidth, height: heroHeight}]}>
-                  </ImageBackground>
+                    style={[styles.heroSlide, {width: heroWidth, height: heroHeight}]}
+                  />
                 ))}
               </ScrollView>
 
@@ -178,6 +200,7 @@ const PLPScreen: React.FC = () => {
               <Pressable
                 accessibilityRole="button"
                 accessibilityLabel="Filter products"
+                onPress={() => setFilterModalVisible(true)}
                 style={({pressed}) => [
                   styles.filterSortAction,
                   pressed && styles.pressed,
@@ -196,6 +219,7 @@ const PLPScreen: React.FC = () => {
               <Pressable
                 accessibilityRole="button"
                 accessibilityLabel="Sort products"
+                onPress={() => setSortModalVisible(true)}
                 style={({pressed}) => [
                   styles.filterSortAction,
                   pressed && styles.pressed,
@@ -206,14 +230,46 @@ const PLPScreen: React.FC = () => {
                   color={COLORS.black}
                   style={styles.filterSortIcon}
                 />
-                <CustomText style={styles.filterSortText}>Sort</CustomText>
+                <CustomText style={styles.filterSortText}>{activeSortLabel}</CustomText>
               </Pressable>
             </View>
           </View>
         }
         renderItem={({item}) => (
-          <LinkedProductCard showQuickAdd={false} actionButtonsMode="cartAndBuy" item={item} cardWidth={cardWidth} variant="grid" />
+          <LinkedProductCard
+            showQuickAdd={false}
+            actionButtonsMode="cartAndBuy"
+            item={item}
+            cardWidth={cardWidth}
+            variant="grid"
+            onPress={productId => navigateToProductDetail(productId, 'plp')}
+          />
         )}
+      />
+
+      <PlpSortModal
+        visible={isSortModalVisible}
+        options={PLP_SORT_OPTIONS}
+        selectedSortId={appliedSortId}
+        defaultSortId={PLP_DEFAULT_SORT_ID}
+        onClose={() => setSortModalVisible(false)}
+        onApply={nextSortId => {
+          setAppliedSortId(nextSortId);
+          setSortModalVisible(false);
+        }}
+      />
+
+      <PlpFilterModal
+        visible={isFilterModalVisible}
+        sectionOrder={PLP_FILTER_SECTION_ORDER}
+        config={PLP_FILTER_CONFIG}
+        appliedFilters={appliedFilters}
+        defaultFilters={PLP_FILTER_DEFAULTS}
+        onClose={() => setFilterModalVisible(false)}
+        onApply={nextFilters => {
+          setAppliedFilters(nextFilters);
+          setFilterModalVisible(false);
+        }}
       />
     </SafeAreaView>
   );
