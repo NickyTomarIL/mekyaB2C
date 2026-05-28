@@ -10,6 +10,7 @@ import PdpFulfillmentBlock from '@/components/pdp/PdpFulfillmentBlock';
 import PdpImageGallery from '@/components/pdp/PdpImageGallery';
 import PdpPriceBlock from '@/components/pdp/PdpPriceBlock';
 import PdpReviewsSection from '@/components/pdp/PdpReviewsSection';
+import PdpSizeChartModal from '@/components/pdp/PdpSizeChartModal';
 import PdpVariantSelector from '@/components/pdp/PdpVariantSelector';
 import LinkedProduct from '@/components/product/LinkedProduct';
 import COLORS from '@/constants/colors';
@@ -43,9 +44,10 @@ import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React, {useMemo, useState} from 'react';
 import {Pressable, ScrollView, StyleSheet, View} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 
 const PDPScreen: React.FC = () => {
+  const insets = useSafeAreaInsets();
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [selectedColorId, setSelectedColorId] = useState<string>(
@@ -59,6 +61,7 @@ const PDPScreen: React.FC = () => {
   const [reviewSort, setReviewSort] = useState<PdpReviewSortOption>(
     PDP_REVIEW_SORT_OPTIONS[0],
   );
+  const [sizeChartVisible, setSizeChartVisible] = useState(false);
 
   const navigateToProductDetail = useNavigateToProductDetail();
 
@@ -86,7 +89,7 @@ const PDPScreen: React.FC = () => {
   };
 
   return (
-    <SafeAreaView style={styles.safe} edges={['top', 'left', 'right']}>
+    <SafeAreaView style={styles.safe} edges={['top', 'left', 'right', 'bottom']}>
       <View style={styles.header}>
         <Pressable
           accessibilityRole="button"
@@ -105,7 +108,10 @@ const PDPScreen: React.FC = () => {
 
       <ScrollView
         style={styles.scroll}
-        contentContainerStyle={styles.scrollContent}
+        contentContainerStyle={[
+          styles.scrollContent,
+          {paddingBottom: Math.max(insets.bottom, SPACING.massive)},
+        ]}
         showsVerticalScrollIndicator={false}>
         <PdpBreadcrumbs items={PDP_BREADCRUMBS} />
 
@@ -158,6 +164,7 @@ const PDPScreen: React.FC = () => {
             selectedSizeId={selectedSizeId}
             onSelectColor={setSelectedColorId}
             onSelectSize={setSelectedSizeId}
+            onPressSizeGuide={() => setSizeChartVisible(true)}
           />
 
           <Pressable
@@ -203,6 +210,11 @@ const PDPScreen: React.FC = () => {
           onPressProduct={productId => navigateToProductDetail(productId, 'pdp')}
         />
       </ScrollView>
+
+      <PdpSizeChartModal
+        visible={sizeChartVisible}
+        onClose={() => setSizeChartVisible(false)}
+      />
     </SafeAreaView>
   );
 };
