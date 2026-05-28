@@ -23,6 +23,7 @@ export type ProfileStackParamList = {
  */
 export type MainTabParamList = {
   Home: undefined;
+  Search: undefined;
   Category: undefined;
   Reels: undefined;
   Cart: undefined;
@@ -39,6 +40,12 @@ export type RootStackParamList = {
   LoginWithPhone: undefined;
   PhoneOTPVerification: undefined;
   Main: NavigatorScreenParams<MainTabParamList> | undefined;
+  ProductListing:
+    | {
+        source?: 'fresh-finds' | 'brand-banner';
+        title?: string;
+      }
+    | undefined;
 };
 
 declare global {

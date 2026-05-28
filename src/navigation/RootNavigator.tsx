@@ -7,6 +7,7 @@ import ForgotPasswordEmailScreen from '@/screens/Auth/ForgotPassword/ForgotPassw
 import LoginWithEmailScreen from '@/screens/Auth/Login/LoginWithEmailScreen';
 import LoginWithPhoneScreen from '@/screens/Auth/Login/LoginWithPhoneScreen';
 import PhoneOTPVerificationScreen from '@/screens/Auth/Login/PhoneOTPVerificationScreen';
+import PLPScreen from '@/screens/PLP/PLPScreen';
 import SplashScreen from '@/screens/SplashScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -31,6 +32,7 @@ export function RootNavigator(): React.JSX.Element {
         component={PhoneOTPVerificationScreen}
       />
       <Stack.Screen name="Main" component={MainTabNavigator} />
+      <Stack.Screen name="ProductListing" component={PLPScreen} />
     </Stack.Navigator>
   );
 }

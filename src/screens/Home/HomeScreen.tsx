@@ -5,20 +5,33 @@ import {
   WellIcon,
 } from '@/assets/icons';
 import CustomText from '@/components/common/CustomText';
+import HeaderActionGroup, {
+  type HeaderActionItem,
+} from '@/components/common/HeaderActionGroup';
 import BrandBanner from '@/components/brand/BrandBanner';
 import LinkedProductCard from '@/components/product/LinkedProductCard';
 import {ReelPreviewCard} from '@/components/reels';
-import type {LinkedProductItem} from '@/components/product/linkedProductTypes';
 import COLORS from '@/constants/colors';
-import {FRESH_FINDS_ITEMS, SPOTLIGHT_REEL_ITEMS} from '@/data/homeDiscoverFeed';
+import {
+  FEATURED_CATEGORIES,
+  FRESH_FINDS_ITEMS,
+  HERO_SLIDES,
+  JACKET_GRID_ITEMS,
+  NEW_FALL_HERO_IMAGE,
+  NEW_FALL_TOP_IMAGES,
+  SPOTLIGHT_REEL_ITEMS,
+} from '@/data/homeDiscoverFeed';
 import {fontFamilies} from '@/constants/fonts';
+import type {RootStackParamList} from '@/navigation/types';
 import {SPACING} from '@/theme/spacing';
 import React, {useCallback, useId, useMemo, useState} from 'react';
+import {useNavigation, type CompositeNavigationProp} from '@react-navigation/native';
+import type {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
+import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {
   FlatList,
   Image,
   ImageBackground,
-  type ImageSourcePropType,
   NativeScrollEvent,
   NativeSyntheticEvent,
   Pressable,
@@ -30,116 +43,19 @@ import {
 import Svg, {Defs, LinearGradient, Rect, Stop} from 'react-native-svg';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {SafeAreaView} from 'react-native-safe-area-context';
-
-const HEADER_ICON_SIZE = 24;
+import type {MainTabParamList} from '@/navigation/types';
 
 const LOGO_WIDTH = 100;
 const LOGO_HEIGHT = 40;
 
 const HERO_IMAGE = require('@/assets/images/homeBanner.png');
 
-/** Four tiles in a 2×2 grid (project has jacket1–3.png; fourth reuses jacket1). */
-const JACKET_GRID_ITEMS: LinkedProductItem[] = [
-  {
-    id: 'jacket-grid-1',
-    title: 'Round Neck Long Sleeve Fitted Knit Topcsdd',
-    swatchColors: ['#1a1a1a', '#C4A574', '#6B7280', '#1e3a5f'],
-    moreColorsCount: 5,
-    price: '₹549',
-    mrp: 'MRP ₹849',
-    discount: '(10% off)',
-    rating: '5.0',
-    brandName: 'The Workshop Studio',
-    imageSource: require('@/assets/images/jacket1.png'),
-  },
-  {
-    id: 'jacket-grid-2',
-    title: 'Round Neck Long Sleeve Fitted Knit Topcsdd',
-    swatchColors: ['#1a1a1a', '#C4A574', '#6B7280', '#1e3a5f'],
-    moreColorsCount: 5,
-    price: '₹549',
-    mrp: 'MRP ₹849',
-    discount: '(10% off)',
-    rating: '5.0',
-    brandName: 'The Workshop Studio',
-    imageSource: require('@/assets/images/jacket2.png'),
-  },
-  {
-    id: 'jacket-grid-3',
-    title: 'Round Neck Long Sleeve Fitted Knit Topcsdd',
-    swatchColors: ['#1a1a1a', '#C4A574', '#6B7280', '#1e3a5f'],
-    moreColorsCount: 5,
-    price: '₹549',
-    mrp: 'MRP ₹849',
-    discount: '(10% off)',
-    rating: '5.0',
-    brandName: 'The Workshop Studio',
-    imageSource: require('@/assets/images/jacket3.png'),
-  },
-  {
-    id: 'jacket-grid-4',
-    title: 'Round Neck Long Sleeve Fitted Knit Topcsdd',
-    swatchColors: ['#1a1a1a', '#C4A574', '#6B7280', '#1e3a5f'],
-    moreColorsCount: 5,
-    price: '₹549',
-    mrp: 'MRP ₹849',
-    discount: '(10% off)',
-    rating: '5.0',
-    brandName: 'The Workshop Studio',
-    imageSource: require('@/assets/images/jacket1.png'),
-  },
-];
-
-/** New Fall Collection: top row + full-width hero (season assets). */
-const NEW_FALL_TOP_IMAGES: ReadonlyArray<ImageSourcePropType> = [
-  require('@/assets/images/seasonImage1.jpg'),
-  require('@/assets/images/seasonImage2.jpg'),
-  require('@/assets/images/seasonImage3.jpg'),
-];
-const NEW_FALL_HERO_IMAGE = require('@/assets/images/seasonImage4.jpg');
-
-const HERO_SLIDES: ReadonlyArray<{ title: string; subtitle: string }> = [
-  {
-    title: 'Make An Entrance',
-    subtitle: 'Be the best-dressed person in every room you enter',
-  },
-  {
-    title: 'New Arrivals',
-    subtitle: 'Fresh styles for the season ahead',
-  },
-  {
-    title: 'Sustainable Style',
-    subtitle: 'Thoughtfully made pieces you can feel good in',
-  },
-];
-
-const FEATURED_CATEGORIES: ReadonlyArray<{
-  id: string;
-  title: string;
-  cta: string;
-  image: ImageSourcePropType;
-}> = [
-    {
-      id: 'cashmere',
-      title: 'Recycled Cashmere',
-      cta: 'Shop Women',
-      image: require('@/assets/images/girl1.jpg'),
-    },
-    {
-      id: 'coats',
-      title: 'Coats & Jackets',
-      cta: 'Shop Men',
-      image: require('@/assets/images/girl2.jpg'),
-    },
-    {
-      id: 'hoodies',
-      title: 'Organic Cotton Hoodies',
-      cta: 'Shop Now',
-      image: require('@/assets/images/girl3.jpg'),
-    },
-  ];
-
 const HomeScreen: React.FC = () => {
+  type HomeScreenNavigationProp = CompositeNavigationProp<
+    BottomTabNavigationProp<MainTabParamList, 'Home'>,
+    NativeStackNavigationProp<RootStackParamList>
+  >;
+  const navigation = useNavigation<HomeScreenNavigationProp>();
   const {width: screenWidth} = useWindowDimensions();
   const [heroIndex, setHeroIndex] = useState(0);
   const newFallHeroGradientId = `newFallHeroFade_${useId().replace(/:/g, '')}`;
@@ -191,44 +107,72 @@ const HomeScreen: React.FC = () => {
     [screenWidth],
   );
 
+  const navigateToProductListing = useCallback(
+    (source: 'fresh-finds' | 'brand-banner') => {
+      navigation.navigate('ProductListing', {
+        source,
+        title: 'All products',
+      });
+    },
+    [navigation],
+  );
+
+  const navigateToSearch = useCallback(() => {
+    navigation.navigate('Search');
+  }, [navigation]);
+
+  const headerActions = useMemo<HeaderActionItem[]>(
+    () => [
+      {
+        id: 'search',
+        accessibilityLabel: 'Search',
+        icon: (
+          <SearchIcon
+            // width={HEADER_ICON_SIZE}
+            // height={HEADER_ICON_SIZE}
+            // color={COLORS.black}
+          />
+        ),
+        onPress: navigateToSearch,
+      },
+      {
+        id: 'wishlist',
+        accessibilityLabel: 'Wishlist',
+        icon: (
+          <HeartIcon
+            // width={HEADER_ICON_SIZE}
+            // height={HEADER_ICON_SIZE}
+            // color={COLORS.black}
+          />
+        ),
+        onPress: () => undefined,
+      },
+      {
+        id: 'notifications',
+        accessibilityLabel: 'Notifications',
+        icon: (
+          <WellIcon
+            // width={HEADER_ICON_SIZE}
+            // height={HEADER_ICON_SIZE}
+            // color={COLORS.black}
+          />
+        ),
+        onPress: () => undefined,
+      },
+    ],
+    [navigateToSearch],
+  );
+
   return (
     <SafeAreaView style={styles.root} edges={['top', 'left', 'right']}>
       <View style={styles.screenBody}>
         <View style={styles.header}>
           <MekyaLogoAuth width={LOGO_WIDTH} height={LOGO_HEIGHT} />
-          <View style={styles.headerActions}>
-            <Pressable
-              accessibilityRole="button"
-              accessibilityLabel="Search"
-              hitSlop={12}
-              style={({ pressed }) => [styles.iconHit, pressed && styles.pressed]}>
-              <SearchIcon
-                color={COLORS.black}
-              />
-            </Pressable>
-            <Pressable
-              accessibilityRole="button"
-              accessibilityLabel="Wishlist"
-              hitSlop={12}
-              style={({ pressed }) => [styles.iconHit, pressed && styles.pressed]}>
-              <HeartIcon
-                width={HEADER_ICON_SIZE}
-                height={HEADER_ICON_SIZE}
-                color={COLORS.black}
-              />
-            </Pressable>
-            <Pressable
-              accessibilityRole="button"
-              accessibilityLabel="Notifications"
-              hitSlop={12}
-              style={({ pressed }) => [styles.iconHit, pressed && styles.pressed]}>
-              <WellIcon
-                width={HEADER_ICON_SIZE}
-                height={HEADER_ICON_SIZE}
-                color={COLORS.black}
-              />
-            </Pressable>
-          </View>
+          <HeaderActionGroup
+            items={headerActions}
+            
+            onCartPress={() => navigation.navigate('Cart')}
+          />
         </View>
 
         <ScrollView
@@ -356,6 +300,7 @@ const HomeScreen: React.FC = () => {
             <Pressable
               accessibilityRole="link"
               accessibilityLabel="Explore all products"
+              onPress={() => navigateToProductListing('fresh-finds')}
               style={({pressed}) => [
                 styles.exploreAllRow,
                 pressed && styles.pressed,
@@ -391,6 +336,7 @@ const HomeScreen: React.FC = () => {
           imageSource={require('@/assets/images/men3.png')}
           title="H&M Winter essentials"
           ctaLabel="Explore all products"
+          onPress={() => navigateToProductListing('brand-banner')}
         />
 
         <View style={styles.jacketGridSection}>
@@ -560,27 +506,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACING.lg,
     paddingVertical: SPACING.sm,
     backgroundColor: COLORS.white,
-  },
-  brandRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: SPACING.sm,
-  },
-  wordmark: {
-    fontFamily: fontFamilies.semiBold,
-    fontSize: 20,
-    color: COLORS.splash,
-    textTransform: 'lowercase',
-    letterSpacing: 0.2,
-  },
-  headerActions: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: SPACING.md,
-  },
-  iconHit: {
-    padding: SPACING.xs,
-
   },
   pressed: {
     opacity: 0.65,

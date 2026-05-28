@@ -18,7 +18,11 @@ interface LinkedProductCardProps {
   variant?: 'default' | 'grid';
   /** When false, hides the Quick add row (e.g. Fresh Finds layout). Default true. */
   showQuickAdd?: boolean;
+  /** Controls bottom action row visibility/type. */
+  actionButtonsMode?: 'quickAdd' | 'cartAndBuy' | 'none';
   onQuickAdd?: (id: string) => void;
+  onAddToCart?: (id: string) => void;
+  onBuyNow?: (id: string) => void;
   onToggleFavorite?: (id: string) => void;
   onPressMoreColors?: (id: string) => void;
 }
@@ -28,10 +32,16 @@ const LinkedProductCard: React.FC<LinkedProductCardProps> = ({
   cardWidth,
   variant = 'default',
   showQuickAdd = true,
+  actionButtonsMode,
   onQuickAdd,
+  onAddToCart,
+  onBuyNow,
   onToggleFavorite,
   onPressMoreColors,
 }) => {
+  const resolvedActionMode =
+    actionButtonsMode ?? (showQuickAdd ? 'quickAdd' : 'none');
+
   return (
     <View
       style={[
@@ -83,7 +93,7 @@ const LinkedProductCard: React.FC<LinkedProductCardProps> = ({
         </CustomText>
       ) : null}
 
-      {showQuickAdd ? (
+      {resolvedActionMode === 'quickAdd' ? (
         <Pressable
           accessibilityRole="button"
           accessibilityLabel={`Quick add ${item.title} to cart`}
@@ -92,6 +102,37 @@ const LinkedProductCard: React.FC<LinkedProductCardProps> = ({
           <CustomText style={styles.quickAddText}>Quick add</CustomText>
           <Ionicons name="cart-outline" size={16} color={COLORS.white} />
         </Pressable>
+      ) : null}
+
+      {resolvedActionMode === 'cartAndBuy' ? (
+        <View style={styles.actionRow}>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={`Add ${item.title} to cart`}
+            onPress={() => onAddToCart?.(item.id)}
+            style={({pressed}) => [
+              styles.actionButton,
+              styles.addToCartButton,
+              pressed ? styles.pressed : null,
+            ]}>
+            <CustomText style={[styles.actionButtonText, styles.addToCartText]}>
+              Add to Cart
+            </CustomText>
+          </Pressable>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={`Buy ${item.title} now`}
+            onPress={() => onBuyNow?.(item.id)}
+            style={({pressed}) => [
+              styles.actionButton,
+              styles.buyNowButton,
+              pressed ? styles.pressed : null,
+            ]}>
+            <CustomText style={[styles.actionButtonText, styles.buyNowText]}>
+              Buy Now
+            </CustomText>
+          </Pressable>
+        </View>
       ) : null}
     </View>
   );
@@ -103,10 +144,10 @@ const styles = StyleSheet.create({
   },
   cardGrid: {
     marginRight: 0,
-    marginBottom: SPACING.lg,
+    marginVertical: SPACING.xl,
   },
   imageWrap: {
-    height: 160,
+    height: 197,
     backgroundColor: '#EFEFEF',
     borderRadius: 4,
     alignItems: 'center',
@@ -142,6 +183,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: COLORS.darkGray,
     marginBottom: SPACING.xs,
+    height: 35,
+    overflow: 'hidden',
   },
   priceRow: {
     flexDirection: 'row',
@@ -185,6 +228,37 @@ const styles = StyleSheet.create({
   quickAddText: {
     fontFamily: fontFamilies.semiBold,
     fontSize: 14,
+    color: COLORS.white,
+  },
+  actionRow: {
+    marginTop: SPACING.md,
+    flexDirection: 'row',
+    gap: SPACING.sm,
+  },
+  actionButton: {
+    flex: 1,
+    height: 32,
+    borderRadius: 2,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  addToCartButton: {
+    backgroundColor: COLORS.white,
+    borderWidth: 1,
+    borderColor: COLORS.splash,
+  },
+  buyNowButton: {
+    backgroundColor: COLORS.splash,
+  },
+  actionButtonText: {
+    fontFamily: fontFamilies.medium,
+    fontSize: 13,
+    color: COLORS.black,
+  },
+  addToCartText: {
+    color: COLORS.splash,
+  },
+  buyNowText: {
     color: COLORS.white,
   },
   pressed: {

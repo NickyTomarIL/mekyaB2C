@@ -318,6 +318,26 @@ features/
   profile/
 ```
 
+### 17.1 Mock Data Placement (MANDATORY)
+
+Never keep mock arrays/objects inside screen or component files.
+
+Mock data MUST live in a dedicated data layer so API integration later is a direct swap:
+
+```txt
+src/
+├── data/
+│   ├── <feature>Feed.ts
+│   └── <feature>Mocks.ts
+```
+
+Rules:
+- Screens/components should only import mock data, not define it inline.
+- Keep mock data typed (use existing domain/component types).
+- Group shared mock datasets in one file and reuse across screens.
+- Use stable ids and realistic field names that mirror expected API contracts.
+- Replace data source at one import boundary during API integration (UI should not change).
+
 ---
 
 # Design Interpretation Rules

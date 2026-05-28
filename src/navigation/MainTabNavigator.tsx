@@ -23,7 +23,7 @@ import CartScreen from '@/screens/Cart/CartScreen';
 import CategoryScreen from '@/screens/Category/CategoryScreen';
 import HomeScreen from '@/screens/Home/HomeScreen';
 import ReelsScreen from '@/screens/Reels/ReelsScreen';
-import { SPACING } from '@/theme';
+import {SPACING} from '@/theme';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
@@ -43,8 +43,13 @@ function makeSvgTabBarIcon(
   };
 }
 
-const tabBarIconByRoute: Record<
+type VisibleTabRoute = Exclude<
   keyof MainTabParamList,
+  'Search' | 'ProductListing'
+>;
+
+const tabBarIconByRoute: Record<
+  VisibleTabRoute,
   NonNullable<BottomTabNavigationOptions['tabBarIcon']>
 > = {
   Home: makeSvgTabBarIcon(HomeTabSvg, HomeTabFilledSvg),

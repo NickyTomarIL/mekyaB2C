@@ -69,3 +69,107 @@ export const SPOTLIGHT_REEL_ITEMS: SpotlightReelItem[] = [
     caption: 'Coats worth the double-take. Tap to watch the full reel.',
   },
 ];
+
+/** Home jacket grid tiles. */
+export const JACKET_GRID_ITEMS: LinkedProductItem[] = [
+  {
+    id: 'jacket-grid-1',
+    title: 'Round Neck Long Sleeve Fitted Knit Topcsdd',
+    swatchColors: ['#1a1a1a', '#C4A574', '#6B7280', '#1e3a5f'],
+    moreColorsCount: 5,
+    price: '₹549',
+    mrp: 'MRP ₹849',
+    discount: '(10% off)',
+    rating: '5.0',
+    brandName: 'The Workshop Studio',
+    imageSource: require('@/assets/images/jacket1.png'),
+  },
+  {
+    id: 'jacket-grid-2',
+    title: 'Round Neck Long Sleeve Fitted Knit Topcsdd',
+    swatchColors: ['#1a1a1a', '#C4A574', '#6B7280', '#1e3a5f'],
+    moreColorsCount: 5,
+    price: '₹549',
+    mrp: 'MRP ₹849',
+    discount: '(10% off)',
+    rating: '5.0',
+    brandName: 'The Workshop Studio',
+    imageSource: require('@/assets/images/jacket2.png'),
+  },
+  {
+    id: 'jacket-grid-3',
+    title: 'Round Neck Long Sleeve Fitted Knit Topcsdd',
+    swatchColors: ['#1a1a1a', '#C4A574', '#6B7280', '#1e3a5f'],
+    moreColorsCount: 5,
+    price: '₹549',
+    mrp: 'MRP ₹849',
+    discount: '(10% off)',
+    rating: '5.0',
+    brandName: 'The Workshop Studio',
+    imageSource: require('@/assets/images/jacket3.png'),
+  },
+  {
+    id: 'jacket-grid-4',
+    title: 'Round Neck Long Sleeve Fitted Knit Topcsdd',
+    swatchColors: ['#1a1a1a', '#C4A574', '#6B7280', '#1e3a5f'],
+    moreColorsCount: 5,
+    price: '₹549',
+    mrp: 'MRP ₹849',
+    discount: '(10% off)',
+    rating: '5.0',
+    brandName: 'The Workshop Studio',
+    imageSource: require('@/assets/images/jacket1.png'),
+  },
+];
+
+export const HERO_SLIDES: ReadonlyArray<{title: string; subtitle: string}> = [
+  {
+    title: 'Make An Entrance',
+    subtitle: 'Be the best-dressed person in every room you enter',
+  },
+  {
+    title: 'New Arrivals',
+    subtitle: 'Fresh styles for the season ahead',
+  },
+  {
+    title: 'Sustainable Style',
+    subtitle: 'Thoughtfully made pieces you can feel good in',
+  },
+];
+
+export type FeaturedCategoryItem = {
+  id: string;
+  title: string;
+  cta: string;
+  image: ImageSourcePropType;
+};
+
+export const FEATURED_CATEGORIES: ReadonlyArray<FeaturedCategoryItem> = [
+  {
+    id: 'cashmere',
+    title: 'Recycled Cashmere',
+    cta: 'Shop Women',
+    image: require('@/assets/images/girl1.jpg'),
+  },
+  {
+    id: 'coats',
+    title: 'Coats & Jackets',
+    cta: 'Shop Men',
+    image: require('@/assets/images/girl2.jpg'),
+  },
+  {
+    id: 'hoodies',
+    title: 'Organic Cotton Hoodies',
+    cta: 'Shop Now',
+    image: require('@/assets/images/girl3.jpg'),
+  },
+];
+
+/** New fall collection visual assets. */
+export const NEW_FALL_TOP_IMAGES: ReadonlyArray<ImageSourcePropType> = [
+  require('@/assets/images/seasonImage1.jpg'),
+  require('@/assets/images/seasonImage2.jpg'),
+  require('@/assets/images/seasonImage3.jpg'),
+];
+
+export const NEW_FALL_HERO_IMAGE = require('@/assets/images/seasonImage4.jpg');

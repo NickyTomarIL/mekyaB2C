@@ -1,45 +1,115 @@
+import {HeartIcon, SearchIcon} from '@/assets/icons';
 import CustomText from '@/components/common/CustomText';
+import HeaderActionGroup, {
+  type HeaderActionItem,
+} from '@/components/common/HeaderActionGroup';
+import LinkedProductCard from '@/components/product/LinkedProductCard';
 import COLORS from '@/constants/colors';
 import {fontFamilies} from '@/constants/fonts';
+import type {RootStackParamList} from '@/navigation/types';
+import {PLP_FILTER_CHIPS, PLP_PRODUCTS} from '@/data/plpFeed';
 import {SPACING} from '@/theme/spacing';
-import React from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import {useNavigation, useRoute, type RouteProp} from '@react-navigation/native';
+import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import React, {useMemo} from 'react';
+import {FlatList, Pressable, StyleSheet, View, useWindowDimensions} from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
-/**
- * Sample product listing page (PLP) — replace with grid, filters, and pagination.
- */
 const PLPScreen: React.FC = () => {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList, 'ProductListing'>>();
+  const route = useRoute<RouteProp<RootStackParamList, 'ProductListing'>>();
+  const {width: screenWidth} = useWindowDimensions();
+
+  const cardWidth = useMemo(() => {
+    const horizontalPadding = SPACING.lg * 2;
+    const gap = SPACING.md;
+    const available = screenWidth - horizontalPadding - gap;
+    return Math.max(120, Math.floor(available / 2));
+  }, [screenWidth]);
+
+  const title = route.params?.title ?? 'Product listing';
+
+  const headerActions = useMemo<HeaderActionItem[]>(
+    () => [
+      {
+        id: 'search',
+        accessibilityLabel: 'Search',
+        icon: <SearchIcon />,
+        onPress: () => undefined,
+      },
+      {
+        id: 'wishlist',
+        accessibilityLabel: 'Wishlist',
+        icon: <HeartIcon />,
+        onPress: () => undefined,
+      },
+    ],
+    [],
+  );
+
   return (
     <SafeAreaView style={styles.safe} edges={['top', 'left', 'right']}>
       <View style={styles.header}>
-        <CustomText style={styles.headerTitle}>Product listing</CustomText>
-        <CustomText style={styles.headerSubtitle}>
-          Category: Men · Casual wear (sample)
-        </CustomText>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Go back"
+          onPress={() => navigation.goBack()}
+          style={({pressed}) => [styles.backButton, pressed && styles.pressed]}>
+          <Ionicons name="chevron-back" size={20} color={COLORS.black} />
+        </Pressable>
+        <View style={styles.headerTitleWrap}>
+          <CustomText style={styles.headerTitle}>{title}</CustomText>
+          {/* <CustomText style={styles.headerSubtitle}>
+            {PLP_PRODUCTS.length} products
+          </CustomText> */}
+        </View>
+        <HeaderActionGroup
+          items={headerActions}
+          showCartIcon
+          onCartPress={() => navigation.navigate('Main', {screen: 'Cart'})}
+        />
       </View>
       <View style={styles.headerDivider} />
-      <ScrollView
-        style={styles.scroll}
-        contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false}>
-        <CustomText style={styles.meta}>
-          Showing 1–24 of 128 results · Sort: Recommended (dummy)
-        </CustomText>
-        <CustomText style={styles.body}>
-          At vero eos et accusamus et iusto odio dignissimos ducimus qui
-          blanditiis praesentium voluptatum deleniti atque corrupti quos dolores
-          et quas molestias excepturi sint occaecati cupiditate non provident.
-        </CustomText>
-        <CustomText style={styles.placeholder}>
-          [Product grid placeholder — add FlatList of product cards here]
-        </CustomText>
-        <CustomText style={styles.body}>
-          Similique sunt in culpa qui officia deserunt mollitia animi, id est
-          laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita
-          distinctio nam libero tempore, cum soluta nobis est eligendi optio.
-        </CustomText>
-      </ScrollView>
+
+      <FlatList
+        data={PLP_PRODUCTS}
+        keyExtractor={item => item.id}
+        numColumns={2}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.listContent}
+        columnWrapperStyle={styles.columnWrap}
+        ListHeaderComponent={
+          <View style={styles.listHeader}>
+            <View style={styles.filterRow}>
+              {PLP_FILTER_CHIPS.map(chip => (
+                <Pressable
+                  key={chip}
+                  accessibilityRole="button"
+                  accessibilityLabel={`${chip} filter`}
+                  style={({pressed}) => [styles.filterChip, pressed && styles.pressed]}>
+                  <CustomText style={styles.filterChipText}>{chip}</CustomText>
+                </Pressable>
+              ))}
+            </View>
+            <View style={styles.metaRow}>
+              <CustomText style={styles.metaText}>
+                Showing {PLP_PRODUCTS.length} results
+              </CustomText>
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel="Sort products"
+                style={({pressed}) => [styles.sortButton, pressed && styles.pressed]}>
+                <CustomText style={styles.sortText}>Sort: Recommended</CustomText>
+              </Pressable>
+            </View>
+          </View>
+        }
+        renderItem={({item}) => (
+          <LinkedProductCard showQuickAdd={false} actionButtonsMode="cartAndBuy" item={item} cardWidth={cardWidth} variant="grid" />
+        )}
+      />
     </SafeAreaView>
   );
 };
@@ -50,57 +120,90 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
   },
   header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     paddingHorizontal: SPACING.lg,
     paddingVertical: SPACING.md,
+  },
+  backButton: {
+    width: 28,
+    height: 28,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  headerTitleWrap: {
+    flex: 1,
+    marginLeft: SPACING.sm,
+    marginRight: SPACING.sm,
   },
   headerTitle: {
     fontFamily: fontFamilies.medium,
     fontSize: 18,
     color: COLORS.black,
+    textTransform: 'capitalize',
   },
   headerSubtitle: {
     marginTop: SPACING.xs,
     fontFamily: fontFamilies.regular,
-    fontSize: 13,
-    color: COLORS.black,
-    opacity: 0.72,
+    fontSize: 12,
+    color: COLORS.textMuted,
   },
   headerDivider: {
     height: 1,
     backgroundColor: COLORS.extraLightGray,
   },
-  scroll: {
-    flex: 1,
+  listHeader: {
+    paddingTop: SPACING.md,
+    paddingBottom: SPACING.md,
   },
-  scrollContent: {
-    padding: SPACING.lg,
-    paddingBottom: SPACING.xxxl,
+  filterRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: SPACING.sm,
+    marginBottom: SPACING.md,
   },
-  meta: {
+  filterChip: {
+    borderWidth: 1,
+    borderColor: COLORS.extraLightGray,
+    borderRadius: SPACING.massive,
+    paddingHorizontal: SPACING.md,
+    paddingVertical: SPACING.sm,
+    backgroundColor: COLORS.white,
+  },
+  filterChipText: {
     fontFamily: fontFamilies.regular,
     fontSize: 12,
     color: COLORS.black,
-    opacity: 0.65,
-    marginBottom: SPACING.md,
   },
-  body: {
-    fontFamily: fontFamilies.regular,
-    fontSize: 14,
-    lineHeight: 22,
-    color: COLORS.black,
-    marginBottom: SPACING.lg,
+  metaRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
-  placeholder: {
+  metaText: {
     fontFamily: fontFamilies.regular,
-    fontSize: 13,
-    lineHeight: 20,
+    fontSize: 12,
+    color: COLORS.textMuted,
+  },
+  sortButton: {
+    paddingVertical: SPACING.xs,
+  },
+  sortText: {
+    fontFamily: fontFamilies.medium,
+    fontSize: 12,
     color: COLORS.black,
-    opacity: 0.55,
-    fontStyle: 'italic',
-    marginBottom: SPACING.lg,
-    padding: SPACING.md,
-    backgroundColor: COLORS.extraLightGray,
-    borderRadius: 4,
+  },
+  listContent: {
+    paddingHorizontal: SPACING.lg,
+    paddingBottom: SPACING.massive,
+  },
+  columnWrap: {
+    justifyContent: 'space-between',
+    gap: SPACING.md,
+  },
+  pressed: {
+    opacity: 0.7,
   },
 });
 
