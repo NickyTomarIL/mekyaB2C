@@ -23,7 +23,6 @@ export type ProfileStackParamList = {
  */
 export type MainTabParamList = {
   Home: undefined;
-  Search: undefined;
   Category: undefined;
   Reels: undefined;
   Cart: undefined;
@@ -39,6 +38,7 @@ export type RootStackParamList = {
   ForgotPasswordEmail: undefined;
   LoginWithPhone: undefined;
   PhoneOTPVerification: undefined;
+  Search: undefined;
   Main: NavigatorScreenParams<MainTabParamList> | undefined;
   ProductListing:
     | {

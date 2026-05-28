@@ -8,6 +8,7 @@ import LoginWithEmailScreen from '@/screens/Auth/Login/LoginWithEmailScreen';
 import LoginWithPhoneScreen from '@/screens/Auth/Login/LoginWithPhoneScreen';
 import PhoneOTPVerificationScreen from '@/screens/Auth/Login/PhoneOTPVerificationScreen';
 import PLPScreen from '@/screens/PLP/PLPScreen';
+import SearchScreen from '@/screens/Search/SearchScreen';
 import SplashScreen from '@/screens/SplashScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -31,6 +32,7 @@ export function RootNavigator(): React.JSX.Element {
         name="PhoneOTPVerification"
         component={PhoneOTPVerificationScreen}
       />
+      <Stack.Screen name="Search" component={SearchScreen} />
       <Stack.Screen name="Main" component={MainTabNavigator} />
       <Stack.Screen name="ProductListing" component={PLPScreen} />
     </Stack.Navigator>

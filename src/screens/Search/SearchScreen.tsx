@@ -3,10 +3,10 @@ import CustomText from '@/components/common/CustomText';
 import COLORS from '@/constants/colors';
 import {fontFamilies} from '@/constants/fonts';
 import {RECENT_SEARCHES, TRENDING_SEARCHES} from '@/data/searchDiscoverFeed';
-import type {MainTabParamList} from '@/navigation/types';
+import type {RootStackParamList} from '@/navigation/types';
 import {RADIUS, SPACING} from '@/theme';
 import {useNavigation} from '@react-navigation/native';
-import type {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
+import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React, {useCallback, useState} from 'react';
 import {Pressable, ScrollView, StyleSheet, TextInput, View} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -15,7 +15,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 const SearchScreen: React.FC = () => {
   const [searchValue, setSearchValue] = useState('');
   const navigation =
-    useNavigation<BottomTabNavigationProp<MainTabParamList, 'Search'>>();
+    useNavigation<NativeStackNavigationProp<RootStackParamList, 'Search'>>();
 
   const handleBackPress = useCallback(() => {
     navigation.goBack();
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     height: 44,
     borderWidth: 1,
     borderColor: COLORS.extraLightGray,
-    borderRadius: RADIUS.md,
+    borderRadius: RADIUS.esm,
     paddingHorizontal: SPACING.md,
     flexDirection: 'row',
     alignItems: 'center',
